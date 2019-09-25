@@ -7,4 +7,4 @@ Please refer to shortcut_chart.pub for a quick overview.
 
 This is work in progress. More info in the upcoming months!
 
-Also check my Workflow for Windows.
+Also check my Workflow for Windows (coming soon).
