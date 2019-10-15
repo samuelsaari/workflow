@@ -30,5 +30,6 @@ Before you run the code on your device:
 Please let me know if you come up with any sort of improvements or advances in the code. Also feel free to suggest edits directly in the code.
 
 ### References and links:
+
 TheGood(2019) See running AutoHotkey scripts (and end them). [Accessed Oct 15, 2019] https://autohotkey.com/board/topic/38653-see-running-autohotkey-scripts-and-end-them/
 Autohotkey beginner tutorial https://www.autohotkey.com/docs/Tutorial.htm
