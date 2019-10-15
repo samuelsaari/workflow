@@ -1,7 +1,7 @@
 # Workflow for Windows - Keyboard shortcuts with Autohotkey
 
 ### I. Intro
-This is a list of customized keyboards to switch between windows and do other often repeated tasks *in Windows*. It consist of three seperate parts:
+This is a list of customized keyboards to switch between windows and do other often repeated tasks **in _Windows_**. It consist of three seperate parts:
 1) General Windows workflow including hotkeys for switching apps and making repetive tasks faster (1 scripts)
 2) Stata workflow (2 scripts)
 3) Other useful material:
