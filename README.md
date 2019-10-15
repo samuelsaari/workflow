@@ -13,7 +13,8 @@ This is a list of customized keyboards to switch between windows and do other of
 - if you are not using a Scandinavian keyboard, look for å, ä, ö and adjust the shortcuts for other letters.
 
 ## Setup
-
+A) Download Autohotkey at https://www.autohotkey.com/
+B) Download the 
 
 This is work in progress. More info in the upcoming months!
 
