@@ -27,7 +27,7 @@ Before you run the code on your device:
 - Modify hotkeys Word workarounds (1.1 in windows_workflow) to work with "word_macros_1.0.txt" or simply delete section 1.1. If you are using a Scandinavian keyboard, everything should, however, work without any changes. To prepare the Word macros for the first time, press Alt-F11 in Word, Copy-Paste the code in "word_macros_1.0.txt", save and run the short-cut macros once in word via "View -> Macros -> View Macros" From there, you can simply run all macros that end with "SC" (Shortcut).
 
 ### IV. Feedback
-Please let me know if you come up with any sort of improvements or advances in the code.
+Please let me know if you come up with any sort of improvements or advances in the code. Also feel free to suggest edits directly in the code.
 
 ### References and links:
 TheGood(2019) See running AutoHotkey scripts (and end them). [Accessed Oct 15, 2019] https://autohotkey.com/board/topic/38653-see-running-autohotkey-scripts-and-end-them/
