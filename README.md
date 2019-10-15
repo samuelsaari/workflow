@@ -24,7 +24,7 @@ https://www.thewindowsclub.com/startup-folder-in-windows-8
 Before you run the code on your device:
 - check places with "NB!" in the code as they might require customization for your computer
 - if you are not using a Scandinavian keyboard, look for å, ä, ö and adjust the shortcuts for other letters.
-- Modify hotkeys Word workarounds (1.1 in windows_workflow) to work with "word_macros_1.0.txt" or simply delete section 1.1. If you are using a Scandinavian keyboard, everything should, however, work without any changes
+- Modify hotkeys Word workarounds (1.1 in windows_workflow) to work with "word_macros_1.0.txt" or simply delete section 1.1. If you are using a Scandinavian keyboard, everything should, however, work without any changes. To prepare the Word macros for the first time, press Alt-F11 in Word, Copy-Paste the code in "word_macros_1.0.txt", save and run the short-cut macros once in word via "View -> Macros -> View Macros" From there, you can simply run all macros that end with "SC" (Shortcut).
 
 ### IV. Feedback
 Please let me know if you come up with any sort of improvements or advances in the code.
