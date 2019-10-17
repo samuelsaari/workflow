@@ -1,9 +1,10 @@
 # Workflow for Windows - Keyboard shortcuts with Autohotkey
 
 ### I. Intro
-This is a list of customized keyboard shortcuts to switch between windows and do other often repeated tasks **in _Windows_**. It consist of three seperate parts:
+This is a list of customized keyboard shortcuts to switch between windows and do other often repeated tasks **in _Windows_**. It consist of four seperate parts:
 1) General Windows workflow including hotkeys for switching apps and making repetive tasks faster (1 scripts)
 2) Stata workflow (2 scripts)
+3) Word Macros (optional but very useful)
 3) Other useful material:
 	- "shortcut_chart.pdf" for a quick overview of hotkeys
 	- "tooltip_1.0.ahk" to view windows-specific information easily (if you are going to modify the code to suit your needs)
@@ -12,7 +13,7 @@ This is a list of customized keyboard shortcuts to switch between windows and do
 	
 ### II.Setup
 A) Download Autohotkey at https://www.autohotkey.com/
-B) Download the files of your choice ("windows_workflow.ahk" and/or "stata_workflow_A(&B).ahk" files)
+B) Download the files of your choice ("windows_workflow.ahk", "word_macros.txt" and/or "stata_workflow_A(&B).ahk" files)
 C) Edit the files to your liking. You might want to assign hotkeys to programs you use most often and delete sections which are irrelevant for you (see III. Customizing the code, this is the most time consuming part)
 D) Run the scripts by double-clicking them. 
 That's it, now everything should work.
