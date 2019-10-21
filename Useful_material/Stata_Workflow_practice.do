@@ -62,14 +62,6 @@ scatter mpg weight, name(kalevi, replace)
 // 3.0 Looping strategies
 ////////////////////////////////////////////////
 
-*****************************************************
-// NB!
-****** looping (check drop-off tms.) i j +1 , ks. kovalevy
-* ++i (erit tällä voi hakea)
-* hae *.do D-kansiosta
-* jos ei löydy niin julkaise
-*****************************************************
-
 //////////////////////
 // 3.1 Simple looping
 
@@ -124,8 +116,8 @@ display ""
 }
 }
 
-
-
+// Looping with index
+* probaly released in the next version
 
 
 
