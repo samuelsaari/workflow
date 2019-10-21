@@ -143,7 +143,7 @@ Return
 
 #IfWinExist, Stata
 ;;;;three slashes
-<^7::Send {tab}{/}{/}{/}
+<^7::Send {/}{/}{/}
 ;;;; macro
 <^$´::Send, {SHIFT DOWN}´{SHIFT UP}'{left} 
 ;; braces

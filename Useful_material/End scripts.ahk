@@ -1,4 +1,6 @@
-﻿DetectHiddenWindows, On
+﻿;Credit: TheGood(2019) See running AutoHotkey scripts (and end them). [Accessed Oct 15, 2019] https://autohotkey.com/board/topic/38653-see-running-autohotkey-scripts-and-end-them/
+
+DetectHiddenWindows, On
 
 Gui, +Resize -MaximizeBox
 Gui, Add, ListView, w500 h200 vlvwList hwndhlvwList gListClick, PID|Script Path|Working Set|Peak Working Set|Page File|Peak Page File
