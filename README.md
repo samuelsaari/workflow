@@ -12,6 +12,7 @@ This is a list of customized keyboard shortcuts to switch between windows and do
 	- "Zotero_Workflow_Practice.docx" to practice referencing and creating bibliographies in Word
 	- "Stata_Workflow_practice.do" to practice Stata workflow + examples on looping
 	- "R_workflow_examples.R" to demonstrate that you don't need loops to "loop" in R.
+	- "workflow_instructions_in_finnish.pdf" detailed setup instructions and other workflow tips for windows. (In Finnish)
 	
 	
 ### II.Setup
