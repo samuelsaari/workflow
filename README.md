@@ -36,6 +36,7 @@ Please let me know if you come up with any sort of improvements or advances in t
 
 ### V. Attribution
 Feel free to use, modify and redistribute the code. For reference, you can use the following:
+
 Mäki, M. (2019) Workflow for Windows - Keyboard shortcuts with Autohotkey. https://github.com/samuelsaari/workflow
 
 ### References and links:
