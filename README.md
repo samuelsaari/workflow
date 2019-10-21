@@ -43,3 +43,5 @@ Mäki, M. (2019) Workflow for Windows - Keyboard shortcuts with Autohotkey. http
 TheGood(2019) See running AutoHotkey scripts (and end them). [Accessed Oct 15, 2019] https://autohotkey.com/board/topic/38653-see-running-autohotkey-scripts-and-end-them/
 
 Autohotkey beginner tutorial https://www.autohotkey.com/docs/Tutorial.htm
+
+Syntax highlighting and autofill for Autohotkey in Notepad ++ https://www.autohotkey.com/boards/viewtopic.php?t=50
