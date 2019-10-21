@@ -58,6 +58,9 @@ scatter mpg weight, name(kalevi, replace)
 * Ctrl + ,
 
 
+* readSHARE setup instructions:
+* view browse https://gist.github.com/samuelsaari/1ff20b8b7d70e01706f07f25f96914dc
+
 ////////////////////////////////////////////////
 // 3.0 Looping strategies
 ////////////////////////////////////////////////
