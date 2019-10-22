@@ -68,7 +68,7 @@ Return
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; 1.2 Saving references to Zotero in firefox 
+;; 1.2 Saving references to Zotero in firefox and chrome
 
 #IfWinActive, ahk_exe firefox.exe
 ^+s::
@@ -82,6 +82,24 @@ else
 	WinWait, ahk_pid %OutputVarPID%
 	Sleep, 500
 	WinActivate, ahk_exe firefox.exe
+	Sleep, 200
+	Send, {Ctrl down}{Shift down}s{pause}{Shift up}{Ctrl up}
+}
+Return
+#IfWinActive
+
+#IfWinActive, ahk_exe chrome.exe
+^+s::
+If Winexist("ahk_exe zotero.exe")
+{
+Send, {Ctrl down}{Shift down}s{pause}{Shift up}{Ctrl up}
+}
+else
+{	
+	Run, zotero.exe,,,OutputVarPID
+	WinWait, ahk_pid %OutputVarPID%
+	Sleep, 500
+	WinActivate, ahk_exe chrome.exe
 	Sleep, 200
 	Send, {Ctrl down}{Shift down}s{pause}{Shift up}{Ctrl up}
 }
