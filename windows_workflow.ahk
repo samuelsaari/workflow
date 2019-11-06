@@ -348,7 +348,7 @@ Sleep,2500
 Winmaximize, Google Keep
 }
 else
-Send, {Alt up}#4 // Google keep has to be the 4th window in the taskbar
+Send, {Alt up}#4 ; Google keep has to be the 4th window in the taskbar
 Return
 ; For more info, see http://www.rawinfopages.com/tips/2016/11/run-google-keep-on-the-desktop-in-its-own-window/
 
