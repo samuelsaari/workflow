@@ -31,11 +31,11 @@ Before you run the code on your device:
 - if you are not using a Scandinavian keyboard, look for å, ä, ö and adjust the shortcuts for other letters. *If you don't do this, ahk won't let you run the script*!
 - Modify hotkeys for Word workarounds (1.3 in windows_workflow) to work with "word_macros.txt" or simply delete section 1.3. If you are using a Scandinavian keyboard, everything should, however, work without any changes. To prepare the Word macros for the first time, press Alt-F11 in Word, Copy-Paste the code in "word_macros.txt", save and run the short-cut macros once in word via "View -> Macros -> View Macros" From there, you can simply run all macros that end with "SC" (Shortcut).
 
-### IV. Feedback
+### IV. Feedback 
 Please let me know if you come up with any sort of improvements or advances in the code. Also feel free to suggest edits directly in the code.
 
-### V. Attribution
-Feel free to use, modify and redistribute the code. For reference, you can use the following:
+### V. Licence
+[CC-BY-4.0.](https://choosealicense.com/licenses/cc-by-4.0/)  For reference, you can use the following:
 
 Mäki, M. (2019) Workflow for Windows - Keyboard shortcuts with Autohotkey. https://github.com/samuelsaari/workflow
 
