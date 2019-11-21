@@ -47,6 +47,22 @@ Return
 #IfWinActive
 
 ;;;;;;;;;;;;
+; email formalities
+
+;formal tone
+<^<!f::
+Send,I hope this message finds you well{.}{Enter}{Enter}{Enter}{Enter}
+Send,Wishing you a great day ahead.{Enter}{Enter}
+Send,Kind regards{,}{Enter}{Up}{Up}{Up}{Up}{Up}
+Return
+
+;informal tone
+<^<!i::
+Send,I hope your day is off to a good start{.}{Enter}{Enter}{Enter}{Enter}
+Send,Have a good one{!}{Enter}{Enter}
+Send,Take care{,}{Enter}{Up}{Up}{Up}{Up}{Up}
+Return
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;1. Zotero & Word & other microsoft applications
