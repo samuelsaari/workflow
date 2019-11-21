@@ -1,4 +1,4 @@
-Sub ZoteroAddEditCitation_SC()
+Sub SC_ZoteroAddEditCitation()
          ' \\ where to do customization
 CustomizationContext = NormalTemplate
          ' \\ Add keybinding to this Shorcut:
@@ -8,7 +8,7 @@ Command:="ZoteroAddEditCitation"
 End Sub
 
 
-Sub ZoteroAddEditBibliography_SC()
+Sub SC_ZoteroAddEditBibliography()
          ' \\ where to do customization
 CustomizationContext = NormalTemplate
          ' \\ Add keybinding to this Shorcut:
@@ -18,7 +18,7 @@ Command:="ZoteroAddEditBibliography"
 
 End Sub
 
-Sub ZoteroRefresh_SC()
+Sub SC_ZoteroRefresh()
          ' \\ where to do customization
 CustomizationContext = NormalTemplate
          ' \\ Add keybinding to this Shorcut:
@@ -27,9 +27,6 @@ KeyCategory:=wdKeyCategoryMacro, _
 Command:="ZoteroRefresh"
 
 End Sub
-
-
-
 
 
 
@@ -54,7 +51,7 @@ Sub selecthighlightR()
 End Sub
 
 
-Sub selecthighlight_SC()
+Sub SC_selecthighlight()
 With Application
          ' \\ where to do customization
 .CustomizationContext = NormalTemplate
@@ -65,7 +62,7 @@ Command:="selecthighlight"
 End With
 End Sub
 
-Sub selecthighlightR_SC()
+Sub SC_selecthighlightR()
          ' \\ where to do customization
 CustomizationContext = NormalTemplate
          ' \\ Add keybinding to this Shorcut:
@@ -87,7 +84,7 @@ Sub Normal_select()
     Selection.Paragraphs(1).Range.Select
     Selection.Style = ActiveDocument.Styles("Normal")
 End Sub
-Sub Normal_selectSC()
+Sub SC_Normal_select()
          ' \\ where to do customization
 CustomizationContext = NormalTemplate
          ' \\ Add keybinding to this Shorcut:
@@ -104,7 +101,7 @@ Sub Select_para()
     Selection.Paragraphs(1).Range.Select
 End Sub
 
-Sub Select_paraSC()
+Sub SC_Select_para()
          ' \\ where to do customization
 CustomizationContext = NormalTemplate
          ' \\ Add keybinding to this Shorcut:
@@ -112,6 +109,8 @@ KeyBindings.Add KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKeyP), _
 KeyCategory:=wdKeyCategoryMacro, _
 Command:="Select_para"
 End Sub
+
+
 
 
 
