@@ -33,7 +33,7 @@ scatter mpg weight, name(kalevi, replace)
 *Editor  			win + Q
 *Graph   			win + A
 *Viewer 			win + Z
-*Toggle all 		alt + 1
+*Toggle all 		alt + 1 (& Win + 1 if Stata first window in the task bar)
 
 
 ////////////////////////////////////////////////
@@ -69,13 +69,20 @@ scatter mpg weight, name(kalevi, replace)
 // 3.1 Simple looping
 
 
+{
 foreach x in 1 2 3 {
 di "`x'"
 }
+}
 
-sysuse auto
-foreach x of varlist m* {
+
+{
+clear
+sysuse bpwide
+keep in 1/8
+foreach x of varlist bp* {
 tab `x'
+}
 }
 
 /*
@@ -118,6 +125,22 @@ display "``i''"
 display ""
 }
 }
+
+// Parallel or "Monogamic" looping - C
+
+{
+local number "1 5 21"
+local place `""Uusimaa" "Kanta-Häme" "Ahvenanmaa - Åland""'
+forvalues i=1/3 {
+
+            local n: word `i' of `number'
+
+            local p: word `i' of `place'
+
+            display `"`n' `p'"'
+
+            }
+			}
 
 // Looping with index
 * probaly released in the next version

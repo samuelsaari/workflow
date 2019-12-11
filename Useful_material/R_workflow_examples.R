@@ -10,7 +10,7 @@ d <- c("Brooke", "Taylor", "Stephanie" )
 
 
 (monogamy_s <- paste(a,b))
-(polyamory_s <- lapply(c, function(x) paste(x,d)))
+(polyamory_s <- sapply(c, function(x) paste(x,d)))
 
 #numbers of love
 (g <- matrix(c(1,2,3),3,1))
@@ -25,3 +25,20 @@ monogamy_s
 polyamory_s
 monogamy_n
 polyamory_n
+
+###########################
+
+# same with for-loops
+
+#monogamy
+for(i in 1:3) {
+  print(c(a[i],b[i]))
+}
+
+#polyamory
+for(i in 1:3) {
+  for(j in 1:3) {
+  print(c(a[i],b[j]))
+  } 
+}
+
