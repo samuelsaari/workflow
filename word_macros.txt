@@ -88,7 +88,7 @@ Sub SC_Normal_select()
          ' \\ where to do customization
 CustomizationContext = NormalTemplate
          ' \\ Add keybinding to this Shorcut:
-KeyBindings.Add KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKeyI), _
+KeyBindings.Add KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKeyN), _
 KeyCategory:=wdKeyCategoryMacro, _
 Command:="Normal_select"
 End Sub
@@ -110,7 +110,113 @@ KeyCategory:=wdKeyCategoryMacro, _
 Command:="Select_para"
 End Sub
 
+Sub Heading1_select()
+'
+' Macro1 Macro
+'
+'
+    Selection.Paragraphs(1).Range.Select
+    Selection.Style = ActiveDocument.Styles("Heading 1")
+End Sub
 
+Sub SC_Heading1_select()
+         ' \\ where to do customization
+CustomizationContext = NormalTemplate
+         ' \\ Add keybinding to this Shorcut:
+KeyBindings.Add KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKey1), _
+KeyCategory:=wdKeyCategoryMacro, _
+Command:="Heading1_select"
+End Sub
+
+Sub Heading2_select()
+'
+' Macro1 Macro
+'
+'
+    Selection.Paragraphs(1).Range.Select
+    Selection.Style = ActiveDocument.Styles("Heading 2")
+End Sub
+
+Sub SC_Heading2_select()
+         ' \\ where to do customization
+CustomizationContext = NormalTemplate
+         ' \\ Add keybinding to this Shorcut:
+KeyBindings.Add KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKey2), _
+KeyCategory:=wdKeyCategoryMacro, _
+Command:="Heading2_select"
+End Sub
+
+Sub Heading3_select()
+'
+' Macro1 Macro
+'
+'
+    Selection.Paragraphs(1).Range.Select
+    Selection.Style = ActiveDocument.Styles("Heading 3")
+End Sub
+
+Sub SC_Heading3_select()
+         ' \\ where to do customization
+CustomizationContext = NormalTemplate
+         ' \\ Add keybinding to this Shorcut:
+KeyBindings.Add KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKey3), _
+KeyCategory:=wdKeyCategoryMacro, _
+Command:="Heading3_select"
+End Sub
+
+Sub Heading4_select()
+'
+' Macro1 Macro
+'
+'
+    Selection.Paragraphs(1).Range.Select
+    Selection.Style = ActiveDocument.Styles("Heading 4")
+End Sub
+
+Sub SC_Heading4_select()
+         ' \\ where to do customization
+CustomizationContext = NormalTemplate
+         ' \\ Add keybinding to this Shorcut:
+KeyBindings.Add KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKey4), _
+KeyCategory:=wdKeyCategoryMacro, _
+Command:="Heading4_select"
+End Sub
+
+Sub Title_select()
+'
+' Macro1 Macro
+'
+'
+    Selection.Paragraphs(1).Range.Select
+    Selection.Style = ActiveDocument.Styles("Title")
+End Sub
+
+Sub SC_Title_select()
+         ' \\ where to do customization
+CustomizationContext = NormalTemplate
+         ' \\ Add keybinding to this Shorcut:
+KeyBindings.Add KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKeyT), _
+KeyCategory:=wdKeyCategoryMacro, _
+Command:="Title_select"
+End Sub
+
+Sub Emphasis_select()
+'
+' Macro1 Macro
+'
+'
+    Selection.Paragraphs(1).Range.Select
+    Selection.Style = ActiveDocument.Styles("Emphasis")
+End Sub
+
+Sub SC_Emphasis_select()
+         ' \\ where to do customization
+CustomizationContext = NormalTemplate
+         ' \\ Add keybinding to this Shorcut:
+KeyBindings.Add KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKeyE), _
+KeyCategory:=wdKeyCategoryMacro, _
+Command:="Emphasis_select"
+End Sub
 
 
 
