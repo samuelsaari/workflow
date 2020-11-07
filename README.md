@@ -41,7 +41,7 @@ Mäki, M. (2019) Workflow for Windows - Keyboard shortcuts with Autohotkey. http
 
 ### References and links:
 
-TheGood(2019) See running AutoHotkey scripts (and end them). [Accessed Oct 15, 2019] https://autohotkey.com/board/topic/38653-see-running-autohotkey-scripts-and-end-them/
+seperman (2017) AutoHotkey_ErgoKeyboard [Accessed Oct 15, 2019] https://gist.github.com/seperman/8064659
 
 Learning One(2009) Run application if not active - activate window if active [Accessed Oct 15, 2019] https://autohotkey.com/board/topic/79159-run-application-if-not-active-activate-window-if-active/
 
