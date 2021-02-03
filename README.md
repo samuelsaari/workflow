@@ -6,7 +6,7 @@ This is a list of customized keyboard shortcuts to switch between windows and do
 2) Stata workflow (2 scripts)
 3) Word Macros (optional but very useful)
 3) Other useful material:
-	- "shortcut_chart.pdf" for a quick overview of hotkeys
+	- "shortcut_chart.pdf" for a quick overview of hotkeys (slightly outdated, see the script for the most current hotkeys)
 	- "tooltip.ahk" to view windows-specific information easily (if you are going to modify the code to suit your needs)
 	- "End scripts.ahk" (TheGood 2009) if you want to end ahk scripts (useful especially for tooltip, you can also do this via Ctrl-	Alt-Del).
 	- "Zotero_Workflow_Practice.docx" to practice referencing and creating bibliographies in Word
