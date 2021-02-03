@@ -41,6 +41,9 @@ Return
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;Unrobust way which includes launching stata and toggling/minimizing stata window(s)
 ;;;;Customize this for yourself by adding your own path and stata flavor (IC, SE, MP & 64/32 bit)
+;;; Plese refer to the windows workflow file (ROAR-function)
+
+/*
 <!1::
 if WinActive("ahk_exe StataSE-64.exe") ;NB! 
 {
@@ -77,7 +80,7 @@ Return
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 SetTitleMatchMode, 1
-
+*/
 
 ;;;;;;;;;;;
 ;DO-FILE

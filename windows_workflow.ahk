@@ -24,27 +24,315 @@
 
 
 
+;1.1 Roar - or Run or Activate (Robust) function
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; 0. General Windows
+
+;Many parts owe to Learning One(2009) and seperman(2017):
+
+roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Parambox:=0)
+;-------------------------------------------------------------------------------
+;
+; Toggles, Activates, Minimizes, Restores, or Runs program windows based on the whether the applications are running, how many windows there are and what state they are at
+;
+;ID_1		= 1st critria to identify an existing window
+;TARGET_1	= executable program or a path to it
+;EX_TITLE	= exclude windows with titles that start with a given string
+;EX_AHK		= exclude processes (eg. ahk_exe firefox.ex) or strings in a window
+;TARGET_2	= alternative path to an excecutable file (if for example the paths are different in different machines you use)
+;ID_2 	 	= 2nd criteria to identify an existing window (adds windows to the group)
+;Mode 		= Mode of SetTitleMatchMode
+;ParamBox	= Show parameter values (1/0)
+;-------------------------------------------------------------------------------
+{
+;Creating groups with a uniques names;
+	SetTitleMatchMode, %Mode%
+	unique_group=%A_DDD%%A_YDay%%A_Hour%%A_Min%%A_MSec%
+	unique_group1=% unique_group "1"
+	unique_group2=% unique_group "2"
+	GroupAdd, %unique_group1%, %ID_1%											;first criterion to include
+	if (ParamBox==1)
+		msgbox, ------Parameters-------- `n ID_1 `t`t %ID_1% `n TARGET_1 `t %TARGET_1% `n EX_TITLE  `t %EX_TITLE% `n EX_AHK `t %EX_AHK% `n TARGET_2 `t %TARGET_2% `n ID_2 `t`t %ID_2% `n mode `t %mode%
+	
+	if (ID_2 !=""){
+		GroupAdd, %unique_group1%, %ID_2%
+		;MsgBox, ID_2 not empty
+	} 
+	extitle_str:= % EX_TITLE
+	GroupAdd, %unique_group2%,ahk_group %unique_group1%, , ,%extitle_str%		;exclude based on title
+	GroupAdd, %unique_group%,ahk_group %unique_group2%, , , , %EX_AHK%			;exclude based on content (ahk_process)
+; checking if the windows is active
+	if WinActive("ahk_group" . unique_group) {
+		WinGet, num, count,ahk_group %unique_group%
+		;MsgBox, %num% ;;;
+		; if only one window minimize or maximize
+		if (num==1) || (ID_1=="ahk_exe spotify.exe") || (ID_1=="ahk_exe MobaXterm.exe")		; for some reason > 1 windows identified for these apps, this is a workaround
+			{
+			WinGet,WinState,MinMax,ahk_group %unique_group%
+			If WinState = -1
+				{
+				;msgbox, restoring ;;;
+				WinRestore ;;; was WinMaximize	
+				}
+			 else 
+				{
+				;msgbox, minimize
+				WinMinimize
+				}
+			} 
+		; if multiple windows, toggle
+		else 
+		{
+		WinGet, List, List, ahk_group %unique_group%
+		Loop, % List
+			{
+				index := List - A_Index + 1
+				WinGet, State, MinMax, % "ahk_id " List%index%
+				if (State <> -1)
+				{
+					WinID := List%index%
+					break
+				}
+			}
+		WinActivate, % "ahk_id " WinID
+		return
+		}
+	}
+; activate window if exists but not active
+	else if WinExist("ahk_group" . unique_group) {
+		;msgbox, activating inactive ;;;
+		WinActivate
+	}
+; if window does not exist, run the target
+	else
+	;msgbox, running target
+	{	
+		try {
+			If InStr(TARGET_1, "\")==1 {  
+				Run, % UserProfile . TARGET_1
+				;MsgBox, % TARGET_1 ;;;
+			} Else {
+				;msgbox, running target ;;;
+				Run, %TARGET_1%
+			}
+		} catch e {
+			;MsgBox, Trying to run target_2 ;;;
+			If InStr(TARGET_2, "\")==1 {
+				Run, % UserProfile . TARGET_2
+			} Else 
+				Run, %TARGET_2%
+		}
+	;MsgBox, waiting ;;;
+	WinWait, ahk_group unique_group,,2
+	WinActivate, ahk_group unique_group
+	;WinMaximize, ahk_group unique_group
+	}
+	Return
+}
+
+
+;-----------------------------------------------------------------------------------------------------------------------------------------
+
+;Applying Roar to different apps
+
+;1.1.It is recommened but not a prerequisite to to pin programs to the taskbar in the following order.
+; (1 Stata) 
+; (2 Outlook)
+; ...The hotkeys will work anyway but the build-in function Win + (1 or 2) works quite nicely together with...
+; ...the hotkeys I have assigned for Stata and Outlook.
+
+; Chart of hotkeys starting with Left Alt - also those not yet assigned to a programme
+;---------------------------------------F1F2...F12HomeEndDelete---------------------------
+<!delete::roar("ahk_class TaskManagerWindow", "taskmgr.exe")
+
+;---------------------------------------1234567890---------------------------------------
+<!§::roar("ahk_class PPTFrameClass", "powerpnt.exe")
+<!1::roar("ahk_exe StataSE-64.exe", "C:\Program Files (x86)\Stata15\StataSE-64.exe")
+<!2::roar("ahk_exe outlook.exe", "outlook.exe")
+<!3::roar("ahk_exe acrord32.exe","acrord32.exe") ;ADOBE READER
+;<!4
+;<!5
+;<!6
+;<!7
+;<!8
+;<!9
+;<!0 - see CaseCtrl
+;<!+
+
+;---------------------------------------qwertyuiopå---------------------------------------
+<!q::roar("ahk_class XLMAIN", "excel.exe")
+<!w::roar("ahk_class OpusApp", "winword.exe") ; WORD
+;<!e - see section 2 for zotero maneouvers
+;<!r - Quick format citation
+;<!t
+<!y::roar("ahk_exe filezilla.exe", "filezilla.exe")
+<!u::roar("ahk_exe putty.exe", "putty.exe")
+<!i::roar("Photos ahk_class ApplicationFrameWindow","ms-photos:",,,,,Mode:=2)
+<!o::roar("ahk_exe opera.exe", "opera.exe")
+<!p::roar("ahk_exe mspub.exe", "mspub.exe") ; PUBLISHER
+<!å::roar("- Paint 3D","ms-paint:",,,,,mode:=2)
+
+;--------------------------------------- asdfghjklöä-----------------------------------------
+<!CAPSLOCK::roar("ahk_class MozillaWindowClass", "firefox.exe",EX_TITLE:="Quick Format Citation",EX_AHK:="ahk_exe zotero.exe")
+<!a::roar("ahk_class CabinetWClass", "explorer.exe")
+<!s::roar("ahk_exe code.exe", "\AppData\Local\Programs\Microsoft VS Code\Code.exe")
+<!d::roar("ahk_exe teams.exe", "\AppData\Local\Microsoft\Teams\Update.exe --processStart Teams.exe")
+;<!f
+<!g::roar("ahk_class gdkWindowToplevel", "C:\Program Files\GIMP 2\bin\gimp-2.10.exe") ;NB!
+;<!ht
+<!j::roar("ahk_exe MobaXterm.exe", "C:\Program Files (x86)\Mobatek\MobaXterm\MobaXterm.exe")
+<!k::roar("Snip & Sketch ahk_class ApplicationFrameWindow", "ms-screenclip:?source=QuickActions") ; built in combo #+s:: is a bit faster
+<!l::roar("ahk_exe texstudio.exe", "C:/Program Files (x86)/texstudio/texstudio.exe") ; NB!
+;<!ö - save as
+;<!ä
+
+;---------------------------------------zxcvbnm,.----------------------------------------
+<!SHIFT::roar("ahk_exe chrome.exe", "chrome.exe", "Google Keep")
+<!z::roar("Zoom ahk_exe Zoom.exe","\AppData\Roaming\Zoom\bin\Zoom.exe" , , , , ID_2:="Room ahk_exe zoom.exe")
+<!x::roar("ahk_exe rstudio.exe","rstudio.exe")
+<!c::roar("ahk_exe powershell.exe", "powershell.exe") ; not sure how to execute anaconda powershell
+<!v::roar("ahk_exe Skype.exe", "Skype.exe")
+<!b::roar("Settings ahk_class ApplicationFrameWindow", "ms-settings:bluetooth") ; toggle (all) setting windows or launch bluetooth settings
+<!n::roar("ahk_class Notepad", "notepad.exe")
+<!m::roar("ahk_class Notepad++", "notepad++.exe")
+;<!,
+;<!.
+;<!-
+
+
+
+;---------------------------------------CtrlWinAltSPACE---------------------------------------
+<!LCtrl::roar(ID_1:="ahk_exe spotify.exe",TARGET_1:="\AppData\Roaming\Spotify\Spotify.exe", , ,TARGET_2:="\AppData\Local\Microsoft\WindowsApps\Spotify.exe")
+<!LWin::roar("Google Keep", "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --app=https://keep.google.com", , ,TARGET_2:="C:\Program Files\Google\Chrome\Application\chrome.exe --app=https://keep.google.com",mode:=2,ParamBox:=1) ;NB!
+<!SPACE::roar("A") ; Active process
+;<!-Ralt
+;<!-RCtrl
+;<!(Arrows)
+;---------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; 1.2 Working with windows, but not with the ROAR function
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; "ahk_class ZPContentWndClass"
+
+;Close current window
+#IfWinNotActive, Program Manager ;this, and following prevents windows from getting rid of desktop items
+#IfWinNotActive, "" 
+#IfWinNotActive, ahk_class WorkerW
+<!ESC::
+SetTitleMatchMode, 1
+if Winactive("Zoom") && !Winexist("Zoom Meeting")
+    run, taskkill /f /im zoom.exe
+Else 
+	WinClose A
+Return
+#IfWinNotActive
+
+;Activate or minimize save as
+<!ö::
+{
+	if WinExist("Save As")
+		if WinActive()
+			WinMinimize
+		else
+			WinActivate
+	Else
+		WinActivate
+	return
+}
+
+
+; Launch an autohotkey script (same hotkey exits the tooltip)
+
+<^SPACE::
+;DetectHiddenWindows, On
+SetTitleMatchMode, 2
+IfWinNotExist, tooltip.ahk 
+	try {
+		Run, "%UserProfile%\OneDrive - University of Helsinki\Autohotkey\Useful_material\tooltip.ahk"
+	} catch e{
+		MsgBox, not implemented yet
+	}
+SetTitleMatchMode, 1
+Return
+
+/*
+ahk_launch(ID_1, TARGET_1, TARGET_2:="")
+{
+DetectHiddenWindows, On
+SetTitleMatchMode, 2
+IfWinNotExist, %ID_1% 
+	try {
+		Run, % UserProfile . TARGET_1
+	} catch e{
+		Run, % UserProfile . TARGET_2
+	}
+SetTitleMatchMode, 1
+Return
+}
+
+<^SPACE::ahk_launch("tooltip.ahk", "\OneDrive - University of Helsinki\Autohotkey\Useful_material\tooltip.ahk") ; change your path here
+*/
+
+
+
+
+;NB! 
+;dep
+<!0:: 
+if (WinActive("ahk_exe Dep.exe"))
+{
+WinGet,WinState,MinMax,ahk_exe Dep.exe
+If WinState = -1
+   WinMaximize
+else
+   WinMinimize
+Return
+}
+if (WinActive("ahk_exe BlaiseCaseControl.exe") && !WinExist("ahk_exe Dep.exe")) 
+{
+WinGet,WinState,MinMax, ahk_exe BlaiseCaseControl.exe
+If WinState = -1
+   WinMaximize
+else
+   WinMinimize
+Return
+}
+if (WinActive("ahk_exe BlaiseCaseControl.exe") && WinExist("ahk_exe Dep.exe")) 
+	{
+	WinActivate, ahk_exe Dep.exe
+	Return
+	}
+else if (WinExist("ahk_exe Dep.exe") && WinExist("ahk_exe BlaiseCaseControl.exe"))
+	{
+    	WinActivate, ahk_exe Dep.exe
+	Return
+	}
+else if WinExist("ahk_exe BlaiseCaseControl.exe")
+	Winactivate
+else
+{	
+	Run, "C:\ProgramData\CentERdata\SHARE_CASE_CTRL_W9_1\casectrl\BlaiseCaseControl.exe",,,OutputVarPID ; OBS!
+	WinWait, ahk_pid %OutputVarPID%
+	WinActivate, ahk_pid %OutputVarPID%
+	WinMaximize, ahk_pid %OutputVarPID%
+}
+Return
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;2. General windows, Zotero, Word & other microsoft applications
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;0.1 Matrix multiplication in Rstudio - shorcut for %*%
-#IfWinActive ahk_exe rstudio.exe
-<!'::
-Send,{SHIFT DOWN}5'5{SHIFT UP}
-Return
-#IfWinActive
 
-;0.2 Text stutio
-
-; typing \keys
-#IfWinActive ahk_exe texstudio.exe
-<^k::
-;Send, keys
-Send,  {\}keys{{}{}}{left}
-;Send, {left}
-Return
-#IfWinActive
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; 2.0 Simple typing
 
 ;;;;;;;;;;;;
 ; email formalities
@@ -63,16 +351,51 @@ Send,Have a good one{!}{Enter}{Enter}
 Send,Take care{,}{Enter}{Up}{Up}{Up}{Up}{Up}
 Return
 
+;[FLH-THESIS]
+<^<!t::
+Send,[FLH-THESIS]
+Return
+
+
+; Matrix multiplication in Rstudio - shorcut for %*%
+#IfWinActive ahk_exe rstudio.exe
+<^'::
+Send,{SHIFT DOWN}5'5{SHIFT UP}
+Return
+#IfWinActive
+
+; Text stutio
+
+; typing \keys
+#IfWinActive ahk_exe texstudio.exe
+<^k::
+;Send, keys
+Send,  {\}keys{{}{}}{left}
+;Send, {left}
+Return
+#IfWinActive
+
+
+
+;Larger and smaller than with an american keyboard with Scandinavian settings
+
+#,::
+Send, <
+Return
+
+
+#.::
+Send, >
+Return
+
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;1. Zotero & Word & other microsoft applications
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;1.1 plainpaste microsoft office
+;2.1 plainpaste microsoft office
 #If (WinActive("ahk_exe outlook.exe") or WinActive("ahk_exe winword.exe"))
 $^$+$v::
-Send, {Control down}{Alt down}v{Control up}{Alt up}{pause}{pause}{pause}{pause}{pause}{down}{pause}{enter}
+Send, {Control down}{Alt down}v{Control up}{Alt up}{pause}{pause}{pause}{pause}{pause}{down}{pause}{down}{pause}{down}{pause}{down}{pause}{enter}
 Return
 #IfWinActive
 
@@ -82,10 +405,48 @@ Send, {Control down}{Alt down}v{Control up}{Alt up}{pause}{pause}{pause}{pause}{
 Return
 #IfWinActive
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 2.2 Saving references to Zotero in firefox and chrome and other zotero functions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; 1.2 Saving references to Zotero in firefox and chrome
+;Run or Activate Zotero and quick format citation
+<!e:: 
+if (WinActive("ahk_exe zotero.exe") && WinExist("Quick Format Citation"))
+	{
+	WinActivate, Quick Format Citation
+	Return
+	}
+if (WinActive("ahk_exe zotero.exe") && !WinExist("Quick Format Citation"))
+{
+WinGet,WinState,MinMax,ahk_exe zotero.exe
+If WinState = -1
+   WinMaximize
+else
+   WinMinimize
+Return
+}
+if (WinActive("Quick Format Citation") && WinExist("ahk_exe zotero.exe")) 
+	{
+	WinActivate, ahk_exe zotero.exe
+	Return
+	}
+else if (WinExist("ahk_exe zotero.exe") && WinExist("Quick Format Citation"))
+	{
+    	WinActivate, ahk_exe zotero.exe
+	Return
+	}
+else if WinExist("ahk_exe zotero.exe")
+	Winactivate
+else
+{	
+	Run, zotero.exe,,,OutputVarPID
+	WinWait, ahk_pid %OutputVarPID%
+	WinActivate, ahk_pid %OutputVarPID%
+}
+Return
 
+
+; Adding a zotero citation
 #IfWinActive, ahk_exe firefox.exe
 ^+s::
 If Winexist("ahk_exe zotero.exe")
@@ -122,9 +483,12 @@ else
 Return
 #IfWinActive
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 
 ;; -  Making word do Zotero related stuff with Ctrl & å - NB! change this to your key of liking
+
 $^å::
 If !WinActive("Quick Format Citation") && WinActive("ahk_class OpusApp") && Winexist("Zotero")
 {
@@ -135,10 +499,11 @@ If !WinExist("Quick Format Citation") && WinActive("ahk_class OpusApp") && !Wine
 {	
 	Run, zotero.exe,,,OutputVarPID
 	WinWait, ahk_pid %OutputVarPID%
-	Sleep, 500
 	WinActivate, ahk_class OpusApp
-	Sleep, 200
+	Sleep, 100
 	Send, ^!j
+	WinWait, Quick Format Citation
+    WinActivate, Quick Format Citation
 	Return
 }
 ; Activate Quick format citation under certain conditions with Alt & r or suppress the author
@@ -160,17 +525,18 @@ Return
 Return
 
 
+;SetTitleMatchMode, 1
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; 1.3
+; 2.3
 ;WORKAROUNDS FOR WORD THAT DOES NOT HAVE SPECIAL CHARACTERS OR SCANDINAVIAN LETTERS AS wdKeys
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; NB! You need the VBA code for these to work
 
-
 ;ZoteroAddEditBibliography_SC
-; press ctrl + Shift + B (built in in word)
-
-
+; press ctrl + Shift + B (built in in word, no ahk needed)
 
 
 ;Refresh bibliography
@@ -182,7 +548,6 @@ Return
 #IfWinActive
 
 
-
 ;Make paragraph green
 ; selecthighlight_SC
 #IfWinActive, ahk_exe winword.exe
@@ -190,7 +555,6 @@ $^ö::
 Send, ^!l
 Return
 #IfWinActive
-
 
 
 ;Remove color from paragraph
@@ -201,15 +565,13 @@ Send, ^!k
 Return
 #IfWinActive
 
-
 ;Select paragraph
 ;Normal_selectSC
 #IfWinActive, ahk_exe winword.exe
 $^¨::
-Send, ^!p
+Send, ^!n
 Return
 #IfWinActive
-
 
 ;Select paragraph, make normal
 ;Normal_selectSC
@@ -219,596 +581,100 @@ Send, ^!i
 Return
 #IfWinActive
 
-
 SetTitleMatchMode, 1
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; 2. Close active program
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-#IfWinNotActive, Program Manager ;this, and following prevents windows from getting rid of desktop items
-#IfWinNotActive, "" 
-#IfWinNotActive, ahk_class WorkerW
-<!ESC::
-WinClose A
-Return
-#IfWinNotActive
 
-/*
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;     
-;;;; 3. TOGGLE WINDOWS OF ACTIVE PROGRAM - currently not in use
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+;2.4. VScode, citing and zotero
+;NB! OBS! Work in progress. Commands below this won't work
+;Note that you can also assign shortcuts in VS Studio (file->preferences->keyboard shortcuts)
+#IfWinActive, ahk_exe code.exe
+;adding a citation -Citation picker zotero
+<^!.::
+Send, +!z
+;Return
 
-;;;;
-;;;; Credit and simplified version of the functions
-;https://autohotkey.com/board/topic/79159-run-application-if-not-active-activate-window-if-active/
+<^!u::
+Send,if __name__ == "__main__":
+;Return
 
 
-;PREVIOUS WINDOW
-§::    
-WinGetClass, ActiveClass, A
-WinGet, WinClassCount, Count, ahk_class %ActiveClass%
-IF WinClassCount = 1
-    Return
-Else
-WinGet, List, List, % "ahk_class " ActiveClass
-Loop, % List
+
+;typing citep
+<^+.::
+Send, \citep{{}{ctrl down}{shift down}{p}{ctrl up}{shift up}{pause}{pause}cite from{pause}{pause}{Enter}
+;Return 
+
+
+
+;compiling latex
+/* ^Enter::
+Send, {ctrl down}{alt down}{b down}{b up}{alt up}{ctrl up}
+Return */
+;view pdf
+/* ^+Enter::
+Send, {ctrl down}{alt down}{v down}{v up}{alt up}{ctrl up}
+Return */
+
+<$^.::
+If Winexist("Zotero")
 {
-    index := List - A_Index + 1
-    WinGet, State, MinMax, % "ahk_id " List%index%
-    if (State <> -1)
-    {
-        WinID := List%index%
-        break
-    }
-}
-WinActivate, % "ahk_id " WinID
-return
-
-;;;;;;;;; 
-;Send to bottom
-^§::    
-WinGet, ActiveProcess, ProcessName, A
-WinSet, Bottom,, A
-WinActivate, ahk_exe %ActiveProcess%
+Send, {ctrl down}{shift down}{p}{ctrl up}{shift up}{pause}{pause}cite from{pause}{pause}{Enter}
+WinWait, Quick Format Citation
+WinActivate, Quick Format Citation
 Return
+}
+Else If WinExist("Quick Format Citation")
+{
+WinActivate, Quick Format Citation
+Return
+}
+Else
+{
+	Run, zotero.exe,,,OutputVarPID
+	WinWait, ahk_pid %OutputVarPID%
+	;Sleep, 500
+	WinActivate, ahk_exe code.exe,,,OutputVarPID
+	WinWait, ahk_pid %OutputVarPID%
+	Send,{ctrl down}{shift down}{p}{ctrl up}{shift up}{pause}{pause}cite from{pause}{pause}{Enter}
+	WinWait, Quick Format Citation
+    WinActivate, Quick Format Citation
+	Return
+}
+}
 
-*/
+#IfWinActive
+
+
+
+;-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  
-;;;; 4. OTHER
+;;;; 3. OTHER (vs code having problems, code here might not work)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;NB! 
-;Larger and smaller than with an american keyboard with Scandinavian settings
-
-#,::
-Send, <
-Return
-
-
-#.::
-Send, >
-Return
-
-
-
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; X.0 Windows run or activate commands
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;for everything to work, 
-
-;X.1.you will have to pin programs to the taskbar in the following order.
-; If you dont have, say stata installed, just make sure that the rest of the programs are 2nd, 3rd..."nth" in the taskbar
-; These are programs are the ones that do not work in a robust way (see the script below)
-; (1 Stata)
-; (2 Outlook)
-; 3 spotify 
-; 4 keep
-; The rest won't matter (spotify & keep are actually the only truly unrobust oneS, I just prefer having Stata & Outlook...
-; ...as the 1st and 2nd in the taskbar as the build in function Win + (1 or 2) works quite nicely together with...
-; ...the hotkeys I have assigned for Stata and Outlook.
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; X.2 Unrobust way of playing around with application windows
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;SPOTIFY
-<!LCtrl::
-if WinActive("ahk_exe Spotify.exe")
-{
-WinGet,WinState,MinMax,ahk_exe Spotify.exe
-If WinState = -1
-   WinMaximize
-else
-   WinMinimize
-} 
-else if WinExist("ahk_exe Spotify.exe")
-    WinActivate
-else if !WinExist("Spotify")
-{
-Send, {alt up}#3 ;Spotify has to be the 3rd window in the taskbar
-Sleep, 3000
-Winmaximize, Spotify
-}
-;else
-;Send, {alt up}#3
-;Sleep, 100
-Return
-
-;;;;;;;;;;;;;;;;;
-
-<!LWin::
-If !WinExist("Google Keep")
-{
-Send, {Alt up}#4
-Sleep,2500
-Winmaximize, Google Keep
-}
-else
-Send, {Alt up}#4 ; Google keep has to be the 4th window in the taskbar
-Return
-; For more info, see http://www.rawinfopages.com/tips/2016/11/run-google-keep-on-the-desktop-in-its-own-window/
-
-
-;NB! 
-;CASE CONTROL - only for CaseCtrl, which is not available to the public
-<!x:: 
-if (WinActive("ahk_exe Dep.exe"))
-{
-WinGet,WinState,MinMax,ahk_exe Dep.exe
-If WinState = -1
-   WinMaximize
-else
-   WinMinimize
-Return
-}
-if (WinActive("ahk_exe BlaiseCaseControl.exe") && !WinExist("ahk_exe Dep.exe")) 
-{
-WinGet,WinState,MinMax, ahk_exe BlaiseCaseControl.exe
-If WinState = -1
-   WinMaximize
-else
-   WinMinimize
-Return
-}
-if (WinActive("ahk_exe BlaiseCaseControl.exe") && WinExist("ahk_exe Dep.exe")) 
-	{
-	WinActivate, ahk_exe Dep.exe
-	Return
-	}
-else if (WinExist("ahk_exe Dep.exe") && WinExist("ahk_exe BlaiseCaseControl.exe"))
-	{
-    	WinActivate, ahk_exe Dep.exe
-	Return
-	}
-else if WinExist("ahk_exe BlaiseCaseControl.exe")
-	Winactivate
-else
-{	
-	Run, "C:/ProgramData/CentERdata/SHARE_CASE_CTRL_W8_2/casectrl/BlaiseCaseControl.exe",,,OutputVarPID
-	WinWait, ahk_pid %OutputVarPID%
-	WinActivate, ahk_pid %OutputVarPID%
-}
-Return
 
 
 /*
-; code backup
-;Case Control
-<!c::roa("ahk_exe BlaiseCaseControl.exe",  "BlaiseCaseControl.exe")
-;Capi
-<!x::roa("ahk_exe Dep.exe",  "Dep.exe")
+#IfWinActive, ahk_exe notepad.exe
+$^!ö::
+Send, Toimii
+Return
+#IfWinActive
 */
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; X.3. Robust, but cannot use generic function  (see below for "X.4. Run or Activate functions or roa" )
+;;;; X References
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;Learning One(2009) Run application if not active - activate window if active [Accessed Oct 15, 2019] https://autohotkey.com/board/topic/79159-run-application-if-not-active-activate-window-if-active/
+;seperman (2017) AutoHotkey_ErgoKeyboard [Accessed Oct 15, 2019] https://gist.github.com/seperman/8064659
 
 
-;CHROME
-<!Shift::
-SetTitleMatchMode, 1
-GroupAdd, notkeep,ahk_exe chrome.exe, , ,Google Keep
-if WinActive("ahk_group notkeep")
-{
-WinGet, num, count,ahk_group notkeep
-if num=1 
-{
-WinGet,WinState,MinMax,A
-If WinState = -1
-   WinMaximize
-else
-   WinMinimize
-} else 
-{
-GroupActivate, notkeep, R
-Return
-}
-}
-else if WinExist("ahk_group notkeep")
-    WinActivate
-else
-{	
-	Run, chrome.exe
-	WinWait, ahk_group notkeep
-	WinActivate, ahk_group notkeep
-}
-Return
-
-
-;Firefox
-<!CapsLock::
-SetTitleMatchMode, 1
-GroupAdd, firefox,ahk_exe firefox.exe, , ,Quick Format Citation
-GroupAdd, firefox, ahk_class MozillaWindowClass, , , ,ahk_exe zotero.exe
-if WinActive("ahk_group firefox")
-{
-WinGet, num, count,ahk_group firefox
-if num=1 
-{
-WinGet,WinState,MinMax,A
-If WinState = -1
-   WinMaximize
-else
-   WinMinimize
-} else 
-{
-GroupActivate, FIREFOX, R
-Return
-}
-}
-else if WinExist("ahk_group firefox")
-    WinActivate
-else
-{	
-	Run, firefox.exe
-	WinWait, ahk_group firefox
-	WinActivate, ahk_group firefox
-}
-Return
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;opera
-<!d::
-GroupAdd, opera, ahk_exe opera.exe, , , ,Google Keep
-;GroupAdd, opera, ahk_class Chrome_WidgetWin_1, , , ,ahk_exe chrome.exe
-if WinActive("ahk_group opera")
-{
-WinGet, num, count,ahk_group opera
-if num=1 
-{
-WinGet,WinState,MinMax,A
-If WinState = -1
-   WinMaximize
-else
-   WinMinimize
-} else 
-{
-GroupActivate, opera, R
-Return
-}
-}
-else if WinExist("ahk_group opera")
-    WinActivate
-else
-{	
-	Run, opera.exe
-	WinWait, ahk_group opera
-	WinActivate, ahk_group opera
-}
-Return
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;EXCEL
-<!q:: 
-if WinActive("ahk_exe excel.exe")
-{
-WinGet, num, count,ahk_exe excel.exe
-if num=1 
-{
-WinGet,WinState,MinMax,ahk_exe excel.exe
-If WinState = -1
-   WinMaximize
-else
-   WinMinimize
-} else 
-{
-WinSet, Bottom,,ahk_exe excel.exe
-WinActivate, ahk_exe excel.exe
-Return
-}
-}
-else if WinExist("ahk_exe excel.exe")
-    WinActivate, ahk_class XLMAIN
-else
-{
-Run, excel.exe,,,OutputVarPID
-	WinWait, ahk_pid %OutputVarPID%
-	WinActivate, ahk_pid %OutputVarPID%
-}
-Return
-
-
-;EXPLORER
-<!a::
-if WinActive("ahk_class CabinetWClass")
-{
-WinGet, num, count,ahk_class CabinetWClass
-if num=1 
-{
-WinGet,WinState,MinMax,A
-If WinState = -1
-   WinMaximize
-else
-   WinMinimize
-Return
-} else 
-{
-Groupadd, toggle_explorer,ahk_class CabinetWClass
-GroupActivate, toggle_explorer,R
-Sleep, 100
-Return
-}
-}
-else if WinExist("ahk_class CabinetWClass")
-	WinActivate
-else
-	Run, explorer.EXE
-Return
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;SetTitleMatchMode, 3
-;ZOTERO
-<!e:: 
-if (WinActive("ahk_exe zotero.exe") && WinExist("Quick Format Citation"))
-	{
-	WinActivate, Quick Format Citation
-	Return
-	}
-if (WinActive("ahk_exe zotero.exe") && !WinExist("Quick Format Citation"))
-{
-WinGet,WinState,MinMax,ahk_exe zotero.exe
-If WinState = -1
-   WinMaximize
-else
-   WinMinimize
-Return
-}
-if (WinActive("Quick Format Citation") && WinExist("ahk_exe zotero.exe")) 
-	{
-	WinActivate, ahk_exe zotero.exe
-	Return
-	}
-else if (WinExist("ahk_exe zotero.exe") && WinExist("Quick Format Citation"))
-	{
-    	WinActivate, ahk_exe zotero.exe
-	Return
-	}
-else if WinExist("ahk_exe zotero.exe")
-	Winactivate
-else
-{	
-	Run, zotero.exe,,,OutputVarPID
-	WinWait, ahk_pid %OutputVarPID%
-	WinActivate, ahk_pid %OutputVarPID%
-}
-Return
-;SetTitleMatchMode, 1
-
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;photos & snipping
-<!c:: 
-if WinActive("Photos")
-{
-WinGet, num, count,Photos
-if num=1 
-{
-WinGet,WinState,MinMax,Photos
-If WinState = -1
-   WinMaximize
-else
-   WinMinimize
-} else 
-{
-WinSet, Bottom,,Photos
-WinActivate, Photos
-Return
-}
-}
-else if WinExist("Photos ahk_exe ApplicationFrameHost.exe")
-    WinActivate
-else
-{
-Run, ms-screenclip:?source=QuickActions,,,OutputVarPID ;snip&sketch
-	WinWait, ahk_pid %OutputVarPID%
-	WinActivate, ahk_pid %OutputVarPID%
-}
-Return
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; SnippingTool
-<!s::
-{
-	if WinExist("Snip & Sketch ahk_class ApplicationFrameWindow")
-		if WinActive()
-			WinMinimize
-		else
-			WinActivate
-	else
-		Run ms-screenclip:?source=QuickActions
-	return
-}
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;notepad++
-
-<!m::
-{
-	if WinExist("ahk_class Notepad++")
-		if WinActive()
-			WinMinimize
-		else
-			WinActivate
-	else
-		Run notepad++.exe
-	return
-}
-
-;Activate or minimize save
-<!ö::
-{
-	if WinExist("Save As")
-		if WinActive()
-			WinMinimize
-		else
-			WinActivate
-	return
-}
-
-
-
-; sources
-;https://www.intowindows.com/create-screen-sketch-snip-desktop-shortcut-in-windows-10/
-;https://www.autohotkey.com/boards/viewtopic.php?t=13818
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;X.4 Run or Activate function or roa 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;; Credit and simplified version of the functions
-;https://autohotkey.com/board/topic/79159-run-application-if-not-active-activate-window-if-active/
-
-; RUN OR ACTIVATE PROGRAM THAT HAS ONE OR MORE WINDOWS IN EXISTENCE
-roa(WINTITLE, TARGET) 
-{
-if !Winexist(WINTITLE)
-	{	
-	Run, %TARGET%,,,OutputVarPID
-	WinWait, ahk_pid %OutputVarPID%
-	WinActivate, ahk_pid %OutputVarPID%
-	Return
-	}
-		if WinExist(WINTITLE) && !WinActive(WINTITLE)
-		{
-		WinActivate, %WINTITLE%
-		Return
-		}
-if WinActive(WINTITLE)
-	{
-	WinGet, num, count,%WINTITLE%
-		if num=1 
-		{
-		WinGet,WinState,MinMax,%WINTITLE%
-		If WinState = -1
-		WinMaximize
-		else
-		WinMinimize
-		Return
-		} else
-			{
-WinGetClass, ActiveClass, A
-WinGet, WinClassCount, Count, ahk_class %ActiveClass%
-IF WinClassCount = 1
-    Return
-Else
-WinGet, List, List, % "ahk_class " ActiveClass
-Loop, % List
-{
-    index := List - A_Index + 1
-    WinGet, State, MinMax, % "ahk_id " List%index%
-    if (State <> -1)
-    {
-        WinID := List%index%
-        break
-    }
-}
-WinActivate, % "ahk_id " WinID
-return
-			}
-	}
-Return
-}
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;USING THE ABOVE FUNCTIONS TO CALL DIFFERENT APPS
-<!3::roa("ahk_exe acrord32.exe","acrord32.exe") ;ADOBE READER
-Return
-<!f::roa("ahk_exe filezilla.exe", "filezilla.exe")
-Return
-;<!CapsLock::roa("ahk_class MozillaWindowClass ahk_exe firefox.exe", "firefox.exe")
-Return
-<!n::roa("ahk_exe notepad.exe", "notepad.exe")
-Return
-<!2::roa("ahk_exe outlook.exe", "outlook.exe")
-Return
-<!w::roa("ahk_class PPTFrameClass", "powerpnt.exe")
-Return
-<!z::roa("ahk_exe rstudio.exe","rstudio.exe")
-Return
-<!§::roa("ahk_exe winword.exe", "winword.exe") ; WORD
-Return
-<!l::roa("ahk_exe texstudio.exe", "C:/Program Files (x86)/texstudio/texstudio.exe") ; NB!
-Return
-<!p::roa("ahk_exe mspub.exe", "mspub.exe")
-Return
-
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; X WORK IN PROGRESS
-/*
-#EI TOIMI
-EXCEL TOGGLE (nyt menee pohjalle)
-
-
-#OPTIONAL
-ZOTERO ahk_groupilla funktioon ja chromen tapaan funktioon
-KEEP robustiksi
-Explorer funktioon?
-
-Mieti, miten pärjää sen kanssa, että eri koneilla .exe-tiedosto eri kansioissa (if-funktio)
---Spotify robustiksi
---Stata robustiksi
-
-*/
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;; Y. BACKUP CODE;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
