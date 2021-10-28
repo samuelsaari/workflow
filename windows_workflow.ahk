@@ -1,4 +1,7 @@
-
+#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+; #Warn  ; Enable warnings to assist with detecting common errors.
+SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
+SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Windows workflow
@@ -204,8 +207,8 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 
 
 ;---------------------------------------CtrlWinAltSPACE---------------------------------------
-<!LCtrl::roar(ID_1:="ahk_exe spotify.exe",TARGET_1:="\AppData\Roaming\Spotify\Spotify.exe", , ,TARGET_2:="\AppData\Local\Microsoft\WindowsApps\Spotify.exe")
-<!LWin::roar("Google Keep", "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --app=https://keep.google.com", , ,TARGET_2:="C:\Program Files\Google\Chrome\Application\chrome.exe --app=https://keep.google.com",mode:=2,ParamBox:=1) ;NB!
+<!<^::roar(ID_1:="ahk_exe spotify.exe",TARGET_1:="\AppData\Roaming\Spotify\Spotify.exe", , ,TARGET_2:="\AppData\Local\Microsoft\WindowsApps\Spotify.exe")
+<!<#::roar("Google Keep", "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --app=https://keep.google.com", , ,TARGET_2:="C:\Program Files\Google\Chrome\Application\chrome.exe --app=https://keep.google.com",mode:=2,ParamBox:=1) ;NB!
 <!SPACE::roar("A") ; Active process
 ;<!-Ralt
 ;<!-RCtrl
@@ -240,14 +243,20 @@ Return
 
 <^SPACE::
 ;DetectHiddenWindows, On
-SetTitleMatchMode, 2
-IfWinNotExist, tooltip.ahk 
+SetTitleMatchMode, 3
+IfWinNotExist,tooltip.ahk
 	try {
 		Run, "%UserProfile%\OneDrive\Autohotkey\Useful_material\tooltip.ahk" ;NB!
+		Return
 	} catch e{
 		MsgBox, not implemented yet
+		Return
 	}
 SetTitleMatchMode, 1
+Return
+
+^+f::
+Run, "%UserProfile%\OneDrive\Autohotkey\Useful_material\tooltip.ahk"
 Return
 
 
@@ -338,7 +347,7 @@ Return
 Send,—
 Return
 
-;Larger and smaller than with an american keyboard with Scandinavian settings
+;Larger and smaller than with an american keyboard with Scandinavian settings..
 
 /*
 #,::
@@ -351,15 +360,7 @@ Send, >
 Return
 */
 
-;TEXSTUDIO
-; typing \keys
-#IfWinActive ahk_exe texstudio.exe
-<^k::
-;Send, keys
-Send,  {\}keys{{}{}}{left}
-;Send, {left}
-Return
-#IfWinActive
+
 
 
 
@@ -653,11 +654,11 @@ If Winactive("ahk_exe code.exe")
 ;;;;;;;;;;;;;;;;;;; Y. BACKUP CODE;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-/*
+
 <^!q::
-MsgBox, This is a test, and it works
+MsgBox, This is a test, and it works nicely
 Return
-*/
+
 
 /*
 #IfWinActive, ahk_exe notepad.exe
@@ -668,10 +669,11 @@ Return
 */
 
 
+
 /*
 ;Activate or minimize save as
 <!ö::
-{
+
 	if WinExist("Save As")
 		if WinActive()
 			WinMinimize
