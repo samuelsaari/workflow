@@ -1,4 +1,6 @@
-﻿; Preliminaries
+﻿;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;; Preliminaries;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 #NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
 Global UserProfile ; Make userprofile a global variable
 EnvGet, UserProfile, UserProfile ; Get userprofile from system variables
@@ -31,7 +33,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 
 
-;1.1 Roar - or Run or Activate (Robust) function
+;1.1 Roar - or The "Run or Activate Robust" function
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;Many parts owe to Learning One(2009) and seperman(2017):
@@ -150,7 +152,14 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 ; ...The hotkeys will work anyway but the build-in function Win + (1 or 2) works quite nicely together with...
 ; ...the hotkeys I have assigned for Stata and Outlook.
 
+
+
+
+;-----------------------------------------------------------------------------------------
 ; Chart of hotkeys starting with Left Alt - also those not yet assigned to a programme
+;-----------------------------------------------------------------------------------------
+
+
 ;---------------------------------------F1F2...F12HomeEndDelete---------------------------
 <!delete::roar("ahk_class TaskManagerWindow", "taskmgr.exe")
 
@@ -160,7 +169,7 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 <!2::roar("ahk_exe outlook.exe", "outlook.exe")
 ;<!3::roar("ahk_exe acrord32.exe","acrord32.exe") ;ADOBE READER
 <!3::roar("ahk_exe acrobat.exe","acrobat.exe") ;ADOBE READER
-;<!4 - see CaseCtrl
+;<!4 - see dep
 ;<!5
 ;<!6
 ;<!7
@@ -172,11 +181,11 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 ;---------------------------------------qwertyuiopå---------------------------------------
 <!q::roar("ahk_class XLMAIN", "excel.exe")
 <!w::roar("ahk_class OpusApp", "winword.exe") ; WORD
-; <!e::;((((- see section 2 for (other) zotero maneouvers))))
-;<!r - Quick format citation
+; <!e:: ;- see section 2 for  zotero maneouvers
+;<!r - (Quick format citation)
 ;<!t
 <!y::roar("ahk_exe filezilla.exe", "filezilla.exe")
-;<!u::roar("ahk_exe putty.exe", "putty.exe")
+;<!u:: 
 <!i::roar("Photos ahk_class ApplicationFrameWindow","ms-photos:",,,,,Mode:=2)
 <!o::roar("ahk_exe opera.exe", "opera.exe")
 <!p::roar("ahk_exe mspub.exe", "mspub.exe") ; PUBLISHER
@@ -201,7 +210,7 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 <!z::roar("Zoom ahk_exe Zoom.exe","\AppData\Roaming\Zoom\bin\Zoom.exe" , , , , ID_2:="Room ahk_exe zoom.exe")
 <!x::roar("ahk_exe rstudio.exe","rstudio.exe")
 ;<!c::roar("ahk_exe powershell.exe", "powershell.exe") ; not sure how to execute anaconda powershell
-<!c::roar("ahk_exe cmd.exe", "cmd.exe") ; not sure how to execute anaconda powershell
+<!c::roar("ahk_exe cmd.exe","cmd.exe",,,"C:\Windows\SysWOW64\cmd.exe") ; not sure how to execute anaconda powershell
 <!v::roar("ahk_exe Skype.exe", "Skype.exe")
 <!b::roar("Settings ahk_class ApplicationFrameWindow", "ms-settings:bluetooth") ; toggle (all) setting windows or launch bluetooth settings
 <!n::roar("ahk_class Notepad", "notepad.exe")
@@ -213,8 +222,9 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 
 
 ;---------------------------------------CtrlWinAltSPACE---------------------------------------
-<!<^::roar(ID_1:="ahk_exe spotify.exe",TARGET_1:="\AppData\Roaming\Spotify\Spotify.exe", , ,TARGET_2:="\AppData\Local\Microsoft\WindowsApps\Spotify.exe")
-<!<#::roar("Google Keep", "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --app=https://keep.google.com", , ,TARGET_2:="C:\Program Files\Google\Chrome\Application\chrome.exe --app=https://keep.google.com",mode:=2,ParamBox:=1) ;NB!
+<!LCTRL::roar(ID_1:="ahk_exe spotify.exe",TARGET_1:="\AppData\Roaming\Spotify\Spotify.exe", , ,TARGET_2:="\AppData\Local\Microsoft\WindowsApps\Spotify.exe")
+<!LWIN::roar("Google Keep", "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --app=https://keep.google.com", , ,TARGET_2:="C:\Program Files\Google\Chrome\Application\chrome.exe --app=https://keep.google.com",mode:=2,ParamBox:=1) ;NB!
+;ahk_exe chrome.exe"
 <!SPACE::roar("A") ; Active process
 ;<!-Ralt
 ;<!-RCtrl
