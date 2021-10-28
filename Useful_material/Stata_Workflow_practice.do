@@ -6,7 +6,6 @@ clear
 cls
 
 // 0.0.copy your do-file to a do-file folder so that you have a backup and can easily access all your do-files in same place
-capture noisily copy "C:\Users\mmak\Dropbox\Autohotkey\Stata_Workflow_practice.do" "Z:\do_files\workflow\Stata_Workflow_practice_1.do",replace
 
 ////////////////////////////////////////////
 // 1.0 Switch between windows and run code

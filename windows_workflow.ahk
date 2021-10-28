@@ -1,11 +1,15 @@
-#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+ï»¿; Preliminaries
+#NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
+Global UserProfile ; Make userprofile a global variable
+EnvGet, UserProfile, UserProfile ; Get userprofile from system variables
+
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Windows workflow
-;;;; Author: Miika Mäki
+;;;; Author: Miika MÃ¤ki
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; 0. Quick Guide
@@ -111,18 +115,20 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 	{	
 		try {
 			If InStr(TARGET_1, "\")==1 {  
+				;MsgBox, % UserProfile . TARGET_2
 				Run, % UserProfile . TARGET_1
-				;MsgBox, % TARGET_1 ;;;
 			} Else {
-				;msgbox, running target ;;;
+				;msgbox, %TARGET_1%
 				Run, %TARGET_1%
 			}
 		} catch e {
 				;MsgBox, Trying to run target_2 ;;;
 			If InStr(TARGET_2, "\")==1 {
+				;MsgBox, % UserProfile . TARGET_2
 				Run, % UserProfile . TARGET_2
+				
 			} Else 
-				;MsgBox, Trying to run target 2 directly
+				;msgbox, %TARGET_2%
 				Run, %TARGET_2%
 		}
 	;MsgBox, waiting ;;;
@@ -149,7 +155,7 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 <!delete::roar("ahk_class TaskManagerWindow", "taskmgr.exe")
 
 ;---------------------------------------1234567890---------------------------------------
-<!§::roar("ahk_class PPTFrameClass", "powerpnt.exe")
+<!Â§::roar("ahk_class PPTFrameClass", "powerpnt.exe")
 <!1::roar("ahk_exe StataSE-64.exe", "C:\Program Files (x86)\Stata15\StataSE-64.exe")
 <!2::roar("ahk_exe outlook.exe", "outlook.exe")
 ;<!3::roar("ahk_exe acrord32.exe","acrord32.exe") ;ADOBE READER
@@ -163,7 +169,7 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 ;<!0 - 
 ;<!+:: 
 
-;---------------------------------------qwertyuiopå---------------------------------------
+;---------------------------------------qwertyuiopÃ¥---------------------------------------
 <!q::roar("ahk_class XLMAIN", "excel.exe")
 <!w::roar("ahk_class OpusApp", "winword.exe") ; WORD
 ; <!e::;((((- see section 2 for (other) zotero maneouvers))))
@@ -174,9 +180,9 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 <!i::roar("Photos ahk_class ApplicationFrameWindow","ms-photos:",,,,,Mode:=2)
 <!o::roar("ahk_exe opera.exe", "opera.exe")
 <!p::roar("ahk_exe mspub.exe", "mspub.exe") ; PUBLISHER
-<!å::roar("- Paint 3D","ms-paint:",,,,,mode:=2)
+<!Ã¥::roar("- Paint 3D","ms-paint:",,,,,mode:=2)
 
-;--------------------------------------- asdfghjklöä-----------------------------------------
+;--------------------------------------- asdfghjklÃ¶Ã¤-----------------------------------------
 <!CAPSLOCK::roar("ahk_class MozillaWindowClass", "firefox.exe",EX_TITLE:="Quick Format Citation",EX_AHK:="ahk_exe zotero.exe")
 <!a::roar("ahk_class CabinetWClass", "explorer.exe")
 <!s::roar("ahk_exe code.exe", "\AppData\Local\Programs\Microsoft VS Code\Code.exe")
@@ -187,8 +193,8 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 <!j::roar("ahk_exe MobaXterm.exe", "C:\Program Files (x86)\Mobatek\MobaXterm\MobaXterm.exe")
 <!k::roar("Snip & Sketch ahk_class ApplicationFrameWindow", "ms-screenclip:?source=QuickActions") ; built in combo #+s:: is a bit faster
 <!l::roar("ahk_exe texstudio.exe", "C:\Program Files\texstudio\texstudio.exe",,TARGET_2:="C:\Program Files (x86)\texstudio\texstudio.exe") ; NB!
-;<!ö - save as
-;<!ä
+;<!Ã¶ - save as
+;<!Ã¤
 
 ;---------------------------------------zxcvbnm,.----------------------------------------
 <!SHIFT::roar("ahk_exe chrome.exe", "chrome.exe", "Google Keep")
@@ -255,9 +261,6 @@ IfWinNotExist,tooltip.ahk
 SetTitleMatchMode, 1
 Return
 
-^+f::
-Run, "%UserProfile%\OneDrive\Autohotkey\Useful_material\tooltip.ahk"
-Return
 
 
 ;NB!  ; you may just want to delete this
@@ -339,12 +342,12 @@ Return
 
 ;En dash
 <#n::
-Send,–
+Send,â€“
 Return
 
 ;Em dash
 <#m::
-Send,—
+Send,â€”
 Return
 
 ;Larger and smaller than with an american keyboard with Scandinavian settings..
@@ -464,9 +467,9 @@ Return
 
 
 
-;; -  Making word do Zotero related stuff with Ctrl & å - NB! change this to your key of liking
+;; -  Making word do Zotero related stuff with Ctrl & Ã¥ - NB! change this to your key of liking
 
-$^å::
+$^Ã¥::
 If !WinActive("Quick Format Citation") && WinActive("ahk_class OpusApp") && Winexist("Zotero")
 {
 Send, ^+!j ; ZoteroAddEditCitation. this only works with the word macro (see the VBA script file)
@@ -491,10 +494,17 @@ Return
 ;Suppress Author
 If WinActive("Quick Format Citation")
 {
-send, 
-(
-{Control down}{down}{Control up}{pause}{pause}{pause}{pause}{pause}{tab}{tab}{tab}{tab}{tab}{space}{pause}{pause}{pause}{enter}{pause}{pause}{enter}
-)
+;old ahk
+;send,  {Control down}{down}{Control up}{pause}{pause}{pause}{pause}{pause}{tab}{tab}{tab}{tab}{tab}{space}{pause}{pause}{pause}{enter}{pause}{pause}{enter}
+
+; new, quicker ahk
+Send,{Control down}{down}{Control up}
+Sleep, 80
+Send,{tab}{tab}{tab}{tab}{tab}{space}
+Sleep, 80
+Send,{enter}
+Sleep, 80
+Send,{enter}
 Return
 }
 Return
@@ -517,7 +527,7 @@ Return
 ;Refresh bibliography
 ;note that word's own ctrl/alt/r works
 #IfWinActive, ahk_exe winword.exe
-$^+å::
+$^+Ã¥::
 Send, ^+!r
 Return
 #IfWinActive
@@ -526,7 +536,7 @@ Return
 ;Make paragraph green
 ; selecthighlight
 #IfWinActive, ahk_exe winword.exe
-$^ö::
+$^Ã¶::
 Send, ^+!l
 Return
 #IfWinActive
@@ -535,7 +545,7 @@ Return
 ;Remove color from paragraph
 ;selecthighlightR
 #IfWinActive, ahk_exe winword.exe
-$^ä::
+$^Ã¤::
 Send, ^+!k
 Return
 #IfWinActive
@@ -551,7 +561,7 @@ Return
 ;Select paragraph, make norma
 ;Normal_selectSC
 #IfWinActive, ahk_exe winword.exe
-$^¨::
+$^Â¨::
 Send, ^+!n
 Return
 
@@ -570,7 +580,7 @@ SetTitleMatchMode, 1
 
 If Winactive("ahk_exe code.exe")
 {
-	$^$ö::
+	$^$Ã¶::
 	If !Winexist("ahk_exe zotero.exe")
 	{
 		Run, zotero.exe,,,OutputVarPID
@@ -594,7 +604,7 @@ If Winactive("ahk_exe code.exe")
 			Return
 		}
 	}
-	Send, {Ctrl down}ö{pause}{Ctrl up} ; Ctrl+ö needs to be activated in vscode shortcuts for "Cite from Zotero"
+	Send, {Ctrl down}Ã¶{pause}{Ctrl up} ; Ctrl+Ã¶ needs to be activated in vscode shortcuts for "Cite from Zotero"
 	Winwait, Quick Format Citation
 	WinActivate, Quick Format Citation
 	Return
@@ -605,20 +615,20 @@ If Winactive("ahk_exe code.exe")
 #IfWinActive, ahk_exe code.exe
 	;adding a citation -Citation picker zotero
 	;typing citep and opening quic format citation
-	<$^+$ö::
-	;Send, \citep{{}{ctrl down}{shift down}{p}{ctrl up}{shift up}{pause}{pause}cite from{pause}{pause}{Enter} ; if ctrl+ö not activated
-	Send, \citep{{}{ctrl down}{ö}{ctrl up} ; if ctrl+ä activated
+	<$^+$Ã¶::
+	;Send, \citep{{}{ctrl down}{shift down}{p}{ctrl up}{shift up}{pause}{pause}cite from{pause}{pause}{Enter} ; if ctrl+Ã¶ not activated
+	Send, \citep{{}{pause}{ctrl down}{Ã¶}{pause}{ctrl up} ; if ctrl+Ã¤ activated
 	WinWait, Quick Format Citation
 	WinActivate, Quick Format Citation
 	Return 
 
 	; typing citep{}
-	<^ä::
+	<^Ã¤::
 	Send, \citep{{}
 	Return
 	
 	; typing citet{}
-	<$^$+$ä::
+	<$^$+$Ã¤::
 	Send, \citet{{}
 	Return
 	
@@ -662,7 +672,7 @@ Return
 
 /*
 #IfWinActive, ahk_exe notepad.exe
-$^!ö::
+$^!Ã¶::
 Send, Toimii
 Return
 #IfWinActive
@@ -672,7 +682,7 @@ Return
 
 /*
 ;Activate or minimize save as
-<!ö::
+<!Ã¶::
 
 	if WinExist("Save As")
 		if WinActive()

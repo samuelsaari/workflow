@@ -1,6 +1,16 @@
+ï»¿; Preliminaries
+#NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
+Global UserProfile ; Make userprofile a global variable
+EnvGet, UserProfile, UserProfile ; Get userprofile from system variables
+
+; #Warn  ; Enable warnings to assist with detecting common errors.
+SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
+SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Workflow for Stata - shortcuts to make life easier with Autohotkey (1/2)
-;;;; Author: Miika Mäki
+;;;; Author: Miika MÃ¤ki
 
 
 
@@ -91,7 +101,7 @@ else if WinExist("Stata")
 ;DO-FILE
 
 #IfWinExist, Do-file
-<#§::
+<#Â§::
 <#SHIFT::
 If (WinActive("Do-file") && WinExist("Stata"))
 {
@@ -207,7 +217,7 @@ Return
 <^7::Send {/}{/}{/}
 Return
 ;;;; macro
-<^$´::Send, {SHIFT DOWN}´{SHIFT UP}'{left} 
+<^$Â´::Send, {SHIFT DOWN}Â´{SHIFT UP}'{left} 
 Return
 ;; braces
 <^0::Send, {RAlt down}7{RAlt up}{Enter}{Enter}{RAlt down}0{RAlt up}{up} 
