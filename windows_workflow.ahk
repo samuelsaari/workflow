@@ -146,7 +146,7 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 
 ;Applying Roar to different apps
 
-;1.1.It is recommened but not a prerequisite to to pin programs to the taskbar in the following order.
+;1.1.It is recommened – but not a prerequisite – to to pin programs to the taskbar in the following order.
 ; (1 Stata) 
 ; (2 Outlook)
 ; ...The hotkeys will work anyway but the build-in function Win + (1 or 2) works quite nicely together with...
@@ -164,14 +164,15 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 <!delete::roar("ahk_class TaskManagerWindow", "taskmgr.exe")
 
 ;---------------------------------------1234567890---------------------------------------
-<!§::roar("ahk_class PPTFrameClass", "powerpnt.exe")
+
+<!§::roar("ahk_class PPTFrameClass", "powerpnt.exe") ; see also <
 <!1::roar("ahk_exe StataSE-64.exe", "C:\Program Files (x86)\Stata15\StataSE-64.exe")
 <!2::roar("ahk_exe outlook.exe", "outlook.exe")
 ;<!3::roar("ahk_exe acrord32.exe","acrord32.exe") ;ADOBE READER
 <!3::roar("ahk_exe acrobat.exe","acrobat.exe") ;ADOBE READER
 ;<!4 - see dep
 ;<!5
-;<!6
+;<!6 - see toggle tooltip
 ;<!7
 ;<!8
 ;<!9 
@@ -194,7 +195,7 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 ;--------------------------------------- asdfghjklöä-----------------------------------------
 <!CAPSLOCK::roar("ahk_class MozillaWindowClass", "firefox.exe",EX_TITLE:="Quick Format Citation",EX_AHK:="ahk_exe zotero.exe")
 <!a::roar("ahk_class CabinetWClass", "explorer.exe")
-<!s::roar("ahk_exe code.exe", "\AppData\Local\Programs\Microsoft VS Code\Code.exe")
+<!s::roar("ahk_exe code.exe", "\AppData\Local\Programs\Microsoft VS Code\Code.exe", "Google Keep")
 <!d::roar("ahk_exe teams.exe", "\AppData\Local\Microsoft\Teams\Update.exe --processStart Teams.exe")
 ;<!f
 <!g::roar("ahk_class gdkWindowToplevel", "C:\Program Files\GIMP 2\bin\gimp-2.10.exe") ;NB!
@@ -205,8 +206,11 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 ;<!ö - save as
 ;<!ä
 
-;---------------------------------------zxcvbnm,.----------------------------------------
+;---------------------------------------<zxcvbnm,.----------------------------------------
 <!SHIFT::roar("ahk_exe chrome.exe", "chrome.exe", "Google Keep")
+#IfWinNotExist, Stata
+<!<::roar("ahk_class PPTFrameClass", "powerpnt.exe")
+#IfWinNotExist
 <!z::roar("Zoom ahk_exe Zoom.exe","\AppData\Roaming\Zoom\bin\Zoom.exe" , , , , ID_2:="Room ahk_exe zoom.exe")
 <!x::roar("ahk_exe rstudio.exe","rstudio.exe")
 ;<!c::roar("ahk_exe powershell.exe", "powershell.exe") ; not sure how to execute anaconda powershell
@@ -252,12 +256,12 @@ Else
 	WinClose A
 Return
 #IfWinNotActive
-
+ 
 
 
 ; Toggle tooltip (same hotkey exits in the tooltip.ahk file)
 
-<^SPACE::
+<!6::
 ;DetectHiddenWindows, On
 SetTitleMatchMode, 3
 IfWinNotExist,tooltip.ahk
@@ -483,6 +487,7 @@ $^å::
 If !WinActive("Quick Format Citation") && WinActive("ahk_class OpusApp") && Winexist("Zotero")
 {
 Send, ^+!j ; ZoteroAddEditCitation. this only works with the word macro (see the VBA script file)
+;Send, {Ctrl down}å{Ctrl up} ; ZoteroAddEditCitation. this only works with the word macro (see the VBA script file)
 Return
 }
 If !WinExist("Quick Format Citation") && WinActive("ahk_class OpusApp") && !Winexist("Zotero")
@@ -491,6 +496,7 @@ If !WinExist("Quick Format Citation") && WinActive("ahk_class OpusApp") && !Wine
 	WinWait, ahk_pid %OutputVarPID%
 	WinActivate, ahk_class OpusApp
 	Send, ^+!j ; ZoteroAddEditCitation. this only works with the word macro (see the VBA script file)
+	;Send, {Ctrl down}å{Ctrl up} ; ZoteroAddEditCitation. this only works with the word macro (see the VBA script file)
 	WinWait, Quick Format Citation
     WinActivate, Quick Format Citation
 	Return
@@ -577,6 +583,9 @@ Return
 
 #IfWinActive
 
+
+
+
 SetTitleMatchMode, 1
 
 
@@ -590,7 +599,7 @@ SetTitleMatchMode, 1
 
 If Winactive("ahk_exe code.exe")
 {
-	$^$ö::
+	$^$ä::
 	If !Winexist("ahk_exe zotero.exe")
 	{
 		Run, zotero.exe,,,OutputVarPID
@@ -614,7 +623,7 @@ If Winactive("ahk_exe code.exe")
 			Return
 		}
 	}
-	Send, {Ctrl down}ö{pause}{Ctrl up} ; Ctrl+ö needs to be activated in vscode shortcuts for "Cite from Zotero"
+	Send, {Ctrl down}ä{pause}{Ctrl up} ; Ctrl+ö needs to be activated in vscode shortcuts for "Cite from Zotero"
 	Winwait, Quick Format Citation
 	WinActivate, Quick Format Citation
 	Return
@@ -625,24 +634,14 @@ If Winactive("ahk_exe code.exe")
 #IfWinActive, ahk_exe code.exe
 	;adding a citation -Citation picker zotero
 	;typing citep and opening quic format citation
-	<$^+$ö::
-	;Send, \citep{{}{ctrl down}{shift down}{p}{ctrl up}{shift up}{pause}{pause}cite from{pause}{pause}{Enter} ; if ctrl+ö not activated
-	Send, \citep{{}{pause}{ctrl down}{ö}{pause}{ctrl up} ; if ctrl+ä activated
+	<$^+$ä::
+	;Send, \citep{{}{ctrl down}{shift down}{p}{ctrl up}{shift up}{pause}{pause}cite from{pause}{pause}{Enter} ; if ctrl+ä not activated
+	Send, \citep{{}{pause}{ctrl down}{ä}{pause}{ctrl up} ; if ctrl+ä activated
 	WinWait, Quick Format Citation
 	WinActivate, Quick Format Citation
 	Return 
 
-	; typing citep{}
-	<^ä::
-	Send, \citep{{}
-	Return
-	
-	; typing citet{}
-	<$^$+$ä::
-	Send, \citet{{}
-	Return
-	
-	; typing citet
+
 
 	<^!m::
 	Send,if __name__ == "__main__":
@@ -650,6 +649,21 @@ If Winactive("ahk_exe code.exe")
 
 #IfWinActive
 
+
+#IfWinNotActive, ahk_class opusapp
+
+	; typing citep{}
+	<^ö::
+	Send, \citep{{}
+	Return
+	
+	; typing citet{}
+	<$^$+$ö::
+	Send, \citet{{}
+	Return
+
+
+#IfWinNotActive
 
 
 

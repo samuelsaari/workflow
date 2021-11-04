@@ -235,6 +235,8 @@ Return
 #IfWinExist, Stata
 <^.:: Send, readSHARE *, w(7) mod(){left}
 Return
+<^+.:: Send, readSHARE *, w(81) mod(ca){left}
+Return
 #IfWinExist
 
 

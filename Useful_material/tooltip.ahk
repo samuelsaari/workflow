@@ -41,7 +41,7 @@ Return
 
 
 ; exit 
-<^SPACE::
+<!6::
 ExitApp
 Return
 
