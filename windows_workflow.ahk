@@ -38,7 +38,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ;Many parts owe to Learning One(2009) and seperman(2017):
 
-roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Parambox:=0)
+roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Parambox:=0,ID_3:="")
 ;-------------------------------------------------------------------------------
 ;
 ; Toggles, Activates, Minimizes, Restores, or Runs program windows based on the whether the applications are running, how many windows there are and what state they are at
@@ -51,6 +51,7 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 ;ID_2 	 	= 2nd criteria to identify an existing window (adds windows to the group)
 ;Mode 		= Mode of SetTitleMatchMode
 ;ParamBox	= Show parameter values (1/0)
+;ID_3 	 	= 3rd criteria to identify an existing window (adds windows to the group)
 ;-------------------------------------------------------------------------------
 {
 ;Creating groups with a uniques names;
@@ -60,12 +61,16 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 	unique_group2=% unique_group "2"
 	GroupAdd, %unique_group1%, %ID_1%											;first criterion to include
 	if (ParamBox==1)
-		msgbox, ------Parameters-------- `n ID_1 `t`t %ID_1% `n TARGET_1 `t %TARGET_1% `n EX_TITLE  `t %EX_TITLE% `n EX_AHK `t %EX_AHK% `n TARGET_2 `t %TARGET_2% `n ID_2 `t`t %ID_2% `n mode `t %mode%
+		msgbox, ------Parameters-------- `n ID_1 `t`t %ID_1% `n TARGET_1 `t %TARGET_1% `n EX_TITLE  `t %EX_TITLE% `n EX_AHK `t %EX_AHK% `n TARGET_2 `t %TARGET_2% `n ID_2 `t`t %ID_2% `n mode `t`t %mode% `n ID_3 `t`t %ID_3%
 	
 	if (ID_2 !=""){
 		GroupAdd, %unique_group1%, %ID_2%
 		;MsgBox, ID_2 not empty
-	} 
+	}
+	if (ID_3 !=""){
+		GroupAdd, %unique_group1%, %ID_2%
+		;MsgBox, ID_2 not empty
+	}
 	extitle_str:= % EX_TITLE
 	GroupAdd, %unique_group2%,ahk_group %unique_group1%, , ,%extitle_str%		;exclude based on title
 	GroupAdd, %unique_group%,ahk_group %unique_group2%, , , , %EX_AHK%			;exclude based on content (ahk_process)
@@ -211,7 +216,7 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 #IfWinNotExist, Stata
 <!<::roar("ahk_class PPTFrameClass", "powerpnt.exe")
 #IfWinNotExist
-<!z::roar("Zoom ahk_exe Zoom.exe","\AppData\Roaming\Zoom\bin\Zoom.exe" , , , , ID_2:="Room ahk_exe zoom.exe")
+<!z::roar("Zoom ahk_exe Zoom.exe","\AppData\Roaming\Zoom\bin\Zoom.exe" , , , , ID_2:="Room ahk_exe zoom.exe",,Parambox:=0)
 <!x::roar("ahk_exe rstudio.exe","rstudio.exe")
 ;<!c::roar("ahk_exe powershell.exe", "powershell.exe") ; not sure how to execute anaconda powershell
 <!c::roar("ahk_exe cmd.exe","cmd.exe",,,"C:\Windows\SysWOW64\cmd.exe") ; not sure how to execute anaconda powershell
@@ -229,7 +234,7 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 <!LCTRL::roar(ID_1:="ahk_exe spotify.exe",TARGET_1:="\AppData\Roaming\Spotify\Spotify.exe", , ,TARGET_2:="\AppData\Local\Microsoft\WindowsApps\Spotify.exe")
 <!LWIN::roar("Google Keep", "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --app=https://keep.google.com", , ,TARGET_2:="C:\Program Files\Google\Chrome\Application\chrome.exe --app=https://keep.google.com",mode:=2,ParamBox:=1) ;NB!
 ;ahk_exe chrome.exe"
-<!SPACE::roar("A") ; Active process
+;<!SPACE::roar("A") ; Active process
 ;<!-Ralt
 ;<!-RCtrl
 ;<!(Arrows)
