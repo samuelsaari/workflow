@@ -138,37 +138,10 @@ End Sub
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 
-Sub A_TEST_SHORTCUTS()
-
-CustomizationContext = NormalTemplate
-KeyBindings.Add KeyCategory:=wdKeyCategoryMacro, _
-    Command:="testi1", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyShift, wdKeyAlt, wdKeyQ)
-
-KeyBindings.Add KeyCategory:=wdKeyCategoryMacro, _
-    Command:="testi2", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyShift, wdKeyAlt, wdKeyW)
-
-End Sub
-
-
-Sub testi1()
-'
-' testi1 Macro
-'
-'
-    Selection.Font.Bold = wdToggle
-End Sub
-Sub testi2()
-'
-' testi2 Macro
-'
-'
-    Selection.Font.Italic = wdToggle
-End Sub
-
-
-''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 'Sub A_TEST_SHORTCUTS()
+
+
 
 'CustomizationContext = NormalTemplate
 ' // wdKeyBackSlash         \    = '
@@ -176,13 +149,13 @@ End Sub
 ' // wdKeyCloseSquareBrace ]    = ¨
 
 'KeyBindings.Add KeyCategory:=wdKeyCategoryMacro, _
-'   Command:="testi1", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyBackSlash)
+   Command:="testi1", KeyCode:=BuildKeyCode(wdKeyControl, wdKeySemiColon)
 
 ' // wdKeySingleQuote ' = ä
 ' // wdKeySemiColon ; = ö
 ' // wdKeyOpenSquareBrace [ = å
 'KeyBindings.Add KeyCategory:=wdKeyCategoryMacro, _
-'    Command:="testi2", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyOpenSquareBrace)
+    Command:="testi2", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyOpenSquareBrace)
 
 'End Sub
 

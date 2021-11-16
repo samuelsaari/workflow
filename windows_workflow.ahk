@@ -43,15 +43,15 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 ;
 ; Toggles, Activates, Minimizes, Restores, or Runs program windows based on the whether the applications are running, how many windows there are and what state they are at
 ;
-;ID_1		= 1st critria to identify an existing window
-;TARGET_1	= executable program or a path to it
-;EX_TITLE	= exclude windows with titles that start with a given string
-;EX_AHK		= exclude processes (eg. ahk_exe firefox.ex) or strings in a window
-;TARGET_2	= alternative path to an excecutable file (if for example the paths are different in different machines you use)
-;ID_2 	 	= 2nd criteria to identify an existing window (adds windows to the group)
-;Mode 		= Mode of SetTitleMatchMode
-;ParamBox	= Show parameter values (1/0)
-;ID_3 	 	= 3rd criteria to identify an existing window (adds windows to the group)
+;1;		ID_1		= 1st critria to identify an existing window
+;2;		TARGET_1	= executable program or a path to it
+;3;		EX_TITLE	= exclude windows with titles that start with a given string
+;4;		EX_AHK		= exclude processes (eg. ahk_exe firefox.ex) or strings in a window
+;5;		TARGET_2	= alternative path to an excecutable file (if for example the paths are different in different machines you use)
+;6;		ID_2 	 	= 2nd criteria to identify an existing window (adds windows to the group)
+;7;		Mode 		= Mode of SetTitleMatchMode
+;8;		ParamBox	= Show parameter values (1/0)
+;9;		ID_3 	 	= 3rd criteria to identify an existing window (adds windows to the group)
 ;-------------------------------------------------------------------------------
 {
 ;Creating groups with a uniques names;
@@ -163,7 +163,10 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 ;-----------------------------------------------------------------------------------------
 ; Chart of hotkeys starting with Left Alt - also those not yet assigned to a programme
 ;-----------------------------------------------------------------------------------------
-
+;Quick way to add new program
+#IfWinActive, ahk_class Notepad++
+<^!n::Send,roar(,,EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Parambox:=0,ID_3:="")
+#IfWinActive
 
 ;---------------------------------------F1F2...F12HomeEndDelete---------------------------
 <!delete::roar("ahk_class TaskManagerWindow", "taskmgr.exe")
@@ -175,10 +178,11 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 <!2::roar("ahk_exe outlook.exe", "outlook.exe")
 ;<!3::roar("ahk_exe acrord32.exe","acrord32.exe") ;ADOBE READER
 <!3::roar("ahk_exe acrobat.exe","acrobat.exe") ;ADOBE READER
-;<!4 - see dep
-;<!5
+;<!3::roar("ahk_exe acrobat.exe","acrobat.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="acrord32.exe",ID_2:="ahk_exe acrord32.exe",Mode:=1,Parambox:=0,ID_3:="")
+<!4::roar("ahk_exe DigitalEditions.exe","DigitalEditions.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="C:\Program Files (x86)\Adobe\Adobe Digital Editions 4.5\DigitalEditions.exe",ID_2:="",Mode:=1,Parambox:=0,ID_3:="")
+<!5::roar("ahk_exe sam.exe","C:\Program Files\PDFsam Enhanced 7\sam-launcher.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Parambox:=0,ID_3:="")
 ;<!6 - see toggle tooltip
-;<!7
+;<!7 - see dep
 ;<!8
 ;<!9 
 ;<!0 - 
@@ -198,7 +202,7 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 <!å::roar("- Paint 3D","ms-paint:",,,,,mode:=2)
 
 ;--------------------------------------- asdfghjklöä-----------------------------------------
-<!CAPSLOCK::roar("ahk_class MozillaWindowClass", "firefox.exe",EX_TITLE:="Quick Format Citation",EX_AHK:="ahk_exe zotero.exe")
+<!CAPSLOCK::roar("ahk_class MozillaWindowClass", "firefox.exe",EX_TITLE:="Quick Format Citation",EX_AHK:="ahk_exe zotero.exe",TARGET_2:="C:\Program Files\Mozilla Firefox\firefox.exe")
 <!a::roar("ahk_class CabinetWClass", "explorer.exe")
 <!s::roar("ahk_exe code.exe", "\AppData\Local\Programs\Microsoft VS Code\Code.exe", "Google Keep")
 <!d::roar("ahk_exe teams.exe", "\AppData\Local\Microsoft\Teams\Update.exe --processStart Teams.exe")
@@ -232,9 +236,9 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 
 ;---------------------------------------CtrlWinAltSPACE---------------------------------------
 <!LCTRL::roar(ID_1:="ahk_exe spotify.exe",TARGET_1:="\AppData\Roaming\Spotify\Spotify.exe", , ,TARGET_2:="\AppData\Local\Microsoft\WindowsApps\Spotify.exe")
-<!LWIN::roar("Google Keep", "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --app=https://keep.google.com", , ,TARGET_2:="C:\Program Files\Google\Chrome\Application\chrome.exe --app=https://keep.google.com",mode:=2,ParamBox:=1) ;NB!
+<!LWIN::roar("Google Keep", "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --app=https://keep.google.com", , ,TARGET_2:="C:\Program Files\Google\Chrome\Application\chrome.exe --app=https://keep.google.com",ID_2:="",mode:=2,ParamBox:=0) ;NB!
 ;ahk_exe chrome.exe"
-;<!SPACE::roar("A") ; Active process
+;<!SPACE::roar("A") ; Active process. Does not work
 ;<!-Ralt
 ;<!-RCtrl
 ;<!(Arrows)
@@ -284,7 +288,7 @@ Return
 
 ;NB!  ; you may just want to delete this
 ;dep
-<!4:: 
+<!7:: 
 if (WinActive("ahk_exe Dep.exe"))
 {
 WinGet,WinState,MinMax,ahk_exe Dep.exe
@@ -333,8 +337,7 @@ Return
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; 2.0 Simple typing
-
-;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; email formalities
 
 ;formal tone
@@ -351,14 +354,7 @@ Send,Have a good one{!}{Enter}{Enter}
 Send,Take care{,}{Enter}{Up}{Up}{Up}{Up}{Up}
 Return
 
-; Matrix multiplication in Rstudio - shorcut for %*%
-#IfWinActive ahk_exe rstudio.exe
-<^'::
-Send,{SHIFT DOWN}5'5{SHIFT UP}
-Return
-#IfWinActive
-
-
+;Typing special characters
 ;En dash
 <#n::
 Send,–
@@ -369,25 +365,51 @@ Return
 Send,—
 Return
 
-;Larger and smaller than with an american keyboard with Scandinavian settings..
 
-/*
-#,::
-Send, <
+;REFERENCE MISSING
+;reference missing / add reference later
+<^<!f::
+Send,{(}{!}{!}{!}REF{)}
 Return
 
+;;-------------------------------------------------------------------
+;Software specific
 
-#.::
-Send, >
+
+;-------TEXSTUDIO-------
+; typing \keys
+#IfWinActive ahk_exe texstudio.exe
+<^k::
+;Send, keys
+Send,  {\}keys{{}{}}{left}
+;Send, {left}
 Return
-*/
+#IfWinActive
+Return
 
+;;-----------------------
+;;-------RSTUDIO-------
+; Matrix multiplication in Rstudio - shorcut for %*%
+#IfWinActive ahk_exe rstudio.exe
+<^'::
+Send,{SHIFT DOWN}5'5{SHIFT UP}
+Return
+#IfWinActive
 
-
-
-
-
-
+;;-----------------------
+;-------ADOBE READER/ACROBAT-------
+; Inverse colors in adobe reader (you might have to set sensible settings first)
+; For some reason the input level will have to be 0 for this to work with the spotify alt+ctrl.
+If WinActive(ahk_exe acrobat.exe) || WinActive(ahk_exe acrord32.exe)
+{
+$<^$!k::
+Send,{Ctrl down}k{Ctrl up}
+Winwait,Preferences
+;ac for accessibility settings, then navigate to first checkbox to replace document colors
+Send,ac{pause}{TAB}{pause}{SPACE}{pause}{ENTER}
+;Send,ac{pause}{pause}{pause}{TAB}{pause}{pause}{pause}{SPACE}{pause}{pause}{pause}{ENTER}
+Return
+}
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;2.1 plainpaste microsoft office
@@ -655,7 +677,7 @@ If Winactive("ahk_exe code.exe")
 #IfWinActive
 
 
-#IfWinNotActive, ahk_class opusapp
+#IfWinNotActive, ahk_exe winword.exe
 
 	; typing citep{}
 	<^ö::

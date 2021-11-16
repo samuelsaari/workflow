@@ -2,8 +2,9 @@
 \usepackage{nameref}
 \usepackage[hyphens]{url}
 \usepackage{hyperref}
-\usepackage[utf8]{inputenc}
-\usepackage{menukeys}
+\usepackage[utf8]{inputenc} % OBS NB, issue with two encodings?
+\usepackage[T1]{fontenc} % for <
+\usepackage[os=win]{menukeys}
 \usepackage{listings}
 \usepackage{hyperref}
 \usepackage{framed}
@@ -211,12 +212,14 @@ Yleensä pitkiä tekstejä luetaan kuitenkin PDF-tiedostoista. Siinä tekstin ja
 	\item \keys{Ctrl}+\keys{k} avaa asetukset 
 	\item \menu{Esteettömyys > Korvaa asiakirjan värit > Valitse värimalli}
 	\item \menu{Accessibility > Replace Document Colors > Custom Color}
-	\item Tumman harmaa tausta ja vaalean harmaa teksti ovat miellyttävämpiä silmille kuin täysin musta ja valkoinen.\footnote{esim. RGB (36,36,36) ja (242,242,242)}
+	\item Tumman harmaa tausta ja vaalean harmaa teksti ovat miellyttävämpiä silmille kuin täysin musta ja valkoinen.\footnote{esim. RGB (18,18,18) ja (200,200,200)}
 \end{enumerate}
 
 \includegraphics[width=\textwidth]{img/adobe_reader}
 
-Jatkossa tumman ja vaalean taustan välillä voi vaihdella kätevästi vain painamalla \keys{Ctrl}+\keys{k}  ja klikkaamalla sivun ylälaidasta \menu{Korvaa asiakirjan väri} tai \menu{Replace Document Colors}
+Jatkossa tumman ja vaalean taustan välillä voi vaihdella kätevästi vain painamalla ja klikkaamalla sivun ylälaidasta \menu{Korvaa asiakirjan väri} tai \menu{Replace Document Colors}.
+
+\textbf{Protip:} Jos sinulla on \emph{windows\_workflow.ahk} -koodinpätkä käytössäsi, adobe readerin värien vaihtaminen onnistuu nopeasti \keys{Ctrl}+\keys{Alt}+\keys{k}
 
 \pagebreak \section{Ladattavat ohjelmat ja koodi}
 Osiota \fullref{perus} lukuunottamatta tarvitset seuraavat ohjelmat ja koodin.
@@ -256,6 +259,8 @@ Valitse ''Download Autohotkey Installer''
 	\medskip
 	
 	\underline{3.Lataa myös tiedostot kansiosta Useful\_material}
+	
+	Esim. \emph{ZoteroWord\_only\_workflow.ahk} sisältää vain Zoteroon ja joitain Wordiin liittyviä pikanäppäimiä (päivitetyin versio Zotero-komennoista aina \emph{windows\_workflow.ahk} tiedostossa). Lisäksi siellä on esim. harjoituksia pikanäppäinten käyttöönottoon. P
 	
 	
 	%% Erityisesti \textbf{shorcut\_chart.pdf} on hyvä katsoa läpi, koska siinä näkyy suhteellisen havainnollisesti suurin osa autohotkey-pikanäppäimistä. Muita tiedostoja Useful\_material-kansiosta et välttämättä tarvitse akuutisti, mutta niille tulee luultavasti käyttöä jossain vaiheessa, joten ne on hyvä ladata valmiiksi.
@@ -327,6 +332,8 @@ Yleisesti \keys{Alt}+\keys{"näppäin"} tekee kullekin ohjelmalle jotain seuraav
 
 \keys{Alt}+\keys{§} PowerPoint
 
+\keys{Alt}+\menu{<} PowerPoint (ellei Stata ole auki, ks. \emph{stata\_worflow.ahk})
+
 \keys{Alt}+\keys{W} Word
 
 \keys{Alt}+\keys{Q} Excel
@@ -351,7 +358,7 @@ Yleisesti \keys{Alt}+\keys{"näppäin"} tekee kullekin ohjelmalle jotain seuraav
 
 \keys{Alt}+\keys{Esc} Sulje käynnissä oleva ohjelma
 
-\textbf{Protip:} Katso kaikki komennot tai muokkaa pikanäppäimiä tiedoston \emph{windows\_workflow.ahk} kautta. Jos haluat lisätä uusia ohjelmia, kannattaa tallentaa \emph{tooltip.ahk} sopivaan sijaintiin, jonka jälkeen voit voit tarkastella tarvittavia parametrejä \keys{Ctrl}+\keys{pitkä} näppäinyhdistelmällä. Yksityiskohdat tiedoston \emph{windows\_workflow.ahk} kohdasta \emph{Toggle tooltip}.
+\textbf{Protip:} Katso kaikki komennot tai muokkaa pikanäppäimiä tiedoston \emph{windows\_workflow.ahk} kautta. Jos haluat lisätä uusia ohjelmia, kannattaa tallentaa \emph{tooltip.ahk} sopivaan sijaintiin, jonka jälkeen voit voit tarkastella tarvittavia parametrejä \keys{Ctrl}+\keys{6} näppäinyhdistelmällä. Yksityiskohdat tiedoston \emph{windows\_workflow.ahk} kohdasta \emph{Toggle tooltip}.
 
 \subsection{Viitteet}
 
@@ -371,6 +378,14 @@ Firefoxin ja Zoteron connectorin pikanäppäimet menevät päällekäin, joten C
 	\item Poista firefoxin pikanäppäin painamalla roskiksen kuvaa
 \end{itemize}
 \includegraphics[width=\textwidth]{img/firefox2}
+
+Vaihtoehtoisesti tai tämän lisäksi voi myös estää firefoxin kuvakaappaukset kokonaan
+
+\begin{itemize}
+	\item Kirjoita \emph{about:config} osoiteriville (Esim. \keys{Ctrl}+\keys{K})
+	\item Kirjoita "Screenshots"
+	\item Valitse \menu{extensions.screenshots.disabled} = \menu{true}
+\end{itemize}
 
 \subsubsection{Lähdeviittaaminen Wordissa}
 
