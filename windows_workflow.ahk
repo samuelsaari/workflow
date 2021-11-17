@@ -211,7 +211,8 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 ;<!ht
 <!j::roar("ahk_exe MobaXterm.exe", "C:\Program Files (x86)\Mobatek\MobaXterm\MobaXterm.exe")
 <!k::roar("Snip & Sketch ahk_class ApplicationFrameWindow", "ms-screenclip:?source=QuickActions") ; built in combo #+s:: is a bit faster
-<!l::roar("ahk_exe texstudio.exe", "C:\Program Files\texstudio\texstudio.exe",,TARGET_2:="C:\Program Files (x86)\texstudio\texstudio.exe") ; NB!
+;<!l::roar("ahk_exe texstudio.exe", "C:\Program Files\texstudio\texstudio.exe",,TARGET_2:="C:\Program Files (x86)\texstudio\texstudio.exe") ; NB!
+<!l::roar("ahk_exe texstudio.exe","C:\Program Files\texstudio\texstudio.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="ahk_class Qt620QWindowIcon",Mode:=1,Parambox:=0,ID_3:="")
 ;<!ö - save as
 ;<!ä
 
@@ -339,7 +340,7 @@ Return
 ;;;; 2.0 Simple typing
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; email formalities
-
+#IfWinNotActive ahk_exe rstudio.exe
 ;formal tone
 <^<!o::
 Send,I hope this message finds you well{.}{Enter}{Enter}{Enter}{Enter}
@@ -353,6 +354,7 @@ Send,I hope your day is off to a good start{.}{Enter}{Enter}{Enter}{Enter}
 Send,Have a good one{!}{Enter}{Enter}
 Send,Take care{,}{Enter}{Up}{Up}{Up}{Up}{Up}
 Return
+#IfWinNotActive
 
 ;Typing special characters
 ;En dash
@@ -413,7 +415,6 @@ Return
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;2.1 plainpaste microsoft office
-#If (WinActive("ahk_exe outlook.exe") or WinActive("ahk_exe winword.exe"))
 $^$+$v::
 Send, {Control down}{Alt down}v{Control up}{Alt up}{pause}{pause}{pause}{pause}{pause}{down}{pause}{down}{pause}{down}{pause}{down}{pause}{enter}
 Return
