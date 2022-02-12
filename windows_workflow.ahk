@@ -177,10 +177,12 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 <!1::roar("ahk_exe StataSE-64.exe", "C:\Program Files (x86)\Stata15\StataSE-64.exe")
 <!2::roar("ahk_exe outlook.exe", "outlook.exe")
 ;<!3::roar("ahk_exe acrord32.exe","acrord32.exe") ;ADOBE READER
-<!3::roar("ahk_exe acrobat.exe","acrobat.exe") ;ADOBE READER
-;<!3::roar("ahk_exe acrobat.exe","acrobat.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="acrord32.exe",ID_2:="ahk_exe acrord32.exe",Mode:=1,Parambox:=0,ID_3:="")
+;<!3::roar("ahk_exe acrobat.exe","acrobat.exe") ;ADOBE READER
+<!3::roar("ahk_exe acrobat.exe","acrobat.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="acrord32.exe",ID_2:="ahk_exe acrord32.exe",Mode:=1,Parambox:=0,ID_3:="ahk_class AcrobatSDIwindow")
 <!4::roar("ahk_exe DigitalEditions.exe","DigitalEditions.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="C:\Program Files (x86)\Adobe\Adobe Digital Editions 4.5\DigitalEditions.exe",ID_2:="",Mode:=1,Parambox:=0,ID_3:="")
 <!5::roar("ahk_exe sam.exe","C:\Program Files\PDFsam Enhanced 7\sam-launcher.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Parambox:=0,ID_3:="")
+;<!5::roar("ahk_exe soda.exe","C:\Program Files\Soda PDF Desktop 12\soda-launcher.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Parambox:=0,ID_3:="")
+
 ;<!6 - see toggle tooltip
 ;<!7 - see dep
 ;<!8
@@ -209,11 +211,11 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 ;<!f
 <!g::roar("ahk_class gdkWindowToplevel", "C:\Program Files\GIMP 2\bin\gimp-2.10.exe") ;NB!
 ;<!ht
-<!j::roar("ahk_exe MobaXterm.exe", "C:\Program Files (x86)\Mobatek\MobaXterm\MobaXterm.exe")
+;<!j::roar("ahk_exe MobaXterm.exe", "C:\Program Files (x86)\Mobatek\MobaXterm\MobaXterm.exe")
+<!j::roar("ahk_exe MobaXterm.exe", "C:\Program Files (x86)\Mobatek\MobaXterm\MobaXterm.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="ahk_class TMobaXtermForm",Mode:=1,Parambox:=0,ID_3:="")
 <!k::roar("Snip & Sketch ahk_class ApplicationFrameWindow", "ms-screenclip:?source=QuickActions") ; built in combo #+s:: is a bit faster
-;<!l::roar("ahk_exe texstudio.exe", "C:\Program Files\texstudio\texstudio.exe",,TARGET_2:="C:\Program Files (x86)\texstudio\texstudio.exe") ; NB!
 <!l::roar("ahk_exe texstudio.exe","C:\Program Files\texstudio\texstudio.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="ahk_class Qt620QWindowIcon",Mode:=1,Parambox:=0,ID_3:="")
-;<!ö - save as
+;<!ö - 
 ;<!ä
 
 ;---------------------------------------<zxcvbnm,.----------------------------------------
@@ -336,98 +338,10 @@ Return
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; 2.0 Simple typing
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; email formalities
-#IfWinNotActive ahk_exe rstudio.exe
-;formal tone
-<^<!o::
-Send,I hope this message finds you well{.}{Enter}{Enter}{Enter}{Enter}
-Send,Wishing you a great day ahead.{Enter}{Enter}
-Send,Kind regards{,}{Enter}{Up}{Up}{Up}{Up}{Up}
-Return
 
-;informal tone
-<^<!i::
-Send,I hope your day is off to a good start{.}{Enter}{Enter}{Enter}{Enter}
-Send,Have a good one{!}{Enter}{Enter}
-Send,Take care{,}{Enter}{Up}{Up}{Up}{Up}{Up}
-Return
-#IfWinNotActive
-
-;Typing special characters
-;En dash
-<#n::
-Send,–
-Return
-
-;Em dash
-<#m::
-Send,—
-Return
-
-
-;REFERENCE MISSING
-;reference missing / add reference later
-<^<!f::
-Send,{(}{!}{!}{!}REF{)}
-Return
-
-;;-------------------------------------------------------------------
-;Software specific
-
-
-;-------TEXSTUDIO-------
-; typing \keys
-#IfWinActive ahk_exe texstudio.exe
-<^k::
-;Send, keys
-Send,  {\}keys{{}{}}{left}
-;Send, {left}
-Return
-#IfWinActive
-Return
-
-;;-----------------------
-;;-------RSTUDIO-------
-; Matrix multiplication in Rstudio - shorcut for %*%
-#IfWinActive ahk_exe rstudio.exe
-<^'::
-Send,{SHIFT DOWN}5'5{SHIFT UP}
-Return
-#IfWinActive
-
-;;-----------------------
-;-------ADOBE READER/ACROBAT-------
-; Inverse colors in adobe reader (you might have to set sensible settings first)
-; For some reason the input level will have to be 0 for this to work with the spotify alt+ctrl.
-If WinActive(ahk_exe acrobat.exe) || WinActive(ahk_exe acrord32.exe)
-{
-$<^$!k::
-Send,{Ctrl down}k{Ctrl up}
-Winwait,Preferences
-;ac for accessibility settings, then navigate to first checkbox to replace document colors
-Send,ac{pause}{TAB}{pause}{SPACE}{pause}{ENTER}
-;Send,ac{pause}{pause}{pause}{TAB}{pause}{pause}{pause}{SPACE}{pause}{pause}{pause}{ENTER}
-Return
-}
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;2.1 plainpaste microsoft office
-$^$+$v::
-Send, {Control down}{Alt down}v{Control up}{Alt up}{pause}{pause}{pause}{pause}{pause}{down}{pause}{down}{pause}{down}{pause}{down}{pause}{enter}
-Return
-#IfWinActive
-
-#IfWinActive ahk_exe powerpnt.exe
-$^$+$v::
-Send, {Control down}{Alt down}v{Control up}{Alt up}{pause}{pause}{pause}{pause}{pause}{tab}{pause}{down}{down}{pause}{enter}
-Return
-#IfWinActive
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 2.2 Saving references to Zotero in firefox and chrome and other zotero functions
+;; 2.1 Saving references to Zotero in firefox and chrome and other zotero functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -505,7 +419,6 @@ else
 Return
 #IfWinActive
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 
@@ -559,7 +472,7 @@ Return
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; 2.3
+; 2.2
 ;WORKAROUNDS FOR WORD THAT DOES NOT HAVE SPECIAL CHARACTERS OR SCANDINAVIAN LETTERS AS wdKeys
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; NB! You need the VBA code for these to work
@@ -618,11 +531,14 @@ SetTitleMatchMode, 1
 
 
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; 2.3
+; VScode, citing and zotero
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-;2.4. VScode, citing and zotero
-
+;2.3. VScode, citing and zotero
+;;----------------------------------------------------------------------------------------------------------------------------------------
 ;Note that you can also assign shortcuts in VS Studio (file->preferences->keyboard shortcuts)
 
 If Winactive("ahk_exe code.exe")
@@ -697,7 +613,107 @@ If Winactive("ahk_exe code.exe")
 
 ;-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; 2.4 
+; General Windows Life Hacks
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+; email formalities
+#IfWinNotActive ahk_exe rstudio.exe
+;formal tone
+<^<!o::
+Send,I hope this message finds you well{.}{Enter}{Enter}{Enter}{Enter}
+Send,Wishing you a great day ahead.{Enter}{Enter}
+Send,Kind regards{,}{Enter}{Up}{Up}{Up}{Up}{Up}
+Return
+
+;informal tone
+<^<!i::
+Send,I hope your day is off to a good start{.}{Enter}{Enter}{Enter}{Enter}
+Send,Have a good one{!}{Enter}{Enter}
+Send,Take care{,}{Enter}{Up}{Up}{Up}{Up}{Up}
+Return
+#IfWinNotActive
+
+;Typing special characters
+;En dash
+<#n::
+Send,–
+Return
+
+;Em dash
+<#m::
+Send,—
+Return
+
+
+;;-----------------------
+;-------ADOBE READER/ACROBAT-------
+; Inverse colors in adobe reader (you might have to set sensible settings first)
+; For some reason the input level will have to be 0 for this to work with the spotify alt+ctrl.
+If WinActive(ahk_exe acrobat.exe) || WinActive(ahk_exe acrord32.exe)
+{
+$<^$!k::
+Send,{Ctrl down}k{Ctrl up}
+Winwait,Preferences
+;ac for accessibility settings, then navigate to first checkbox to replace document colors
+Send,ac
+Sleep, 60
+Send,{TAB}
+Sleep, 20
+Send,{SPACE}
+Sleep, 20
+Send,{ENTER}
+;Send,ac{pause}{pause}{pause}{TAB}{pause}{pause}{pause}{SPACE}{pause}{pause}{pause}{ENTER}
+Return
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;2.1 plainpaste microsoft office
+#If (WinActive("ahk_exe outlook.exe") or WinActive("ahk_exe winword.exe") or WinActive("ahk_exe powerpnt.exe"))
+$^$+$v::
+Send, {Control down}{Alt down}v{Control up}{Alt up}
+Sleep,80
+;If options selected, will choose the bottom,
+Loop, 6
+	{
+	Send,{down}{pause}
+	}
+;Goes to select plainpaste, if not selected already
+Send, {tab}
+Sleep, 30
+; goes down or toggles between OK and cancel before selecting OK
+Loop, 6
+	{
+	Send,{down}{pause}
+	}
+Sleep,20
+Send, {enter}
+Return
+#IfWinActive
+
+/*
+#IfWinActive ahk_exe powerpnt.exe
+$^$+$v::
+Send,{Control down}{Alt down}v{Control up}{Alt up}
+Sleep, 80
+Send,{tab}
+Sleep,80
+Send, {down}{down}
+Sleep, 80
+Send,{enter}
+Return
+#IfWinActive
+*/
+
+Send,{Control down}{down}{Control up}
+Sleep, 80
+Send,{tab}{tab}{tab}{tab}{tab}{space}
+Sleep, 80
+Send,{enter}
+Sleep, 80
+Send,{enter}
+Return
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  
 ;;;; 3. OTHER
