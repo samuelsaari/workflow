@@ -187,36 +187,38 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 ;<!7 - see dep
 ;<!8
 ;<!9 
-;<!0 - 
+<!0::roar("- Paint 3D","ms-paint:",,,,,mode:=2)
 ;<!+:: 
 
 ;---------------------------------------qwertyuiopå---------------------------------------
 <!q::roar("ahk_class XLMAIN", "excel.exe")
 <!w::roar("ahk_class OpusApp", "winword.exe") ; WORD
-; <!e:: ;- see section 2 for  zotero maneouvers
-;<!r - (Quick format citation)
+;<!e::roar("ahk_exe zotero.exe", "zotero.exe") ; (- see section 2 for  zotero maneouvers)
+<!e::roar("ahk_exe zotero.exe", "zotero.exe",EX_TITLE:="Quick Format Citation",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Parambox:=0,ID_3:="")
+;<!r - 
 ;<!t
 <!y::roar("ahk_exe filezilla.exe", "filezilla.exe")
 ;<!u:: 
-<!i::roar("Photos ahk_class ApplicationFrameWindow","ms-photos:",,,,,Mode:=2)
+;<!i::roar("Photos ahk_class ApplicationFrameWindow","ms-photos:",,,,,Mode:=2)
+<!i::roar("Pictureflect Photo Viewer ahk_class ApplicationFrameWindow","pictureflect-photo-viewer.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=2,Parambox:=0,ID_3:="") ; https://pictureflect.com/how-to/app-scripting-help
 <!o::roar("ahk_exe opera.exe", "opera.exe")
 <!p::roar("ahk_exe mspub.exe", "mspub.exe") ; PUBLISHER
-<!å::roar("- Paint 3D","ms-paint:",,,,,mode:=2)
+;<!å::
 
 ;--------------------------------------- asdfghjklöä-----------------------------------------
 <!CAPSLOCK::roar("ahk_class MozillaWindowClass", "firefox.exe",EX_TITLE:="Quick Format Citation",EX_AHK:="ahk_exe zotero.exe",TARGET_2:="C:\Program Files\Mozilla Firefox\firefox.exe")
 <!a::roar("ahk_class CabinetWClass", "explorer.exe")
 <!s::roar("ahk_exe code.exe", "\AppData\Local\Programs\Microsoft VS Code\Code.exe", "Google Keep")
 <!d::roar("ahk_exe teams.exe", "\AppData\Local\Microsoft\Teams\Update.exe --processStart Teams.exe")
-;<!f
+<!f::roar("ahk_exe slack.exe", "\AppData\Local\slack\slack.exe")
 <!g::roar("ahk_class gdkWindowToplevel", "C:\Program Files\GIMP 2\bin\gimp-2.10.exe") ;NB!
-;<!ht
+;<!h
 ;<!j::roar("ahk_exe MobaXterm.exe", "C:\Program Files (x86)\Mobatek\MobaXterm\MobaXterm.exe")
 <!j::roar("ahk_exe MobaXterm.exe", "C:\Program Files (x86)\Mobatek\MobaXterm\MobaXterm.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="ahk_class TMobaXtermForm",Mode:=1,Parambox:=0,ID_3:="")
 <!k::roar("Snip & Sketch ahk_class ApplicationFrameWindow", "ms-screenclip:?source=QuickActions") ; built in combo #+s:: is a bit faster
 <!l::roar("ahk_exe texstudio.exe","C:\Program Files\texstudio\texstudio.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="ahk_class Qt620QWindowIcon",Mode:=1,Parambox:=0,ID_3:="")
 ;<!ö - 
-;<!ä
+<!ä::roar("Quick Format Citation","zotero.exe",EX_TITLE:="Zotero",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=2,Parambox:=0,ID_3:="") ; See also section 2. for other Zotero hotkeys
 
 ;---------------------------------------<zxcvbnm,.----------------------------------------
 <!SHIFT::roar("ahk_exe chrome.exe", "chrome.exe", "Google Keep")
@@ -256,19 +258,27 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; "ahk_class ZPContentWndClass"
 
-;Close current window
+;Close current window and forcekill stubborn processes
 #IfWinNotActive, Program Manager ;this, and following prevents windows from getting rid of desktop items
 #IfWinNotActive, "" 
 #IfWinNotActive, ahk_class WorkerW
 <!ESC::
 SetTitleMatchMode, 1
 if Winactive("Zoom") && !Winexist("Zoom Meeting")
-    run, taskkill /f /im zoom.exe
+	{
+		run, taskkill /f /im zoom.exe ; might not be needed anymore
+		Return
+	}
+else if Winactive("ahk_exe Teams.exe")
+	{
+		run, taskkill /f /im Teams.exe ; this might not be needed in the future
+		Return
+	}
 Else 
 	WinClose A
 Return
 #IfWinNotActive
- 
+ Return
 
 
 ; Toggle tooltip (same hotkey exits in the tooltip.ahk file)
@@ -281,7 +291,7 @@ IfWinNotExist,tooltip.ahk
 		Run, "%UserProfile%\OneDrive\Autohotkey\Useful_material\tooltip.ahk" ;NB!
 		Return
 	} catch e{
-		MsgBox, not implemented yet
+		MsgBox, not implemented yet `n Search for "Toggle tooltip" in the the windows_workflow.ahk script 
 		Return
 	}
 SetTitleMatchMode, 1
@@ -338,156 +348,11 @@ Return
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 2.1 Saving references to Zotero in firefox and chrome and other zotero functions
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;Run or Activate Zotero and quick format citation
-<!e:: 
-if (WinActive("Zotero") && WinExist("Quick Format Citation"))
-	{
-	WinActivate, Quick Format Citation
-	Return
-	}
-else if (WinActive("Zotero") && !WinExist("Quick Format Citation"))
-	{
-	WinGet,WinState,MinMax,ahk_exe zotero.exe
-	If WinState = -1
-	   WinMaximize
-	else
-	   WinMinimize
-	Return
-	}
-else if (WinExist("Zotero") && WinExist("Quick Format Citation"))
-{
-	WinGet, List, List, Zotero
-	Loop, % List
-	{
-		index := List - A_Index + 1
-		WinGet, State, MinMax, % "ahk_id " List%index%
-		if (State <> -1)
-		{
-			WinID := List%index%
-			break
-		}
-	}
-	WinActivate, % "ahk_id " WinID
-}
-else if WinExist("Zotero")
-	Winactivate
-else
-{	
-	Run, zotero.exe,,,OutputVarPID
-	WinWait, ahk_pid %OutputVarPID%
-	WinActivate, ahk_pid %OutputVarPID%
-}
-Return
-
-
-
-; Adding a zotero reference
-
-#IfWinActive, ahk_exe firefox.exe
-^+s::
-If !Winexist("ahk_exe zotero.exe")
-{
-	Run, zotero.exe,,,OutputVarPID
-	WinWait, ahk_pid %OutputVarPID%
-	WinActivate, ahk_exe firefox.exe
-}
-	Send, {Ctrl down}{Shift down}s{pause}{Shift up}{Ctrl up}
-	Return
-	
-#IfWinActive
-
-#IfWinActive, ahk_exe chrome.exe
-^+s::
-If Winexist("ahk_exe zotero.exe")
-{
-Send, {Ctrl down}{Shift down}s{pause}{Shift up}{Ctrl up}
-}
-else
-{	
-	Run, zotero.exe,,,OutputVarPID
-	WinWait, ahk_pid %OutputVarPID%
-	WinActivate, ahk_exe chrome.exe
-	Send, {Ctrl down}{Shift down}s{pause}{Shift up}{Ctrl up}
-}
-Return
-#IfWinActive
-
-
-
-
-;; -  Making word do Zotero related stuff with Ctrl & å - NB! change this to your key of liking
-
-$^å::
-If !WinActive("Quick Format Citation") && WinActive("ahk_class OpusApp") && Winexist("Zotero")
-{
-Send, ^+!j ; ZoteroAddEditCitation. this only works with the word macro (see the VBA script file)
-;Send, {Ctrl down}å{Ctrl up} ; ZoteroAddEditCitation. this only works with the word macro (see the VBA script file)
-Return
-}
-If !WinExist("Quick Format Citation") && WinActive("ahk_class OpusApp") && !Winexist("Zotero")
-{	
-	Run, zotero.exe,,,OutputVarPID
-	WinWait, ahk_pid %OutputVarPID%
-	WinActivate, ahk_class OpusApp
-	Send, ^+!j ; ZoteroAddEditCitation. this only works with the word macro (see the VBA script file)
-	;Send, {Ctrl down}å{Ctrl up} ; ZoteroAddEditCitation. this only works with the word macro (see the VBA script file)
-	WinWait, Quick Format Citation
-    WinActivate, Quick Format Citation
-	Return
-}
-; Activate Quick format citation under certain conditions with Alt & r or suppress the author
-If !WinActive("Quick Format Citation") && WinExist("Quick Format Citation") && !WinActive("ahk_class OpusApp")
-{
-WinActivate, Quick Format Citation
-Return
-}
-;Suppress Author
-If WinActive("Quick Format Citation")
-{
-;old ahk
-;send,  {Control down}{down}{Control up}{pause}{pause}{pause}{pause}{pause}{tab}{tab}{tab}{tab}{tab}{space}{pause}{pause}{pause}{enter}{pause}{pause}{enter}
-
-; new, quicker ahk
-Send,{Control down}{down}{Control up}
-Sleep, 80
-Send,{tab}{tab}{tab}{tab}{tab}{space}
-Sleep, 80
-Send,{enter}
-Sleep, 80
-Send,{enter}
-Return
-}
-Return
-
-
-;SetTitleMatchMode, 1
-
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; 2.2
+; 2.1
 ;WORKAROUNDS FOR WORD THAT DOES NOT HAVE SPECIAL CHARACTERS OR SCANDINAVIAN LETTERS AS wdKeys
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; NB! You need the VBA code for these to work
-
-;ZoteroAddEditBibliography_SC
-; press ctrl + Shift + B (built in in word, no ahk needed)
-
-
-;Refresh bibliography
-;note that word's own ctrl/alt/r works
-#IfWinActive, ahk_exe winword.exe
-$^+å::
-Send, ^+!r
-Return
-#IfWinActive
 
 
 ;Make paragraph green
@@ -502,7 +367,7 @@ Return
 ;Remove color from paragraph
 ;selecthighlightR
 #IfWinActive, ahk_exe winword.exe
-$^ä::
+$^+ö::
 Send, ^+!k
 Return
 #IfWinActive
@@ -515,19 +380,115 @@ Send, ^+!p
 Return
 #IfWinActive
 
-;Select paragraph, make norma
+;Select paragraph, make normal
 ;Normal_selectSC
 #IfWinActive, ahk_exe winword.exe
-$^¨::
+$^+'::
 Send, ^+!n
 Return
+#IfWinActive
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;ZoteroAddEditBibliography_SC
+; press ctrl + Shift + B (built in in word, no ahk needed)
+
+
+;Refresh bibliography ZOTERO
+;note that word's own ctrl/alt/r works
+#IfWinActive, ahk_exe winword.exe
+$^+ä::
+Send, ^+!r
+Return
+#IfWinActive
+
+SetTitleMatchMode, 1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 2.2 Saving references to Zotero in firefox and chrome and other zotero functions
+;; See also above for bibliography shortcuts in Word
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+AddReference(BROWSER_EXE)
+{
+	If !Winexist("ahk_exe zotero.exe")
+		{
+			Run, zotero.exe,,,OutputVarPID
+			WinWait, ahk_pid %OutputVarPID%
+			Sleep, 300
+			WinActivate, %BROWSER_EXE%
+			;Sleep, 100
+		}
+		else
+		{	
+			if (BROWSER_EXE=="ahk_exe firefox.exe") 
+			{
+			Send, {Ctrl down}{Alt down}f{pause}{Alt up}{Ctrl up}
+			}
+			else if (BROWSER_EXE=="ahk_exe chrome.exe") 
+			{
+			Send, {Ctrl down}{Shift down}s{pause}{Shift up}{Ctrl up}
+			}
+		}
+	Return
+}
+
+
+#IfWinActive, ahk_exe firefox.exe
+$^$+$s::AddReference("ahk_exe firefox.exe")
+#IfWinActive
+
+#IfWinActive, ahk_exe chrome.exe
+$^$+$s::AddReference("ahk_exe chrome.exe")
 #IfWinActive
 
 
 
+;; -  Active Quick Format or Suppress Author Ctrl & ä - NB! change this to your key of liking
+SetKeyDelay,70,10
+$^ä::
+if WinActive("ahk_class OpusApp") && !WinExist("Quick Format Citation")
+	{
+		If !Winexist("ahk_exe zotero.exe")
+		{	
+			;MsgBox, Running Zotero
+			Run, zotero.exe,,,OutputVarPID
+			WinWait, ahk_pid %OutputVarPID%
+			Sleep, 300
+			WinActivate, ahk_class OpusApp	
+		}
+			;Msgbox, pressing CtrlShiftAlt j
+			Send, ^+!j ; ZoteroAddEditCitation. this only works with the word macro (see the VBA script file)
+			WinWait, Quick Format Citation
+			WinActivate, Quick Format Citation
+			Return
+	}
+if !WinActive("Quick Format Citation") && WinExist("Quick Format Citation")
+	{
+		;Msgbox, Activate Quick Format Citation
+		WinActivate, Quick Format Citation
+		Return
+	}
+else if WinActive("Quick Format Citation")
+	{
+		;MsgBox, Suppress Author
+		Send,{Control down}{down}{Control up}
+		Sleep, 80
+		Send,{tab}{tab}{tab}{tab}{tab}{space}
+		Sleep, 80
+		Send,{enter}
+		Sleep, 80
+		Send,{enter}
+		Return
+	}
+Return
+SetKeyDelay,10,-1
 
-SetTitleMatchMode, 1
+;SetTitleMatchMode, 1
+
+
+
+
 
 
 
@@ -541,25 +502,29 @@ SetTitleMatchMode, 1
 ;;----------------------------------------------------------------------------------------------------------------------------------------
 ;Note that you can also assign shortcuts in VS Studio (file->preferences->keyboard shortcuts)
 
-If Winactive("ahk_exe code.exe")
+CiteFromZoteroInVsCode(WHAT_TO_TYPE:="NOTHING")
 {
-	$^$ä::
 	If !Winexist("ahk_exe zotero.exe")
 	{
 		Run, zotero.exe,,,OutputVarPID
 		WinWait, ahk_pid %OutputVarPID%
+		Sleep, 300
 		WinActivate, ahk_exe code.exe
 	}
 	else if WinExist("Quick Format Citation")
 	{
 		if Winactive("Quick Format Citation")
 		{
+			Send,{Enter}
+			Return
+			/*
 			WinGet,WinState,MinMax,Quick Format Citation
 			If WinState = -1 ; minimized
 			   WinRestore, Quick Format Citation
 			else
 			   WinMinimize, Quick Format Citation
 			Return
+			*/
 		}
 		else
 		{
@@ -567,7 +532,27 @@ If Winactive("ahk_exe code.exe")
 			Return
 		}
 	}
-	Send, {Ctrl down}ä{pause}{Ctrl up} ; Ctrl+ö needs to be activated in vscode shortcuts for "Cite from Zotero"
+	if (WHAT_TO_TYPE=="CITEP") 
+		{
+		Send,\citep{{}
+		}
+	else if (WHAT_TO_TYPE=="CITET")
+		{
+		Send,\citet{{}
+		}
+	/*
+	; currently does not work as intended
+	else if (WHAT_TO_TYPE:="NOTHING")
+		{
+		Sleep,0
+		}
+	else if (WHAT_TO_TYPE:="CITEP_BRACKETS")
+		{
+		Send,\citep[][]{{}
+		}
+	*/
+	Sleep,50
+	Send,{Ctrl down}ä{pause}{Ctrl up} ; Ctrl+Ä needs to be activated in vscode shortcuts for "Cite from Zotero"
 	Winwait, Quick Format Citation
 	WinActivate, Quick Format Citation
 	Return
@@ -576,25 +561,19 @@ If Winactive("ahk_exe code.exe")
 
 
 #IfWinActive, ahk_exe code.exe
-	;adding a citation -Citation picker zotero
-	;typing citep and opening quic format citation
-	<$^+$ä::
-	;Send, \citep{{}{ctrl down}{shift down}{p}{ctrl up}{shift up}{pause}{pause}cite from{pause}{pause}{Enter} ; if ctrl+ä not activated
-	Send, \citep{{}{pause}{ctrl down}{ä}{pause}{ctrl up} ; if ctrl+ä activated
-	WinWait, Quick Format Citation
-	WinActivate, Quick Format Citation
-	Return 
 
 
-
-	<^!m::
-	Send,if __name__ == "__main__":
-	Return
-
+	$^$ä::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="")
+	;<$^+$ä::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="CITEP_BRACKETS") ; currently not working
+	<$^+$ö::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="CITEP")
+	<$^+$å::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="CITET")
+	
+	
 #IfWinActive
 
 
-#IfWinNotActive, ahk_exe winword.exe
+#IfWinNotActive, ahk_exe winword.exe 
+#IfWinNotActive, Quick Format Citation
 
 	; typing citep{}
 	<^ö::
@@ -602,12 +581,29 @@ If Winactive("ahk_exe code.exe")
 	Return
 	
 	; typing citet{}
-	<$^$+$ö::
+	<$^å::
 	Send, \citet{{}
 	Return
-
-
+	
+	; typing citep[][]{}
+	<$^+$ä::
+	Send,\citep[][]{{}
+	Return
+	
 #IfWinNotActive
+
+#IfWinActive, Quick Format Citation
+	<^ö::
+	<^å::
+	Send,{Enter}
+#IfWinActive
+
+
+#IfWinActive, ahk_exe code.exe
+	<^!m::
+	Send,if __name__ == "__main__":
+	Return
+#IfWinActive
 
 
 
@@ -651,6 +647,8 @@ Return
 ;-------ADOBE READER/ACROBAT-------
 ; Inverse colors in adobe reader (you might have to set sensible settings first)
 ; For some reason the input level will have to be 0 for this to work with the spotify alt+ctrl.
+
+SetKeyDelay , 70,10
 If WinActive(ahk_exe acrobat.exe) || WinActive(ahk_exe acrord32.exe)
 {
 $<^$!k::
@@ -670,26 +668,37 @@ Return
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;2.1 plainpaste microsoft office
+
 #If (WinActive("ahk_exe outlook.exe") or WinActive("ahk_exe winword.exe") or WinActive("ahk_exe powerpnt.exe"))
 $^$+$v::
-Send, {Control down}{Alt down}v{Control up}{Alt up}
-Sleep,80
-;If options selected, will choose the bottom,
-Loop, 6
-	{
-	Send,{down}{pause}
-	}
-;Goes to select plainpaste, if not selected already
-Send, {tab}
-Sleep, 30
-; goes down or toggles between OK and cancel before selecting OK
-Loop, 6
-	{
-	Send,{down}{pause}
-	}
+if WinActive("ahk_exe powerpnt.exe")
+	POWERPOINT:=1
+else
+	POWERPOINT:=0
+Send, {Control down}{pause}{Alt down}{pause}v{pause}{Control up}{pause}{Alt up}
+Winwait,Paste Special,,1 ; wait for X seconds max
+Winactivate
 Sleep,20
-Send, {enter}
-Return
+If !WinExist("Paste Special")
+{
+	MsgBox, Paste special window did not open `n Press Enter and try again
+	Return
+}
+else
+	{
+	;If options selected, will choose the bottom,
+	if (POWERPOINT==1)
+		{
+		;Msgbox, powerpoint active
+		Send,{tab}
+		Sleep,20
+		}
+	Send,u
+	Sleep,20
+	Send, {enter}
+	Return
+	}
+
 #IfWinActive
 
 /*
@@ -706,14 +715,6 @@ Return
 #IfWinActive
 */
 
-Send,{Control down}{down}{Control up}
-Sleep, 80
-Send,{tab}{tab}{tab}{tab}{tab}{space}
-Sleep, 80
-Send,{enter}
-Sleep, 80
-Send,{enter}
-Return
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  
 ;;;; 3. OTHER
@@ -762,3 +763,6 @@ Return
 	return
 }
 */
+
+;SetKeyDelay back to default
+SetKeyDelay , 10, -1
