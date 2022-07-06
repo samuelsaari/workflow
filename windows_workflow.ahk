@@ -9,6 +9,24 @@ EnvGet, UserProfile, UserProfile ; Get userprofile from system variables
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
+; defining whether to use biblatex or natbib
+global biblatex := 1
+
+if (biblatex==1)
+{
+msgbox, biblatex 1
+global cite_normal:="\autocite{{}"
+global cite_text :="\textcite{{}"
+Return
+}
+else
+{
+msgbox, biblatex not 1
+global cite_normal :="\citep{{}"
+global cite_text :="\citet{{}"
+Return
+}
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Windows workflow
 ;;;; Author: Miika Mäki
@@ -502,6 +520,9 @@ SetKeyDelay,10,-1
 ;;----------------------------------------------------------------------------------------------------------------------------------------
 ;Note that you can also assign shortcuts in VS Studio (file->preferences->keyboard shortcuts)
 
+
+;Biblatex or Natbib globals defined at the beginning of this script
+
 CiteFromZoteroInVsCode(WHAT_TO_TYPE:="NOTHING")
 {
 	If !Winexist("ahk_exe zotero.exe")
@@ -532,13 +553,13 @@ CiteFromZoteroInVsCode(WHAT_TO_TYPE:="NOTHING")
 			Return
 		}
 	}
-	if (WHAT_TO_TYPE=="CITEP") 
+	if (WHAT_TO_TYPE=="CITE_NORMAL") 
 		{
-		Send,\citep{{}
+		Send, %cite_normal% ; \citep{{}
 		}
-	else if (WHAT_TO_TYPE=="CITET")
+	else if (WHAT_TO_TYPE=="CITE_TEXT")
 		{
-		Send,\citet{{}
+		Send,%cite_text% ;\citet{{}
 		}
 	/*
 	; currently does not work as intended
@@ -565,29 +586,80 @@ CiteFromZoteroInVsCode(WHAT_TO_TYPE:="NOTHING")
 
 	$^$ä::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="")
 	;<$^+$ä::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="CITEP_BRACKETS") ; currently not working
-	<$^+$ö::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="CITEP")
-	<$^+$å::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="CITET")
+	<$^+$ö::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="CITE_NORMAL")
+	<$^+$å::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="CITE_TEXT")
 	
 	
 #IfWinActive
 
+
+; helper function for the next typings
+AddBraceOutsideVScode()
+{
+if !Winactive("ahk_exe code.exe")
+	{
+		Send,{}}{left}
+	}
+}
+Return
+
+
+CiteFromZoteroInOverleaf(WHAT_TO_TYPE:="NOTHING")
+{
+	if (WHAT_TO_TYPE=="CITEP") 
+		{
+		Send,%cite_normal% ; \citep{{}
+		}
+	else if (WHAT_TO_TYPE=="CITET")
+		{
+		Send,%cite_text% ;\citet{{}
+		}
+	if (WHAT_TO_TYPE!="NOTHING")
+		{
+		AddBraceOutsideVScode()
+		Sleep,145
+		}
+	Send,{Ctrl down}{space}{pause}{Ctrl up} 
+	Return
+}
+
+
+#IfWinActive,Overleaf
+#IfWinActive,ahk_exe chrome.exe
+<^ä::CiteFromZoteroInOverleaf("NOTHING")
+<^+ö::CiteFromZoteroInOverleaf("CITEP")
+<^+å::CiteFromZoteroInOverleaf("CITET")
+#IfWinActive
+
+
+
+
+<^!,::msgbox, %biblatex%
+Return
+
+SetTitleMatchMode,1
 
 #IfWinNotActive, ahk_exe winword.exe 
 #IfWinNotActive, Quick Format Citation
 
 	; typing citep{}
 	<^ö::
-	Send, \citep{{}
+	Send, %cite_normal%	; \autocite{{} ; \citep{{}
+	AddBraceOutsideVScode()
 	Return
 	
 	; typing citet{}
 	<$^å::
-	Send, \citet{{}
+	Send,%cite_text% ;\citet{{}
+	AddBraceOutsideVScode()
 	Return
 	
 	; typing citep[][]{}
 	<$^+$ä::
-	Send,\citep[][]{{}
+	Send, %cite_normal%
+	Send, {backspace}
+	Send,[][]{{} ;\citep[][]{{}
+	AddBraceOutsideVScode()
 	Return
 	
 #IfWinNotActive
@@ -666,9 +738,12 @@ Send,{ENTER}
 Return
 }
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;2.1 plainpaste microsoft office
 
+; not in use
+/*
 #If (WinActive("ahk_exe outlook.exe") or WinActive("ahk_exe winword.exe") or WinActive("ahk_exe powerpnt.exe"))
 $^$+$v::
 if WinActive("ahk_exe powerpnt.exe")
@@ -700,6 +775,9 @@ else
 	}
 
 #IfWinActive
+
+*/
+
 
 /*
 #IfWinActive ahk_exe powerpnt.exe
