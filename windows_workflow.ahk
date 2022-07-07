@@ -14,14 +14,14 @@ global biblatex := 1
 
 if (biblatex==1)
 {
-msgbox, biblatex 1
+;msgbox, biblatex 1
 global cite_normal:="\autocite{{}"
 global cite_text :="\textcite{{}"
 Return
 }
 else
 {
-msgbox, biblatex not 1
+;msgbox, biblatex not 1
 global cite_normal :="\citep{{}"
 global cite_text :="\citet{{}"
 Return
