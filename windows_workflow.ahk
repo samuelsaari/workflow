@@ -10,7 +10,7 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ; defining whether to use biblatex or natbib
-global biblatex := 1
+global biblatex := 0
 
 if (biblatex==1)
 {
@@ -26,6 +26,7 @@ global cite_normal :="\citep{{}"
 global cite_text :="\citet{{}"
 Return
 }
+Return
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Windows workflow
@@ -192,7 +193,8 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 ;---------------------------------------1234567890---------------------------------------
 
 <!§::roar("ahk_class PPTFrameClass", "powerpnt.exe") ; see also <
-<!1::roar("ahk_exe StataSE-64.exe", "C:\Program Files (x86)\Stata15\StataSE-64.exe")
+;<!1::roar("ahk_exe StataSE-64.exe", "C:\Program Files (x86)\Stata15\StataSE-64.exe")
+<!1::roar("ahk_exe StataMP-64.exe", "C:\Program Files\Stata17\StataMP-64.exe")
 <!2::roar("ahk_exe outlook.exe", "outlook.exe")
 ;<!3::roar("ahk_exe acrord32.exe","acrord32.exe") ;ADOBE READER
 ;<!3::roar("ahk_exe acrobat.exe","acrobat.exe") ;ADOBE READER
@@ -213,7 +215,7 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 <!w::roar("ahk_class OpusApp", "winword.exe") ; WORD
 ;<!e::roar("ahk_exe zotero.exe", "zotero.exe") ; (- see section 2 for  zotero maneouvers)
 <!e::roar("ahk_exe zotero.exe", "zotero.exe",EX_TITLE:="Quick Format Citation",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Parambox:=0,ID_3:="")
-;<!r - 
+<!r::roar("ahk_exe discord.exe","C:\Users\mmak\AppData\Local\Discord\Update.exe --processStart Discord.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Parambox:=0,ID_3:="")
 ;<!t
 <!y::roar("ahk_exe filezilla.exe", "filezilla.exe")
 ;<!u:: 
@@ -290,6 +292,11 @@ if Winactive("Zoom") && !Winexist("Zoom Meeting")
 else if Winactive("ahk_exe Teams.exe")
 	{
 		run, taskkill /f /im Teams.exe ; this might not be needed in the future
+		Return
+	}
+else if Winactive("ahk_exe discord.exe")
+	{
+		run, taskkill /f /im discord.exe ; this might not be needed in the future
 		Return
 	}
 Else 
@@ -516,7 +523,7 @@ SetKeyDelay,10,-1
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-;2.3. VScode, citing and zotero
+;2.3. VScode, citing and zoteroc
 ;;----------------------------------------------------------------------------------------------------------------------------------------
 ;Note that you can also assign shortcuts in VS Studio (file->preferences->keyboard shortcuts)
 
@@ -555,41 +562,30 @@ CiteFromZoteroInVsCode(WHAT_TO_TYPE:="NOTHING")
 	}
 	if (WHAT_TO_TYPE=="CITE_NORMAL") 
 		{
-		Send, %cite_normal% ; \citep{{}
+		Send, %cite_normal%
 		}
 	else if (WHAT_TO_TYPE=="CITE_TEXT")
 		{
-		Send,%cite_text% ;\citet{{}
+		Send,%cite_text% 
 		}
-	/*
-	; currently does not work as intended
-	else if (WHAT_TO_TYPE:="NOTHING")
-		{
-		Sleep,0
-		}
-	else if (WHAT_TO_TYPE:="CITEP_BRACKETS")
-		{
-		Send,\citep[][]{{}
-		}
-	*/
 	Sleep,50
 	Send,{Ctrl down}ä{pause}{Ctrl up} ; Ctrl+Ä needs to be activated in vscode shortcuts for "Cite from Zotero"
 	Winwait, Quick Format Citation
 	WinActivate, Quick Format Citation
 	Return
 }
-
+Return
 
 
 #IfWinActive, ahk_exe code.exe
 
 
-	$^$ä::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="")
+	$^$ä::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="NOTHING")
 	;<$^+$ä::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="CITEP_BRACKETS") ; currently not working
-	<$^+$ö::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="CITE_NORMAL")
-	<$^+$å::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="CITE_TEXT")
+	<$^+$ö::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="NOTHING")
+	<$^+$å::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="NOTHING")
 	
-	
+	Return
 #IfWinActive
 
 
@@ -606,13 +602,13 @@ Return
 
 CiteFromZoteroInOverleaf(WHAT_TO_TYPE:="NOTHING")
 {
-	if (WHAT_TO_TYPE=="CITEP") 
+	if (WHAT_TO_TYPE=="CITE_NORMAL") 
 		{
-		Send,%cite_normal% ; \citep{{}
+		Send,%cite_normal% 
 		}
-	else if (WHAT_TO_TYPE=="CITET")
+	else if (WHAT_TO_TYPE=="CITE_TEXT")
 		{
-		Send,%cite_text% ;\citet{{}
+		Send,%cite_text%
 		}
 	if (WHAT_TO_TYPE!="NOTHING")
 		{
@@ -627,8 +623,8 @@ CiteFromZoteroInOverleaf(WHAT_TO_TYPE:="NOTHING")
 #IfWinActive,Overleaf
 #IfWinActive,ahk_exe chrome.exe
 <^ä::CiteFromZoteroInOverleaf("NOTHING")
-<^+ö::CiteFromZoteroInOverleaf("CITEP")
-<^+å::CiteFromZoteroInOverleaf("CITET")
+<^+ö::CiteFromZoteroInOverleaf("CITE_NORMAL")
+<^+å::CiteFromZoteroInOverleaf("CITE_TEXT")
 #IfWinActive
 
 
@@ -644,13 +640,13 @@ SetTitleMatchMode,1
 
 	; typing citep{}
 	<^ö::
-	Send, %cite_normal%	; \autocite{{} ; \citep{{}
+	Send, %cite_normal%
 	AddBraceOutsideVScode()
 	Return
 	
 	; typing citet{}
 	<$^å::
-	Send,%cite_text% ;\citet{{}
+	Send,%cite_text% 
 	AddBraceOutsideVScode()
 	Return
 	
@@ -658,7 +654,7 @@ SetTitleMatchMode,1
 	<$^+$ä::
 	Send, %cite_normal%
 	Send, {backspace}
-	Send,[][]{{} ;\citep[][]{{}
+	Send,[][]{{}
 	AddBraceOutsideVScode()
 	Return
 	
@@ -674,6 +670,17 @@ SetTitleMatchMode,1
 #IfWinActive, ahk_exe code.exe
 	<^!m::
 	Send,if __name__ == "__main__":
+	Return
+	
+	<^+v::
+	Send,print(f"{{}'
+	Send,^v
+	Send,':<30{}}
+	Send,{{}
+	Send,^v
+	Send,{}}
+	Send,")
+	;Send,{right}{right}
 	Return
 #IfWinActive
 
