@@ -338,7 +338,7 @@ docs/
 po/*~
 
 # shortcuts?
-.Endscripts.ahk-Shortcut
+*.lnk
 
 #folders
 backup/
