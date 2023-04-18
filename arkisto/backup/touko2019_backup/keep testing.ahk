@@ -1,0 +1,2 @@
+^!m::
+Run, Spotify.Exe

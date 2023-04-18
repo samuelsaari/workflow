@@ -1,0 +1,3 @@
+^!h::
+Run, explorer.exe
+Return

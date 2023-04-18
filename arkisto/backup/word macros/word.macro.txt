@@ -1,0 +1,20 @@
+' http://www.vbaexpress.com/kb/getarticle.php?kb_id=621
+
+
+Sub AddKeyBinding()
+    With Application
+         ' \\ Do customization in THIS document
+        .CustomizationContext = ThisDocument
+         
+         ' \\ Add keybinding to this document Shorcut: Alt+0
+        .KeyBindings.Add KeyCode:=BuildKeyCode(wdKeyAlt, wdKey0), _
+        KeyCategory:=wdKeyCategoryCommand, _
+        Command:="TestKeybinding"
+    End With
+End Sub
+
+ 
+ ' \\ Test sub for keybinding
+Sub TestKeybinding()
+    MsgBox "We have a winner", vbInformation, "Succes"
+End Sub

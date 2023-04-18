@@ -1,4 +1,4 @@
-﻿;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;; Preliminaries;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 #NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
@@ -10,7 +10,7 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ; defining whether to use biblatex or natbib
-global biblatex := 1
+global biblatex := 0
 
 if (biblatex==1)
 {
@@ -26,7 +26,6 @@ global cite_normal :="\citep{{}"
 global cite_text :="\citet{{}"
 Return
 }
-Return
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Windows workflow
@@ -221,8 +220,7 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 ;<!u:: 
 ;<!i::roar("Photos ahk_class ApplicationFrameWindow","ms-photos:",,,,,Mode:=2)
 <!i::roar("Pictureflect Photo Viewer ahk_class ApplicationFrameWindow","pictureflect-photo-viewer.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=2,Parambox:=0,ID_3:="") ; https://pictureflect.com/how-to/app-scripting-help
-<!o::roar(ID_1:="ahk_exe spotify.exe",TARGET_1:="\AppData\Roaming\Spotify\Spotify.exe", , ,TARGET_2:="\AppData\Local\Microsoft\WindowsApps\Spotify.exe")
-
+<!o::roar("ahk_exe opera.exe", "opera.exe")
 <!p::roar("ahk_exe mspub.exe", "mspub.exe") ; PUBLISHER
 ;<!å::
 
@@ -261,7 +259,7 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 
 
 ;---------------------------------------CtrlWinAltSPACE---------------------------------------
-<!LCTRL::roar("ahk_exe opera.exe", "opera.exe")
+<!LCTRL::roar(ID_1:="ahk_exe spotify.exe",TARGET_1:="\AppData\Roaming\Spotify\Spotify.exe", , ,TARGET_2:="\AppData\Local\Microsoft\WindowsApps\Spotify.exe")
 <!LWIN::roar("Google Keep", "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --app=https://keep.google.com", , ,TARGET_2:="C:\Program Files\Google\Chrome\Application\chrome.exe --app=https://keep.google.com",ID_2:="",mode:=2,ParamBox:=0) ;NB!
 ;ahk_exe chrome.exe"
 ;<!SPACE::roar("A") ; Active process. Does not work
@@ -524,7 +522,7 @@ SetKeyDelay,10,-1
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-;2.3. VScode, citing and zoteroc
+;2.3. VScode, citing and zotero
 ;;----------------------------------------------------------------------------------------------------------------------------------------
 ;Note that you can also assign shortcuts in VS Studio (file->preferences->keyboard shortcuts)
 
@@ -563,30 +561,41 @@ CiteFromZoteroInVsCode(WHAT_TO_TYPE:="NOTHING")
 	}
 	if (WHAT_TO_TYPE=="CITE_NORMAL") 
 		{
-		Send, %cite_normal%
+		Send, %cite_normal% ; \citep{{}
 		}
 	else if (WHAT_TO_TYPE=="CITE_TEXT")
 		{
-		Send,%cite_text% 
+		Send,%cite_text% ;\citet{{}
 		}
+	/*
+	; currently does not work as intended
+	else if (WHAT_TO_TYPE:="NOTHING")
+		{
+		Sleep,0
+		}
+	else if (WHAT_TO_TYPE:="CITEP_BRACKETS")
+		{
+		Send,\citep[][]{{}
+		}
+	*/
 	Sleep,50
 	Send,{Ctrl down}ä{pause}{Ctrl up} ; Ctrl+Ä needs to be activated in vscode shortcuts for "Cite from Zotero"
 	Winwait, Quick Format Citation
 	WinActivate, Quick Format Citation
 	Return
 }
-Return
+
 
 
 #IfWinActive, ahk_exe code.exe
 
 
-	$^$ä::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="NOTHING")
+	$^$ä::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="")
 	;<$^+$ä::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="CITEP_BRACKETS") ; currently not working
-	<$^+$ö::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="NOTHING")
-	<$^+$å::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="NOTHING")
+	<$^+$ö::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="CITE_NORMAL")
+	<$^+$å::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="CITE_TEXT")
 	
-	Return
+	
 #IfWinActive
 
 
@@ -603,13 +612,13 @@ Return
 
 CiteFromZoteroInOverleaf(WHAT_TO_TYPE:="NOTHING")
 {
-	if (WHAT_TO_TYPE=="CITE_NORMAL") 
+	if (WHAT_TO_TYPE=="CITEP") 
 		{
-		Send,%cite_normal% 
+		Send,%cite_normal% ; \citep{{}
 		}
-	else if (WHAT_TO_TYPE=="CITE_TEXT")
+	else if (WHAT_TO_TYPE=="CITET")
 		{
-		Send,%cite_text%
+		Send,%cite_text% ;\citet{{}
 		}
 	if (WHAT_TO_TYPE!="NOTHING")
 		{
@@ -624,8 +633,8 @@ CiteFromZoteroInOverleaf(WHAT_TO_TYPE:="NOTHING")
 #IfWinActive,Overleaf
 #IfWinActive,ahk_exe chrome.exe
 <^ä::CiteFromZoteroInOverleaf("NOTHING")
-<^+ö::CiteFromZoteroInOverleaf("CITE_NORMAL")
-<^+å::CiteFromZoteroInOverleaf("CITE_TEXT")
+<^+ö::CiteFromZoteroInOverleaf("CITEP")
+<^+å::CiteFromZoteroInOverleaf("CITET")
 #IfWinActive
 
 
@@ -641,13 +650,13 @@ SetTitleMatchMode,1
 
 	; typing citep{}
 	<^ö::
-	Send, %cite_normal%
+	Send, %cite_normal%	; \autocite{{} ; \citep{{}
 	AddBraceOutsideVScode()
 	Return
 	
 	; typing citet{}
 	<$^å::
-	Send,%cite_text% 
+	Send,%cite_text% ;\citet{{}
 	AddBraceOutsideVScode()
 	Return
 	
@@ -655,7 +664,7 @@ SetTitleMatchMode,1
 	<$^+$ä::
 	Send, %cite_normal%
 	Send, {backspace}
-	Send,[][]{{}
+	Send,[][]{{} ;\citep[][]{{}
 	AddBraceOutsideVScode()
 	Return
 	
@@ -676,12 +685,12 @@ SetTitleMatchMode,1
 	<^+v::
 	Send,print(f"{{}'
 	Send,^v
-	Send,':<30{}}
+	Send,':<20{}}
 	Send,{{}
 	Send,^v
 	Send,{}}
 	Send,")
-	;Send,{right}{right}
+	Send,{right}{right}
 	Return
 #IfWinActive
 

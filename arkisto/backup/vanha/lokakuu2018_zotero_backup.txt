@@ -1,0 +1,26 @@
+;ZOTERO PLUGIN HOTKEYS
+#IfWinActive, ahk_class MozillaDialogClass
+
+;Suppress Author
+$^å::send, {Control down}{down}{Control up}{pause}{pause}{pause}{pause}{tab}{tab}{tab}{tab}{tab}{pause}{space}{pause}{enter}{pause}{pause}{enter}
+
+#IfWinActive
+
+Return
+
+;;;;;;;;;;;ei toimi
+;ZOTERO PLUGIN HOTKEYS
+#IfWinActive, ahk_class MozillaDialogClass
+
+;Suppress Author
+$^å:: Send, {Control down}{down}{Control up}
+Sleep, 1000
+Send, {tab}{tab}{tab}{tab}{tab}{pause}{space}
+Sleep, 1000
+Send, {enter}
+Sleep, 1000
+Send, {enter}
+
+#IfWinActive
+
+Return

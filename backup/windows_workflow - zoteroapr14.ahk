@@ -9,25 +9,6 @@ EnvGet, UserProfile, UserProfile ; Get userprofile from system variables
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
-; defining whether to use biblatex or natbib
-global biblatex := 1
-
-if (biblatex==1)
-{
-;msgbox, biblatex 1
-global cite_normal:="\autocite{{}"
-global cite_text :="\textcite{{}"
-Return
-}
-else
-{
-;msgbox, biblatex not 1
-global cite_normal :="\citep{{}"
-global cite_text :="\citet{{}"
-Return
-}
-Return
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Windows workflow
 ;;;; Author: Miika Mäki
@@ -193,8 +174,7 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 ;---------------------------------------1234567890---------------------------------------
 
 <!§::roar("ahk_class PPTFrameClass", "powerpnt.exe") ; see also <
-;<!1::roar("ahk_exe StataSE-64.exe", "C:\Program Files (x86)\Stata15\StataSE-64.exe")
-<!1::roar("ahk_exe StataMP-64.exe", "C:\Program Files\Stata17\StataMP-64.exe")
+<!1::roar("ahk_exe StataSE-64.exe", "C:\Program Files (x86)\Stata15\StataSE-64.exe")
 <!2::roar("ahk_exe outlook.exe", "outlook.exe")
 ;<!3::roar("ahk_exe acrord32.exe","acrord32.exe") ;ADOBE READER
 ;<!3::roar("ahk_exe acrobat.exe","acrobat.exe") ;ADOBE READER
@@ -215,14 +195,13 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 <!w::roar("ahk_class OpusApp", "winword.exe") ; WORD
 ;<!e::roar("ahk_exe zotero.exe", "zotero.exe") ; (- see section 2 for  zotero maneouvers)
 <!e::roar("ahk_exe zotero.exe", "zotero.exe",EX_TITLE:="Quick Format Citation",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Parambox:=0,ID_3:="")
-<!r::roar("ahk_exe discord.exe","C:\Users\mmak\AppData\Local\Discord\Update.exe --processStart Discord.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Parambox:=0,ID_3:="")
+;<!r - 
 ;<!t
 <!y::roar("ahk_exe filezilla.exe", "filezilla.exe")
 ;<!u:: 
 ;<!i::roar("Photos ahk_class ApplicationFrameWindow","ms-photos:",,,,,Mode:=2)
 <!i::roar("Pictureflect Photo Viewer ahk_class ApplicationFrameWindow","pictureflect-photo-viewer.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=2,Parambox:=0,ID_3:="") ; https://pictureflect.com/how-to/app-scripting-help
-<!o::roar(ID_1:="ahk_exe spotify.exe",TARGET_1:="\AppData\Roaming\Spotify\Spotify.exe", , ,TARGET_2:="\AppData\Local\Microsoft\WindowsApps\Spotify.exe")
-
+<!o::roar("ahk_exe opera.exe", "opera.exe")
 <!p::roar("ahk_exe mspub.exe", "mspub.exe") ; PUBLISHER
 ;<!å::
 
@@ -261,7 +240,7 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 
 
 ;---------------------------------------CtrlWinAltSPACE---------------------------------------
-<!LCTRL::roar("ahk_exe opera.exe", "opera.exe")
+<!LCTRL::roar(ID_1:="ahk_exe spotify.exe",TARGET_1:="\AppData\Roaming\Spotify\Spotify.exe", , ,TARGET_2:="\AppData\Local\Microsoft\WindowsApps\Spotify.exe")
 <!LWIN::roar("Google Keep", "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --app=https://keep.google.com", , ,TARGET_2:="C:\Program Files\Google\Chrome\Application\chrome.exe --app=https://keep.google.com",ID_2:="",mode:=2,ParamBox:=0) ;NB!
 ;ahk_exe chrome.exe"
 ;<!SPACE::roar("A") ; Active process. Does not work
@@ -293,11 +272,6 @@ if Winactive("Zoom") && !Winexist("Zoom Meeting")
 else if Winactive("ahk_exe Teams.exe")
 	{
 		run, taskkill /f /im Teams.exe ; this might not be needed in the future
-		Return
-	}
-else if Winactive("ahk_exe discord.exe")
-	{
-		run, taskkill /f /im discord.exe ; this might not be needed in the future
 		Return
 	}
 Else 
@@ -435,23 +409,23 @@ SetTitleMatchMode, 1
 ;; See also above for bibliography shortcuts in Word
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-AddReference(BROWSER_EXE)
+AddReference(BROWSWER_EXE)
 {
 	If !Winexist("ahk_exe zotero.exe")
 		{
 			Run, zotero.exe,,,OutputVarPID
 			WinWait, ahk_pid %OutputVarPID%
 			Sleep, 300
-			WinActivate, %BROWSER_EXE%
-			;Sleep, 100
+			WinActivate, BROWSWER_EXE
+			Sleep, 100
 		}
 		else
 		{	
-			if (BROWSER_EXE=="ahk_exe firefox.exe") 
+			if (BROWSWER_EXE=="ahk_exe firefox.exe") 
 			{
 			Send, {Ctrl down}{Alt down}f{pause}{Alt up}{Ctrl up}
 			}
-			else if (BROWSER_EXE=="ahk_exe chrome.exe") 
+			else if (BROWSWER_EXE=="ahk_exe chrome.exe") 
 			{
 			Send, {Ctrl down}{Shift down}s{pause}{Shift up}{Ctrl up}
 			}
@@ -461,11 +435,11 @@ AddReference(BROWSER_EXE)
 
 
 #IfWinActive, ahk_exe firefox.exe
-$^$+$s::AddReference("ahk_exe firefox.exe")
+^+s::AddReference("ahk_exe firefox.exe")
 #IfWinActive
 
 #IfWinActive, ahk_exe chrome.exe
-$^$+$s::AddReference("ahk_exe chrome.exe")
+^+s::AddReference("ahk_exe chrome.exe")
 #IfWinActive
 
 
@@ -480,8 +454,8 @@ if WinActive("ahk_class OpusApp") && !WinExist("Quick Format Citation")
 			;MsgBox, Running Zotero
 			Run, zotero.exe,,,OutputVarPID
 			WinWait, ahk_pid %OutputVarPID%
-			Sleep, 300
-			WinActivate, ahk_class OpusApp	
+			WinActivate, ahk_class OpusApp
+			Sleep, 100
 		}
 			;Msgbox, pressing CtrlShiftAlt j
 			Send, ^+!j ; ZoteroAddEditCitation. this only works with the word macro (see the VBA script file)
@@ -524,12 +498,9 @@ SetKeyDelay,10,-1
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-;2.3. VScode, citing and zoteroc
+;2.3. VScode, citing and zotero
 ;;----------------------------------------------------------------------------------------------------------------------------------------
 ;Note that you can also assign shortcuts in VS Studio (file->preferences->keyboard shortcuts)
-
-
-;Biblatex or Natbib globals defined at the beginning of this script
 
 CiteFromZoteroInVsCode(WHAT_TO_TYPE:="NOTHING")
 {
@@ -537,23 +508,18 @@ CiteFromZoteroInVsCode(WHAT_TO_TYPE:="NOTHING")
 	{
 		Run, zotero.exe,,,OutputVarPID
 		WinWait, ahk_pid %OutputVarPID%
-		Sleep, 300
 		WinActivate, ahk_exe code.exe
 	}
 	else if WinExist("Quick Format Citation")
 	{
 		if Winactive("Quick Format Citation")
 		{
-			Send,{Enter}
-			Return
-			/*
 			WinGet,WinState,MinMax,Quick Format Citation
 			If WinState = -1 ; minimized
 			   WinRestore, Quick Format Citation
 			else
 			   WinMinimize, Quick Format Citation
 			Return
-			*/
 		}
 		else
 		{
@@ -561,127 +527,67 @@ CiteFromZoteroInVsCode(WHAT_TO_TYPE:="NOTHING")
 			Return
 		}
 	}
-	if (WHAT_TO_TYPE=="CITE_NORMAL") 
+	if (WHAT_TO_TYPE=="CITEP") 
 		{
-		Send, %cite_normal%
+		Send,\citep{{}{pause}{pause}
 		}
-	else if (WHAT_TO_TYPE=="CITE_TEXT")
+	else if (WHAT_TO_TYPE=="CITET")
 		{
-		Send,%cite_text% 
+		Send,\citet{{}{pause}{pause}
 		}
-	Sleep,50
+	/*
+	; currently does not work as intended
+	else if (WHAT_TO_TYPE:="NOTHING")
+		{
+		Sleep,0
+		}
+	else if (WHAT_TO_TYPE:="CITEP_BRACKETS")
+		{
+		Send,\citep[][]{{}
+		}
+	*/
 	Send,{Ctrl down}ä{pause}{Ctrl up} ; Ctrl+Ä needs to be activated in vscode shortcuts for "Cite from Zotero"
 	Winwait, Quick Format Citation
 	WinActivate, Quick Format Citation
 	Return
 }
-Return
+
 
 
 #IfWinActive, ahk_exe code.exe
 
-
-	$^$ä::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="NOTHING")
+	$^$ä::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="")
 	;<$^+$ä::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="CITEP_BRACKETS") ; currently not working
-	<$^+$ö::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="NOTHING")
-	<$^+$å::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="NOTHING")
+	<$^+$ö::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="CITEP")
+	<$^+$å::CiteFromZoteroInVsCode(WHAT_TO_TYPE:="CITET")
 	
-	Return
+	
 #IfWinActive
 
 
-; helper function for the next typings
-AddBraceOutsideVScode()
-{
-if !Winactive("ahk_exe code.exe")
-	{
-		Send,{}}{left}
-	}
-}
-Return
-
-
-CiteFromZoteroInOverleaf(WHAT_TO_TYPE:="NOTHING")
-{
-	if (WHAT_TO_TYPE=="CITE_NORMAL") 
-		{
-		Send,%cite_normal% 
-		}
-	else if (WHAT_TO_TYPE=="CITE_TEXT")
-		{
-		Send,%cite_text%
-		}
-	if (WHAT_TO_TYPE!="NOTHING")
-		{
-		AddBraceOutsideVScode()
-		Sleep,145
-		}
-	Send,{Ctrl down}{space}{pause}{Ctrl up} 
-	Return
-}
-
-
-#IfWinActive,Overleaf
-#IfWinActive,ahk_exe chrome.exe
-<^ä::CiteFromZoteroInOverleaf("NOTHING")
-<^+ö::CiteFromZoteroInOverleaf("CITE_NORMAL")
-<^+å::CiteFromZoteroInOverleaf("CITE_TEXT")
-#IfWinActive
-
-
-
-
-<^!,::msgbox, %biblatex%
-Return
-
-SetTitleMatchMode,1
-
-#IfWinNotActive, ahk_exe winword.exe 
-#IfWinNotActive, Quick Format Citation
+#IfWinNotActive, ahk_exe winword.exe
 
 	; typing citep{}
 	<^ö::
-	Send, %cite_normal%
-	AddBraceOutsideVScode()
+	Send, \citep{{}
 	Return
 	
 	; typing citet{}
-	<$^å::
-	Send,%cite_text% 
-	AddBraceOutsideVScode()
+	<$^$å::
+	Send, \citet{{}
 	Return
 	
 	; typing citep[][]{}
 	<$^+$ä::
-	Send, %cite_normal%
-	Send, {backspace}
-	Send,[][]{{}
-	AddBraceOutsideVScode()
+	Send,\citep[][]{{}
 	Return
 	
 #IfWinNotActive
-
-#IfWinActive, Quick Format Citation
-	<^ö::
-	<^å::
-	Send,{Enter}
-#IfWinActive
 
 
 #IfWinActive, ahk_exe code.exe
 	<^!m::
 	Send,if __name__ == "__main__":
-	Return
-	
-	<^+v::
-	Send,print(f"{{}'
-	Send,^v
-	Send,':<30{}}
-	Send,{{}
-	Send,^v
-	Send,{}}
-	Send,")
-	;Send,{right}{right}
 	Return
 #IfWinActive
 
@@ -746,46 +652,30 @@ Send,{ENTER}
 Return
 }
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;2.1 plainpaste microsoft office
 
-; not in use
-/*
 #If (WinActive("ahk_exe outlook.exe") or WinActive("ahk_exe winword.exe") or WinActive("ahk_exe powerpnt.exe"))
 $^$+$v::
-if WinActive("ahk_exe powerpnt.exe")
-	POWERPOINT:=1
-else
-	POWERPOINT:=0
-Send, {Control down}{pause}{Alt down}{pause}v{pause}{Control up}{pause}{Alt up}
-Winwait,Paste Special,,1 ; wait for X seconds max
-Winactivate
-Sleep,20
-If !WinExist("Paste Special")
-{
-	MsgBox, Paste special window did not open `n Press Enter and try again
-	Return
-}
-else
+Send, {Control down}{pause}{Alt down}{pause}{v down}{v up}{pause}{Control up}{pause}{Alt up}
+Sleep,80
+;If options selected, will choose the bottom,
+Loop, 6
 	{
-	;If options selected, will choose the bottom,
-	if (POWERPOINT==1)
-		{
-		;Msgbox, powerpoint active
-		Send,{tab}
-		Sleep,20
-		}
-	Send,u
-	Sleep,20
-	Send, {enter}
-	Return
+	Send,{down}{pause}{pause}{pause}
 	}
-
+;Goes to select plainpaste, if not selected already
+Send, {tab}
+Sleep, 40
+; goes down or toggles between OK and cancel before selecting OK
+Loop, 6
+	{
+	Send,{down}{pause}{pause}{pause}
+	}
+Sleep,30
+Send, {enter}
+Return
 #IfWinActive
-
-*/
-
 
 /*
 #IfWinActive ahk_exe powerpnt.exe

@@ -1,0 +1,12 @@
+;EXPLORER
+;NB! Unrobust
+<!a::
+Send, {Alt up}
+Sleep, 10
+Send, {Lwin down}
+Sleep, 10
+Send, 3
+Sleep, 100
+Send, {Lwin up}
+Sleep, 10
+Return

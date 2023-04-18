@@ -1,0 +1,36 @@
+\documentclass[a4paper,9pt]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage{menukeys}
+\usepackage{listings}
+
+\title{Windows workflow}
+
+\begin{document}
+	\section{Pikanäppäimiä}
+	You can visualize paths \directory{/home/moose/Desktop/manual.tex}
+    or menus \menu{View > Highlight Mode > Markup > LaTeX} or key
+    press combinations: \keys{\ctrl + \shift + F} is for formatting
+    in Eclipse.
+    You can also visualize \keys{\tab}, \keys{\capslock}, \keys{\Space}, 
+    \keys{\arrowkeyup} and many more.
+    Let's try some more: \keys{a}, \keys{ä}  
+    \section{Johdanto}
+    Tässä dokumentissa käydään läpi erilaisia tapoja helpottaa ja nopeuttaa tutkijan työskentelyä. Aluksi käymme läpi yksinkertaisia, tietokoneen sisään rakennettuja ominaisuuksia, jonka jälkeen siirrymme monimutkaisempiin ongelmiin.
+    
+    \section{Ladattavat ohjelmat ja koodi}
+    Osiota 1 lukuunottamatta tarvit seuraavat ohjelmat ja koodin.
+    
+    \subsection{Zotero}
+    zotero.org
+    
+    \subsection{autohotkey}
+    autohotkey.com
+    
+    \subsection{Word}
+    Word on kaikilla jo valmiiksi asennettuna. Kun word on auki paina \keys{Alt}+\keys{F11} ja Copy-pastaa (\keys{Ctrl}+\keys{c} \& \keys{Ctrl}+\keys{v}) tiedostossa wordmacros.txt oleva koodi käytettävissä olevaan isoon tilaan.
+    %\begin{lstlisting}[frame=single]
+    %\end{lstlisting}
+    
+    \section{Peruspikanäppäimet}
+
+\end{document}

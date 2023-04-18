@@ -1,0 +1,5 @@
+SetTitleMatchMode, 1
+#IfWinExist, Do-file
+^m:: WinActivate 
+#IfWinExist
+Return

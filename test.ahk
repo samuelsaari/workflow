@@ -1,0 +1,1 @@
+﻿master2single.py 3Manuscript_Outcomes.tex test/test.tex -v

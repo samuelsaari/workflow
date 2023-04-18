@@ -1,0 +1,16 @@
+zotero backup
+
+;ZOTERO PLUGIN HOTKEYS
+if WinActive("Quick Format Citation")
+{
+$^å::send, 
+(
+{Control down}{down}{Control up}{pause}{pause}{pause}{pause}{pause}{tab}{tab}{tab}{tab}{tab}{space}{pause}{pause}{pause}{enter}{pause}{pause}{enter}
+)
+}
+else if !WinActive("ahk_class OpusApp")
+{
+WinActivate, Quick Format Citation
+}
+else {}
+Return

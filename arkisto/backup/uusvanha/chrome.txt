@@ -1,0 +1,77 @@
+<!Shift::
+if (WinActive("ahk_exe chrome.exe") !& WinActive("Google Keep"))
+	WinMinimize,ahk_exe chrome.exe,,Google Keep
+else if WinActive("ahk_exe chrome.exe")
+{
+	WinMinimize
+Return
+}
+else if (WinActive("Google Keep"))
+	WinActivate,ahk_exe chrome.exe,,Google Keep
+else if WinExist("ahk_exe chrome.exe")
+	WinActivate,ahk_exe chrome.exe,,Google Keep
+else
+    Run, chrome.exe
+Return
+;;;;;;;;;
+
+
+if (WinActive("Google Keep"))
+	WinActivate,ahk_exe chrome.exe,,Google Keep
+else if WinActive("ahk_exe chrome.exe")
+{
+	WinMinimize
+Return
+}
+else if WinExist("ahk_exe chrome.exe")
+	WinMinimize,ahk_exe chrome.exe,,Google Keep
+else
+    Run, chrome.exe
+Return
+
+;;;
+
+GroupAdd, notkeep, ahk_exe chrome.exe,,,Google Keep
+GroupAdd, notkeep,,,,Google Keep
+
+Numpad4::
+<!Shift::
+if WinActive("ahk_group notkeep")
+	WinMinimize,ahk_exe chrome.exe,,Google Keep
+if WinExist("ahk_group notkeep")
+	WinActivate,ahk_exe chrome.exe,,Google Keep
+else
+	Run, chrome.exe
+Return¨
+
+;;;;;;toimii
+if WinActive("ahk_exe chrome.exe")
+{
+WinMinimize,ahk_exe chrome.exe,,Google Keep
+Return
+}
+else if
+
+toimii
+if (WinActive("ahk_exe chrome.exe") && WinExist("Google Keep"))
+	WinMinimize,ahk_exe chrome.exe,,Google Keep
+else if WinActive("ahk_exe chrome.exe")
+{
+	WinMinimize
+Return
+}
+;;;;;;;;;;;;;;;;;;;;
+
+<!Shift::
+if (WinActive("ahk_exe chrome.exe") & !WinActive("Google Keep"))
+{
+	WinMinimize,ahk_exe chrome.exe,,Google Keep
+Return
+}
+else if (WinExist("Google Keep") & WinExist("ahk_group notkeep"))
+	WinActivate, ahk_exe chrome.exe,,Google Keep
+else if WinExist("ahk_exe chrome.exe")
+	WinActivate, ahk_exe chrome.exe,,Google Keep
+else
+	Run, chrome.exe
+Return

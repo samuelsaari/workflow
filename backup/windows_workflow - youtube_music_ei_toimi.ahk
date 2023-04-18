@@ -57,7 +57,7 @@ Return
 
 ;Many parts owe to Learning One(2009) and seperman(2017):
 
-roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Parambox:=0,ID_3:="")
+roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Parambox:=0,ID_3:="",EX_TITLE_2:="")
 ;-------------------------------------------------------------------------------
 ;
 ; Toggles, Activates, Minimizes, Restores, or Runs program windows based on the whether the applications are running, how many windows there are and what state they are at
@@ -71,6 +71,7 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 ;7;		Mode 		= Mode of SetTitleMatchMode
 ;8;		ParamBox	= Show parameter values (1/0)
 ;9;		ID_3 	 	= 3rd criteria to identify an existing window (adds windows to the group)
+;10;	EX_TITLE_2	= exclude 2nd windows with titles that start with a given string
 ;-------------------------------------------------------------------------------
 {
 ;Creating groups with a uniques names;
@@ -78,7 +79,10 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 	unique_group=%A_DDD%%A_YDay%%A_Hour%%A_Min%%A_MSec%
 	unique_group1=% unique_group "1"
 	unique_group2=% unique_group "2"
-	GroupAdd, %unique_group1%, %ID_1%											;first criterion to include
+	unique_group3=% unique_group "3"
+	extitle_str:= % EX_TITLE
+	extitle_str_2:= % EX_TITLE_2
+	GroupAdd, %unique_group1%, %ID_1%,,,%extitle_str%			;first criteria to include and exclude
 	if (ParamBox==1)
 		msgbox, ------Parameters-------- `n ID_1 `t`t %ID_1% `n TARGET_1 `t %TARGET_1% `n EX_TITLE  `t %EX_TITLE% `n EX_AHK `t %EX_AHK% `n TARGET_2 `t %TARGET_2% `n ID_2 `t`t %ID_2% `n mode `t`t %mode% `n ID_3 `t`t %ID_3%
 	
@@ -87,12 +91,16 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 		;MsgBox, ID_2 not empty
 	}
 	if (ID_3 !=""){
-		GroupAdd, %unique_group1%, %ID_2%
+		GroupAdd, %unique_group1%, %ID_3%
 		;MsgBox, ID_2 not empty
 	}
-	extitle_str:= % EX_TITLE
-	GroupAdd, %unique_group2%,ahk_group %unique_group1%, , ,%extitle_str%		;exclude based on title
+	
+	GroupAdd, %unique_group2%,ahk_group %unique_group1%, , ,%extitle_str_2%		;exclude based on title (second criterion
 	GroupAdd, %unique_group%,ahk_group %unique_group2%, , , , %EX_AHK%			;exclude based on content (ahk_process)
+	
+	;GroupAdd, %unique_group2%,ahk_group %unique_group1%, , ,%extitle_str_2%     ;exclude based on title (second criterion)
+	;GroupAdd, %unique_group3%,ahk_group %unique_group2%, , ,%extitle_str%		;exclude based on title
+	;GroupAdd, %unique_group%,ahk_group %unique_group3%, , , , %EX_AHK%			;exclude based on content (ahk_process)
 ; checking if the windows is active
 	if WinActive("ahk_group" . unique_group) {
 		WinGet, num, count,ahk_group %unique_group%
@@ -184,7 +192,7 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 ;-----------------------------------------------------------------------------------------
 ;Quick way to add new program
 #IfWinActive, ahk_class Notepad++
-<^!n::Send,roar(,,EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Parambox:=0,ID_3:="")
+<^!n::Send,roar(,,EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Parambox:=0,ID_3:="",EX_TITLE_2:="")
 #IfWinActive
 
 ;---------------------------------------F1F2...F12HomeEndDelete---------------------------
@@ -221,15 +229,14 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 ;<!u:: 
 ;<!i::roar("Photos ahk_class ApplicationFrameWindow","ms-photos:",,,,,Mode:=2)
 <!i::roar("Pictureflect Photo Viewer ahk_class ApplicationFrameWindow","pictureflect-photo-viewer.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=2,Parambox:=0,ID_3:="") ; https://pictureflect.com/how-to/app-scripting-help
-<!o::roar(ID_1:="ahk_exe spotify.exe",TARGET_1:="\AppData\Roaming\Spotify\Spotify.exe", , ,TARGET_2:="\AppData\Local\Microsoft\WindowsApps\Spotify.exe")
-
+<!o::roar("ahk_exe opera.exe", "opera.exe")
 <!p::roar("ahk_exe mspub.exe", "mspub.exe") ; PUBLISHER
 ;<!å::
 
 ;--------------------------------------- asdfghjklöä-----------------------------------------
 <!CAPSLOCK::roar("ahk_class MozillaWindowClass", "firefox.exe",EX_TITLE:="Quick Format Citation",EX_AHK:="ahk_exe zotero.exe",TARGET_2:="C:\Program Files\Mozilla Firefox\firefox.exe")
 <!a::roar("ahk_class CabinetWClass", "explorer.exe")
-<!s::roar("ahk_exe code.exe", "\AppData\Local\Programs\Microsoft VS Code\Code.exe", "Google Keep")
+<!s::roar("ahk_exe code.exe", "\AppData\Local\Programs\Microsoft VS Code\Code.exe", EX_AHK:="Google Keep", TARGET_2:="",ID_2:="",Mode:=1,Parambox:=0,ID_3:="",EX_TITLE_2:="YouTube Music")
 <!d::roar("ahk_exe teams.exe", "\AppData\Local\Microsoft\Teams\Update.exe --processStart Teams.exe")
 <!f::roar("ahk_exe slack.exe", "\AppData\Local\slack\slack.exe")
 <!g::roar("ahk_class gdkWindowToplevel", "C:\Program Files\GIMP 2\bin\gimp-2.10.exe") ;NB!
@@ -242,7 +249,8 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 <!ä::roar("Quick Format Citation","zotero.exe",EX_TITLE:="Zotero",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=2,Parambox:=0,ID_3:="") ; See also section 2. for other Zotero hotkeys
 
 ;---------------------------------------<zxcvbnm,.----------------------------------------
-<!SHIFT::roar("ahk_exe chrome.exe", "chrome.exe", "Google Keep")
+<!SHIFT::roar("ahk_exe chrome.exe", "chrome.exe", EX_TITLE:="YouTube Music",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Parambox:=0,ID_3:="",EX_TITLE_2:="Google Keep")
+
 #IfWinNotExist, Stata
 <!<::roar("ahk_class PPTFrameClass", "powerpnt.exe")
 #IfWinNotExist
@@ -261,8 +269,10 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 
 
 ;---------------------------------------CtrlWinAltSPACE---------------------------------------
-<!LCTRL::roar("ahk_exe opera.exe", "opera.exe")
-<!LWIN::roar("Google Keep", "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --app=https://keep.google.com", , ,TARGET_2:="C:\Program Files\Google\Chrome\Application\chrome.exe --app=https://keep.google.com",ID_2:="",mode:=2,ParamBox:=0) ;NB!
+;<!LCTRL::roar(ID_1:="ahk_exe spotify.exe",TARGET_1:="\AppData\Roaming\Spotify\Spotify.exe", , ,TARGET_2:="\AppData\Local\Microsoft\WindowsApps\Spotify.exe")
+<!LCTRL::roar("YouTube Music", "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --app=https://music.youtube.com",EX_TITLE:="Google Keep" , ,TARGET_2:="C:\Program Files\Google\Chrome\Application\chrome.exe --app=https://music.youtube.com",ID_2:="",mode:=2,ParamBox:=0) ;NB!
+
+<!LWIN::roar("Google Keep", "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --app=https://keep.google.com",EX_TITLE:="YouTube Music" , ,TARGET_2:="C:\Program Files\Google\Chrome\Application\chrome.exe --app=https://keep.google.com",ID_2:="",mode:=2,ParamBox:=0) ;NB!
 ;ahk_exe chrome.exe"
 ;<!SPACE::roar("A") ; Active process. Does not work
 ;<!-Ralt

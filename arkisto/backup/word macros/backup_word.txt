@@ -1,0 +1,47 @@
+Sub selecthighlight()
+'
+'
+'
+    Selection.Paragraphs(1).Range.Select
+    Options.DefaultHighlightColorIndex = wdBrightGreen
+    Selection.Range.HighlightColorIndex = wdBrightGreen
+
+End Sub
+
+Sub selecthighlightR()
+'
+'
+'
+    Selection.Paragraphs(1).Range.Select
+    Options.DefaultHighlightColorIndex = wdNoColor
+    Selection.Range.HighlightColorIndex = wdNoColor
+
+End Sub
+
+
+Sub selecthighlight_SC()
+         ' \\ where to do customization
+CustomizationContext = NormalTemplate
+         ' \\ Add keybinding to this Shorcut:
+KeyBindings.Add KeyCode:=BuildKeyCode(wdKeyAlt, wdKeyL), _
+KeyCategory:=wdKeyCategoryMacro, _
+Command:="selecthighlight"
+End Sub
+
+Sub selecthighlightR_SC()
+         ' \\ where to do customization
+CustomizationContext = NormalTemplate
+         ' \\ Add keybinding to this Shorcut:
+KeyBindings.Add KeyCode:=BuildKeyCode(wdKeyAlt, wdKeyK), _
+KeyCategory:=wdKeyCategoryMacro, _
+Command:="selecthighlightR"
+End Sub
+
+Sub ZoteroAddEditCitation_SC()
+         ' \\ where to do customization
+CustomizationContext = NormalTemplate
+         ' \\ Add keybinding to this Shorcut:
+KeyBindings.Add KeyCode:=BuildKeyCode(wdKeyAlt, wdKeyJ), _
+KeyCategory:=wdKeyCategoryMacro, _
+Command:="ZoteroAddEditCitation"
+End Sub

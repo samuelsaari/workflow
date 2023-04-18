@@ -1,0 +1,272 @@
+
+; Preliminaries
+#NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
+Global UserProfile ; Make userprofile a global variable
+EnvGet, UserProfile, UserProfile ; Get userprofile from system variables
+
+; #Warn  ; Enable warnings to assist with detecting common errors.
+SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
+SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Private autohotkeys
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;
+;; Semi-private ;;
+;;;;;;;;;;;;;;;;;;;;
+
+#InputLevel 1
+
+;;---------------------------------------------
+;General
+
+;;-----------------------
+;Software specific
+
+;;-----------------------
+;-------TEXCOUNT-------
+#IfWinActive, ahk_exe cmd.exe
+<^<!c::
+Send, texcount -inc -total 2outcomes.tex ; Change the file
+Return
+#IfWinActive
+
+;REFERENCE MISSING
+;reference missing / add reference later
+
+
+{
+<^<!g::
+Send,{(}{!}{!}{!}REF{)}
+Return
+}
+
+
+
+
+
+;;-------------------------------------------------------------------
+;Software specific
+
+
+;-------TEXSTUDIO-------
+; typing \keys
+#IfWinActive ahk_exe texstudio.exe
+<^k::
+;Send, keys
+Send,  {\}keys{{}{}}{left}
+;Send, {left}
+Return
+#IfWinActive
+Return
+
+;;-----------------------
+;;-------RSTUDIO-------
+; Matrix multiplication in Rstudio - shorcut for %*%
+#IfWinActive ahk_exe rstudio.exe
+<^'::
+Send,{SHIFT DOWN}5'5{SHIFT UP}
+Return
+#IfWinActive
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; STRICTLY PRIVATE ;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;[FLH-THESIS]
+$^$!$t::
+Send,[FLH-THESIS]
+Return
+
+;;-----------------------
+;-------PUHTI DIRECTORIES-------
+<^<!p::
+Send,/projappl/project_2003758
+Return
+
+<^<!s::
+Send,/scratch/project_2003758/makimiik
+Return
+
+<^<!u::
+Send,/users/makimiik
+Return
+
+;;-----------------------
+;-------GIT-------
+
+; Git most frequently used path
+<^<+!j::
+Send,C:\Users\mmak\OneDrive - Väestöliitto ry\FLH-THESIS\2_Outcomes_Bachelor\2_outcomes_publish
+Return
+
+; Git most frequently used path cd to it
+<^<+j::
+Send,cd C:\Users\mmak\OneDrive - Väestöliitto ry\FLH-THESIS\2_Outcomes_Bachelor\2_outcomes_publish
+Return
+
+; git commit all
+<^<+k::
+Send,git commit -a -m ""{left}
+Return
+
+
+; Git most frequently used path
+<^<!h::
+Send,cd C:\Users\mmak\OneDrive\Autohotkey
+Return
+
+
+
+; Git add autohotkey changes
+<^<+!h::
+Send, git add Useful_material/ stata_workflow.ahk windows_workflow.ahk word_macros.txt README.md
+Return
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;,
+; Fill in nepton
+#IfWinActive, Nepton
+<!$LButton::
+MouseClick, left
+SetTitleMatchMode, 1
+Winwait,Lisää tapahtuma,,2 ; wait for X seconds max
+Winactivate
+;Msgbox,Activated
+Sleep,1300
+
+#IfWinActive,Lisää tapahtuma
+;Winwait,Lisää tapahtuma,,1
+;etätyö tai työ
+Send,{e down}{pause}{e up} ;kommentoi niin ei tule muutosta
+Sleep,600
+#IfWinActive
+
+;Mene työajan loppumiskohtaan
+#IfWinActive,Lisää tapahtuma
+;Winwait,Lisää tapahtuma,,1
+Loop,8
+{
+Send,{tab}
+Sleep,40
+If (A_Index == 4)
+{
+	; Vaihda työaika
+	Send,16:00
+	Sleep,200
+	;mene projektiin
+}
+}
+#IfWinActive
+
+
+; vaihda projekti
+#IfWinActive,Lisää tapahtuma
+;Winwait,Lisää tapahtuma,,1
+;Send,2_209_20 KP209 Tutkimustyö (SHARE)
+Send,2_211_20 KP211 Tutkimustyö LoveAge
+;Send,2_209_10 KP209 Hallintotyö (SHARE in Kind)
+Sleep,900
+Send,{Enter}
+;Sleep,800
+;Send,{Enter}
+;Sleep,100
+#IfWinActive
+
+Loop
+{
+	If WinActive(Lisää tapahtuma)
+	{
+		;Winwait,Lisää tapahtuma,,1
+		MouseClick, left, 250, 2110 - A_Index * 70 ; not robust
+		;Sleep,10
+		If (2110 - A_Index * 70 < 1710)
+			break
+	}
+}
+Return
+#IfWinActive
+
+
+/*
+#IfWinActive,Lisää tapahtuma
+MouseClick, left, 250, 1970 ; not robust
+Sleep,20
+#IfWinActive
+
+#IfWinActive,Lisää tapahtuma
+MouseClick, left, 250, 1900 ; not robust
+Sleep,20
+#IfWinactive
+
+#IfWinActive,Lisää tapahtuma
+MouseClick, left, 250, 1830 ; not robust
+Sleep,20
+#IfWinActive
+
+#IfWinActive,Lisää tapahtuma
+MouseClick, left, 250, 1770 ; not robust
+Sleep,20
+#IfWinActive
+
+#IfWinActive,Lisää tapahtuma
+MouseClick, left, 250, 1710 ; not robust
+Sleep,20
+#IfWinActive
+*/
+
+
+
+<!h::
+{
+Loop
+{
+MsgBox, % A_Index
+/*
+Msgbox, % 3100 - A_Index * 70
+If (3100 - A_Index * 70 < 1710)
+	break
+}
+
+*/
+if (A_Index == 3)
+	break
+}
+Return
+}
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; EXTRA CODE ;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+/*
+<^!w::
+MsgBox, This is a test, and it works nicely
+Return
+*/
+
+
+;Larger and smaller than with an american keyboard with Scandinavian settings..
+/*
+#,::
+Send, <
+Return
+
+
+#.::
+Send, >
+Return
+*/
+
+
+;;-----------------------
+#InputLevel 0
+;;-----------------------
+
+

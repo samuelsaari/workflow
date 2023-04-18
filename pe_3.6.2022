@@ -1,0 +1,833 @@
+%%--------------------------------------------------
+%READ ME 
+% Demography guidelines for authors:
+% https://www.populationassociation.org/demography/for-authors/preparing-manuscripts
+
+% Use this like Google docs. Track changes should be on. Make any changes you desire (or comment) and I will make sure it compiles nicely should you encounter any issues.
+
+% This short video will help you get started if needed:
+% https://youtu.be/S6Si-F5ArIw
+
+% Cite like this: (Smith 2021 "Article title") and I will look it up.
+
+% Note that the preamble is in the 0Preamble.sty file
+% ---> Preamble includes settings, author information, affiliations, and title of the document.
+
+
+%%%-----------------------------------------------
+
+% TO DO
+
+
+% Submission
+% > Make sure title page as it should be
+% --> Remove time & date
+% --> check author order, institutions and emails
+
+%%%-----------------------------------------------
+% Some settings that cannot be included in the 0Preamble-file
+\documentclass[a4paper,12pt,bibliography=totoc]{scrartcl}
+\usepackage{0Preamble}
+
+% include all figures inserted with \InsertFloat in texcount
+%TC:macroword \InsertFloat [float]
+
+% do not count stuff inside begin{comment}..end{comment}
+%TC:group comment 0 0
+%TC:group B 0 0
+
+
+%%%%-----------------------------
+
+
+\begin{document} % Document starts here
+
+
+\maketitle % Brings front page information from the 0Preamble-file
+
+
+\begin{abstract}
+	{\parindent0pt % disables indentation for all the text between { and }
+		
+	\noindent \textbf{Abstract}
+	Couple relations are a key determinant of mental and physical well-being in old age. We currently do not know how the advantages and disadvantages of partnership trajectories accumulate between socioeconomic groups, although the socioeconomic gradient would be vital for understanding how romantic relationships and well-being interact along the life course.  This study is the first to investigate how the association between partnership histories, happiness, and health varies by education. We adopt a life course perspective and create relationship typologies using SHARE data. We then examine how they relate to health and quality of life by educational attainment. Results show that stable marriages co-occur with higher well-being, compared to less stable and single partnership histories. All educational groups experience similar benefits of stable unions, but the adverse outcomes of dissolution are more pronounced for those with lower education. We conclude that stable marriages appear to benefit all educational groups. The larger drawbacks on well-being from other than stable union histories among the less educated, especially among men, suggest that those with fewer resources are most vulnerable to the accumulation of disadvantages.
+		%%%%%% NOTE THAT....%%%%%%%%%%
+		%"Include an abstract of no more than 200 words summarizing the research and results and highlighting the importance of the findings. It should not include details about the study population and methods unless the paper’s primary contribution is in its use of sources or methodology. The abstract should not contain lengthy mathematical expressions or complicated notation."
+		% https://www.populationassociation.org/demography/for-authors/preparing-manuscripts  
+		% 
+		%%%% OLD ABSTRACT %%%%%
+		%Couple relations throughout the life course influence mental and physical wellbeing in later life. Here, we investigate for the first time how associations between partnership histories, happiness and health vary by education. 
+		%This study investigates for the first time how associations between partnership histories, happiness and health vary by education. First, we detect five relationship trajectory typologies using sequence analyses of the Survey of Health, Ageing and Retirement in Europe (SHARE) life history data from 13 European countries. We then investigate how one stable marriage, remarriage, partnership dissolution, serial cohabitation, and singlehood relate to health and quality of life measurements among men and women born in 1946-54, and whether educational levels boost these benefits or aggravate the disadvantages. Results show that a first or second stable marriage co-occurs with higher well-being, compared to less stable and single partnership histories. All educational groups experience similar benefits of stable first or second unions, but the adverse outcomes of dissolution are more pronounced among men and women with secondary or basic education. We conclude that stable marriage(s) appear to benefit all educational groups. The larger drawbacks on well-being from other couple relations among less educated individuals, and especially men, suggest that compensatory mechanisms are possible in order to partly improve quality of life in old age.   
+		\\ % line breaks with \\
+		\\
+		\keywords{partnership history · life course · cumulative disadvantage · subjective health · life satisfaction}
+	}% Indent end
+	% consider summarising the main research questions /. hypotheses in the abstract -- at least 90% of people read only the abstract.
+\end{abstract} \hspace{10pt}
+	
+	
+%%%%-----------------------------------------------
+%%%% Introduction
+
+% The following is only in the B (Long) version
+\begin{B}
+	%\clearpage
+	\tableofcontents
+\end{B}
+
+%\clearpage
+\section{Introduction}\label{intro}
+
+%%%% Define a research territory (1)
+%% General context of the work (1a) - mitä tiedetään parisuhteista ja myöhemmästä hyvinvoinnista. Motivaatio tähän tutkimukseen: 
+
+Romantic couple relations are among the most intimate, lasting, and important relationships in our lives and a cornerstone of emotional, social, and economic wellbeing \citep{wangqvistIdentityDevelopmentRomantic2016,luyckxIdentityConfigurationsLove2014}. Previous research has exhaustively shown that having a partner is positively associated  with a multitude of well-being outcomes in later life such as life satisfaction, quality of life, health, morbidity, or mortality.\citep{wongMarriageSocialNetworks2015, hanMaritalStatusAssociated2014,holt-lunstadThereSomethingUnique2008,coombsMaritalStatusPersonal1991, manzoliMaritalStatusMortality2007,waiteDoesMarriageMatter1995b, wangAssociationMaritalRelationship2022a,reneflotAssociationMaritalStatus2012} Indeed, having a spouse is arguably one of the single most important factors for healthy aging \citep{wood2009effects} and a key policy priority in aging societies. At the same time, the proportions of single, divorced, or remarried elderly have increased. To support well-being in old age, it is crucial to identify what type of partnerships are related to increased vulnerability, and to what extent lacking or losing a partner can be compensated for. In this paper, we focus on two such dimensions that have not been studied before jointly: whether particular relationship trajectories predict well-being and whether the implications of those trajectories vary by education. 
+%OR SOME OTHER CATCHY PHRASE FOR WHY LIFE COURSE PERSPECTIVE MATTERS.
+
+%Furthermore, since the interplay of couple relations, health and happiness often cumulate over the years, they may surface stronger in the latter half of life.
+
+%Since partnership histories intertwine with other life events, a comprehensive and longitudinal approach is warranted in order to disentangle their effects in different socioeconomic groups. 
+
+%While the benefits of having a partner are widely documented, we know less about how different types of dating and living together affect health and happiness. 
+
+%% Narrower research area and statement of its importance (1b)
+%%%% Establish a niche (2)
+%% Identification of a gap or other need for research (2a)
+% Simplistically still not very specific. It does not mean much to say "it is not simplistic".  
+Partnership status as such may not enhance well-being. Both cumulative advantage and disadvantage theories imply that the association between well-being and partnerships does not depend on the current status but rather on the trajectory \citep{dipreteCumulativeAdvantageMechanism2006}. Yet, previous studies tend to focus either on single relationship events, such as marriage or divorce, or on static ways of depicting life course events that oversimplify partnership trajectories \citep[cf.][]{sasslerPartneringLifeCourse2010,schutzMaritalBiographyHealth2019,gumaRelationshipHealthPartnership2014}. There are, however, a few notable exceptions that do create partnership history trajectories to study later life outcomes, \citep{zimmermannStableCohabitationalUnions2019,robersonHowRelationshipStability2018}. \citet{oflahertyFamilyLifeCourse2016} even adds fertility histories.
+
+
+Already \citet{beckerTheoryMarriagePart1973} stressed that the gains from marriage are likely to depend on traits, such as attractiveness, intelligence, and education. Since then, a series of studies have investigated how the relationship between marital status and well-being varies by personality traits \citep{boyceBetterWorseModerating2016}, relationship quality \citep{renMaritalStatusQuality1997}, ethnicity, or financial situation \citep{mookherjeeMaritalStatusGender1997}. So far, scholars have mainly failed to consider education in greater detail. 
+
+When examining the association between well-being and partnership status, educational attainment is usually treated  as a control rather than a stratifying feature \citep{boyceBetterWorseModerating2016,hanMaritalStatusAssociated2014,wongMarriageSocialNetworks2015}. In recent decades, only one study to our knowledge has examined whether the association between marital status and well-being indicators vary by education: \citet{oien-odegaardMaritalStatusEducational2021} found out that low education inflated the suicide risk of the separated. We were surprised not to find more similar studies, as the outcomes of a partnership might follow an educational gradient. On the one hand, highly-educated individuals might be able to get more out of family life that requires resources and personal sacrifices, which would suggest a cumulative advantage. On the other hand, those with a lower educational level might rely more heavily on a spouse. This would indicate that spousal loss has more detrimental consequences for those with less resources, pointing to a cumulative disadvantage. \citep{dipreteCumulativeAdvantageMechanism2006} That would mean that partnerships can compensate for a lack of resources. 
+
+% Specific research question meeting the identified need (2b)
+Against this backdrop, we investigate whether partnership biographies are associated with health and quality of life for men and women and how the associations differ between educational groups of Northern and Western Europeans in third age. Specifically, we are interested in signs of cumulative advantage or disadvantage: does having a certain educational level seem to amplify the benefits or aggravate the disadvantages of specific trajectories? 
+
+Our work contributes to the existing literature on marriage well-being premium by conceptualizing relationship statuses as trajectories and examining the educational gradient of the trajectories and well-being. Empirically, we create partnership typologies using data from the Survey of Health, Ageing, and Retirement in Europe (SHARE) from 13 European countries. We measure well-being by multiple indicators, and our analyses control for several confounding measures including childhood conditions, income, and the number of children.
+
+%%%%%%%%%%TO DO%%%%%%%%%%%%%
+%aeh TÄMÄ SUKUPUOLI-DIMENSIO EI INTROSSA OLLENKAAN TULE ESILLE. 
+%mm MITEN/MISSÄ TULISI MAINITA? TUNTUU ETTÄ INTRO JO NYT TUKOSSA
+% NO TARKASTELET SUKUPUOLET ERIKSEEN, mutta koska 
+% mäki: voi olla, mutta se kuitenkin vain yksi kiinnostava asia jota tarkastella, ei niinkään koko paperin idea. Jollain tavalla haluan että intro selkeä ja ytimekäs ja sitten tarkastellaan tarkemmin miten jakautuu.
+%% --> note to self: mieti miten sukupuoli introon.
+% (Summary of approach to answer the research question)
+
+
+%%%%--------------------------------------------------
+%%%% Background - Hypothesis hand in hand with the literature
+
+\subsection{Why are relationship status and well-being linked?}\label{status}
+The empirical evidence for the interconnectedness of marital status and well-being is conclusive. Both current marital status, partnership histories, and the quality of couple relationships are typically linked to wellbeing. \citep[see review in ][]{wood2009effects}
+
+%%%%%%%%%%TO DO%%%%%%%%%%%%%
+%%% aeh: TÄSSÄ VIELÄ KYSYMYS: tutkimus partnership historiesta?? Juuri sanoit, että ei tutkittu - mutta onko sittenkin?
+%and \citet{rotkirchWhatAreCouples2020}
+%% MM: AIEMMIN KIRJOITETTU "Although studies examining the interconnectedness of marital biographies and well-being are starting to surface, these currently cover only some populations with relatively small samples  \citep{oflahertyFamilyLifeCourse2016,zimmermannStableCohabitationalUnions2019,robersonHowRelationshipStability2018}."
+%% ELI VÄHÄN ALKAA OLLA TUTKITTU, MUTTA EI KAUHEASTI
+% Yleensä tässä kohtaa voisi vetää yhteen mitä näissä kolmessa tutkimuksessa on osoitettu, mitä ongelmallista, ja miksi sinun tutukimustasi tarvitaan. 
+
+%Vähän hassua, että tässä kohdassa et puhu yksityiskohtaisesti tutkimuksista (vaikka sitä varten background on), ja sitten yhtäkkiä conclusioneissa saa tietää, että miten jotkut ovat mitanneet terveyttä (binary measurement, grip strenght) jne. 
+% Vaikka sanot introssa että tutkimuksia tulossa ("Starting to surface"), niin olisi hyvä mainita tässä ja käydä vähän tarkemmin (2-3 lausetta) läpi mitä tekevät. 
+
+%%%%%%%%%%TO DO%%%%%%%%%%%%%
+% MINULLE EI TÄSSÄ VIELÄ SELKEETÄ MIKSI PITÄISI TARKASTELLA HISTORIAA, jos tulokset ovat niin selkeitä? "What explains the consistency of these findings? "
+% Mikä on tässä "the cathc"? Sanot uudetaan ja uudestaan, että historialla on väliä eikä vaan "current status", mutta tässä olisi hyvä viitata ristiriitoihin aikaisemmissa tutkimuksissa.
+
+
+What explains the consistency of these findings? Previous research points to three mechanisms, namely selection into marriage, marriage as a key social role, and the everyday social support of living with a spouse \citep{dushConsequencesRelationshipStatus2005, averettSicknessHealthExamination2013}.
+
+First, those with more resources could more easily be selected into marriages. This would indicate that it is not marriage itself that makes people happy, but happy people get married \citep{koballWhatWeKnow2010}. While some selection effects are at play \citep [see ][for a theoretical overview]{goldmanMarriageSelectionMortality1993}, the majority of longitudinal studies suggest that selection alone does not account for all positive effects of relationships on well-being\citep{tuminDoesMarriageProtect2018} \citep{mastekaasaMarriagePsychologicalWellBeing1992}. Yet not all studies agree \citep{tuminDoesMarriageProtect2018,mastekaasaMarriagePsychologicalWellBeing1992,ludwigThereMaleMarital2018c}, highlighting that results are sensitive to specifications.
+
+
+%% A third approach stresses, using evolutionary and neuropsychological perspectives, that humans are a pair-bonded species, capable of forming lasting couple relations. This emotional and cognitive ability to form and stay in couples is underpinned by a triad of love-related states: sexual desire, romantic love, and compassionate love \citep{aronRewardMotivationEmotion2005,aronRewardMotivationEmotion2005,acevedoNeuralCorrelatesLongterm2012}, which are  underpinned by distinct hormonal patterns and neurological correlates \citep[e.g.][]{bartelsNeuralCorrelatesMaternal2004}. Although the three characteristics are not necessarily always present in a relationship and tend to vary over time, yet they often used to define what a 'romantic relationship' is \citep{youngNeuroendocrineBasesMonogamy1998}. As a consequence of these traits, couple relations are found in every known society. Despite the large variation in socially prescribed marital arrangements, most adults today live in long-term unions, and most adults have one or at most two such unions during their lives \citep{cherlinIntroductionSpecialCollection2017,mayyasiWhatAgePeople2016}. 
+
+% Almost 80 per cent of both women and men globally have been married before they turn 50 (UNDP 20115 and 2018; mayyasiWhatAgePeople2016) and many of the remaining 20 per cent have cohabited or dated somebody. 
+
+% The evolutionary perspective sees marriage  as a specific social contract in which spouses cooperate and exchange love, care, time and money, social status, etc,  and often raise common offspring. \citep[:210]{mulderSexualConflictHumans2009} Spouses are usually expected to support each other economically \citep{greensteinEconomicDependenceGender2000}; sexual intercourse typically take place between long-term partners \citep{wellingsSexualBehaviourContext2006} and most children are born and raised by a couple. Given these benefits, the motivation to enter and stay in a long-term relationship and its benefits on well-being do not appear surprising. However, couple relations are not only characterised by high levels of cooperation, but also by inherent conflicts. Entering, living in or leaving a union always entails specific risks to an individual: for instance, marrying may offer a woman protection but also expose her to domestic abuse, or  divorce may be socially stigmatised and economically disadvantageous, but may also lead to a happy and prosperous new marriage. \citep{buckleMarriageReproductiveContract1996,daly2000family} From this perspective, the effect of partnership histories on wellbeing should be manyfold, and the outcomes are expected to vary with the resources and characteristics of the individuals involved. 
+
+% maybe check also \citep{wykeCompetingExplanationsAssociations1992} why marriage ies associated with better health
+
+%studies that people still want to marry \citep{cherlinDegreesChangeAssessment2020}
+%\citep{vespaHistoricalTrendsMarital2014}
+
+% LYHENSIN TÄTÄ!
+Second, the structural symbolic interactionist perspective argues that roles with a high level of commitment result in high levels of identity and self-worth \citetext{Stryker \& Statham 1985, as cited in \citealp{dushConsequencesRelationshipStatus2005}}. Internalizing the role of a wife or husband (or parent) shapes both the behavior and self-perception of an individual and, consequently, enhances well-being, although this is dependent on the commitment to the given identities \citep{strykerSymbolicInteractionApproach1959a}. The roles of a couple are reproduced in everyday encounters \citetext{\citealp{goffmanPresentationSelfEveryday1959}; \citealp[:377]{meadMindSelfSociety1934}} 
+and rewarded by others \citep{learyMakingSenseSelfEsteem1999}. The fact that even in wealthy, individualized, and liberal societies few wish to live without a long-term romantic partner \citep[:40-41]{kontulaLemmenPaulaSeksuaalinen2016, rotkirchWhatAreCouples2020} demonstrates the high value attached to couple relations.
+
+In line with empirical evidence, we expect the impact of social norms to be similar across our study population of Northern and Western Europeans: \citet{dienerSimilarityRelationsMarital2000} studied the relationship between marital status and subjective well-being in 42 countries and found that differences in effect sizes between collectivist and individual cultures were small compared with the main effect of marital status. \citet{verbakelSubjectiveWellBeingPartnership2012} concludes with a similar study design that "normative climate appears to hardly affect well-being gaps between partnership statuses". It seems plausible that relationship structures directly impact experiences. Put differently, relationships might shape well-being.
+
+Third, marriage tends to provide social support and regulation beyond any other relationship form \citep{rossReconceptualizingMaritalStatus1995,coombsMaritalStatusPersonal1991,scott2000social}. Especially in high-income societies, unions are the primary household unit for bread-winning, consumption, and intimacy. Although multi-generational households and flat-sharing with friends are not uncommon, the typical alternative to living with a romantic partner is to live alone, particularly among the aging population \citep{rindfussCohabitationPrecursorMarriage2022,beckerTreatiseFamilyEnlarged1991,rotkirchWhatAreCouples2020}. Since individuals who are attached to social networks are healthier and live longer \citep{houseStructuresProcessesSocial1988}, those with a spouse have someone in the same household to share the joys and sorrows of life in the long term which single adults often lack.  
+
+Previous empirical research highlights that the implications of relationships differ by gender. Partnerships seem to be protective, especially for men \citep{coombsMaritalStatusPersonal1991,metsa-simolaShorttermLongtermEffects2013}. Although the gender health gap seems to be narrowing over time \citep{liuTimesTheyAre2008}, women still withstand behavior that is detrimental to health more often than men. Women are also more likely to control the health behavior of others \citep{reczekMaritalHistoriesHeavy2016, umbersonGenderMaritalStatus1992,westmaas2002effects,lewisSocialControlMarital2007}. Men tend to have smaller and less intimate social networks in later life \citep{ajrouchSocialNetworksMen2005}. Women tend to suffer more from living in a marriage with low relationship quality \citep{bulandaMaritalQualityMarital2016,brownMarriageCohabitationDivorce2017,carrFamiliesLaterLife2020}. 
+
+Overall, these considerations imply that the benefits of a stable union are more pronounced for men, while unstable unions could not have as large of an impact on women. The difference between well-being outcomes is pronounced in studies that examine relationships from a life course perspective for men, and near non-existent for women: . \citet{oflahertyFamilyLifeCourse2016}  found no psychical health outcomes for the partnership histories of women, unless both their marital history was disrupted and they had high fertility. Likewise \citet{zimmermannStableCohabitationalUnions2019} found little evidence that relationship histories would be linked with self-assessed mental health and quality of life measures among women. Both authors found relatively strong evidence that the association holds among men.
+
+It seems that studying relationship \emph{histories} could reveal dynamics that are concealed in analyses focusing on relationship \emph{statutes}.
+
+
+%%-----------------------------------------
+%%TÄSSÄ ARGUMENTIT MENEE VÄHÄN SEKAISIN: WOMEN LESS RESOURCES - eli onko yksineläminen naisille "more detrimental". Muut argumentit puhuvat sen puolesta, että benefits more pronounced for men. 
+% By contrast, women generally have less material resources and tend to bear parental obligations to a greater extend, which could make them vulnerable for divorce \citep{gerstelExplainingSymptomatologySeparated1985}.TÄMÄ PITÄÄ JOKO POISTAA TAI SIIRTÄÄ
+%%-----------------------------------------
+
+
+\subsection{Conceptualizing relationship histories and statuses}\label{statuses}
+
+Well-being in old age is comprised of the combined experiences during the whole life course, not just at the present moment. Studying sequences of relationship statutes informs holistically how romantic relationships have been part of the life course.
+
+%% Yet, the studies that would create trajectories and examine well-being associations are only starting to emerge \citep{oflahertyFamilyLifeCourse2016,zimmermannStableCohabitationalUnions2019}. %long time%
+
+%Since partnership histories intertwine with other life events, a comprehensive and longitudinal approach is warranted in order to disentangle their effects in different socioeconomic groups.
+
+Being single, divorced, or widowed are qualitatively quite different from living with a partner. The experience and well-being outcomes of even the unpartnered groups can nevertheless be very different and should thus be treated separately \citep{naessMaritalStatusSuicide2021, pinquartLonelinessMarriedWidowed2003}. 
+
+Although cohabitation and marriage are starting to resemble each other both legally and socially \citep{cherlinDegreesChangeAssessment2020,perelli-harrisChangesPartnershipPatterns2015}, there is still a clear difference in terms of commitment, longevity and symbolic importance \citep[cf.][]{barlow2001just, cherlinDeinstitutionalizationAmericanMarriage2004,raultCivilSolidarityPact2019,brownMarriageCohabitationDivorce2017}.
+
+Similarly, first and higher-order marriages differ in terms of stability, relationship satisfaction, and demographic make-up \citep{zahl-olsenDivorceRemarriageNorway2019, hagglundVanheneeKuinHyva2021,boothStartingWhyRemarriages1992}, which is why later life outcomes should be different as well.
+
+Here, we thus categorize partnership statuses into singlehood, first and higher-order marriages, dating, cohabitation, divorce, and widowhood. With partnership history we mean the ordered series of relationship statuses from teenage to third age \citep[cf.][:21]{cornwellSocialSequenceAnalysis2015}. 
+
+%%--------------------------------------------------------
+%%%%%%% Extra ideas for relationship statuses%%%%%%
+
+% Above, we have demonstrated how relationship statuses are associated with well-being and reasoned that well-being outcomes of qualitatively different partnership statuses should be kept separate in analyses . Next, we will theorize why we should expect even clearer associations when we take into account the totality of relationship statutes during the life course and not just single events.
+
+% Cohabitation, by contrast, in many ways resembles  marriage. As civil unions have become more common, many states have introduced legal policies previously associated with marriage only \citep{perelli-harrisChangesPartnershipPatterns2015}. Cohabitation fits at least partially under all anthropological definitions of marriage, whether defined by custom or law \citep[:3]{westermarckFutureMarriageWestern1936}, establishment of paternity (although not automatically) \citep*[:111]{royalanthropologicalinsitituteraiNotesQueriesAnthropology1951},  sexual exclusivity, rights to property, labour services and affinity with kin \citep{leachPolyandryInheritanceDefinition1955}. As the legal and social rights and obligations for cohabitation are bound to increase in the future, we should expect cohabitation to move closer to marriage. According to the deinstitutionalization theory \citep{cherlinDeinstitutionalizationAmericanMarriage2004}, marriage will also come closer to cohabitation, but the change is still under progress \citep{cherlinDegreesChangeAssessment2020}.
+
+%  Even if they would be indistinguishable in the future, it—in effect—would mean that cohabitation would fully have become marriage in the anthropological sense. Since we here investigate adults aged over 50, many would have grown up in countries where cohabitation was still rare. Therefore it is most intriguing cohabitation seems already to be an alternative to marriage in new relationships among older adults \citep{brownMarriageCohabitationDivorce2017}, perhaps due to a stronger detachment to procreation, roles and expectations of pairbonding in younger generations.
+
+
+% In any case, for these cohorts cohabitation is distinctly different to marriage. Rather, cohabitation spells tend to be short
+%%%%--> historical context
+%% also effects in the present
+%% or how much has changed?
+
+%~~will in part reflect values 50 years ago (life course studies by definition outdated.)
+%~~results might be different in 50 years but nonetheless affect the real and current people
+
+%%-----------------------------------------------
+\subsection{Cumulative advantage and disadvantage over the life course} \label{cumulative}
+
+The association between partnership histories and well-being should increase with age, since inequalities in health, but also to some extend subjective well-being, tend to accumulate as individuals age \citep[cf. ][]{kratzEndogenousSelectionBias2020,rossEducationAgeCumulative1996,prusAgeSESHealth2007,headeySetPointTheory2010}. Among the oldest health inequalities seem to converge rather than diverge, but research is not unanimous on the mechanisms \citep{beckettConvergingHealthInequalities2000, kulminskiAccumulationHealthDisorders2006,herdFunctionalHealthInequalities2006}. \citet{mehtaHowAgeMajor2019} suggest that the choice of scale explains the apparent convergence: on an additive—as opposed to multiplicative scale—the excess death risk due to behavioral risk factors increased with age. If the inequalities do diverge, they should be further pronounced when multiple domains of life—in our case partnership histories and education—are taken into account \citep{mirowskyEducationSelfRatedHealth2008,rossEducationAgeCumulative1996}. 
+
+The theory of cumulative dis/advantage falls within the larger framework of the life course studies \citep{hutchisonLifeCourseTheory2011}, which highlight that events early on can have lasting consequences unto later life.  The aging process is a result of accumulated dis/advantages over the years \citep{meloTheoryCumulativeDisadvantage2019}. Cumulative dis/advantage means that the negative/positive implications of one aspect of life increase over time \citep{danneferCumulativeAdvantageDisadvantage2003}. One dis/advantage tends to increase the harm or benefit of another \citep{pampelSocioeconomicStatusSmoking2004}, which is why it is informative to study more than one possible source of dis/advantage. The theory was initially conceptualized by \citet{priceNetworksScientificPapers1965} and \citet{mertonMatthewEffectScience1968,mertonMatthewEffectScience1988} who observed that citations and publications start to accumulate for certain researchers. 
+
+\citet{ferraroCumulativeInequalityTheory2009} outlines possible mechanisms for how the dis/advantages accumulate: disadvantage exposes to risks while advantage exposes to opportunities; perceptions of trajectories could influence subsequent biographies; social environments limit agency, yet resources may help battle structural barriers. Overall, cumulative disadvantage tends to be more prevalent than cumulative advantage \citep{pampelSocioeconomicStatusSmoking2004}. Moreover, cumulative advantage and disadvantage cannot co-exist, at least in theory: either the benefits (or damages) are relatively greater for the advantageous or the damages (or benefits) are greater for the already vulnerable. 
+
+To capture the development of cumulative dis/advantage, it is not enough to look at the present moment or single domains, but rather to study multiple sources of dis/advantage over time. Here we are interested in the interplay of relationship histories with educational attainment.  
+
+The accumulation of human, social and personal capital is anchored in educational attainment in adolescence  \citep{orandStratificationLifeCourse2001}. Education is associated with a multitude of well-being outcomes and is an indicator of social status
+\citep[see ][ for review]{zajacovaRelationshipEducationHealth2018}. \citet{mirowskyEducationCumulativeAdvantage2005} argue that this is because education transforms individuals and puts their lives on a different track. Although education is linked to social and hereditary characteristics, it also tends to promote well-being through three main pathways\citep{rossLinksEducationHealth1995}: work-related resources, such as low economic hardship and fulfilling full-time jobs; social-psychological resources such as a sense of control and social support, and health behavior. 
+
+On the one hand, highly educated could gain higher benefits from stable relationship histories.  As \citet{meloTheoryCumulativeDisadvantage2019} puts it: "Education reproduces and expands early advantages of social background" which will determine their subsequent lives. Those in a high socioeconomic position are more likely to partner with similarly positioned individuals \citep{schartzPathwaysEducationalHomogamy2010} and their unions tend to be happier \citep{tavakolReviewFactorsAssociated2017}. The perks of happy family life, such as fulfilling relationships with kin-network \citep{robertsCommunicationSocialNetworks2011} and the joys of raising children, would be more pronounced for those with higher educational attainment \citep{margolisGlobalPerspectiveHappiness2011}. This would suggest further accumulation of well-being.
+
+Alternatively, the social support and internalized roles could benefit especially the low-educated. As they tend to have fewer resources, they are more reliant on single assets, such as stable partnership histories. Put differently,  the highly educated can utilize other social, economic, and psychological resources that buffer the negative consequences of union dissolution and living alone \citep[cf. ][]{ferraroCumulativeInequalityTheory2009}. This is what \citet{mirowskyEducationCumulativeAdvantage2005} calls resource substitution: an ability to acquire or invent ways in which to withstand difficulties. This then suggests stronger benefits of stable unions, or conversely stronger disadvantages of dissolution, among low-educated individuals. 
+
+Evidence for cumulative advantage in our study would support the selection hypothesis: higher social status would predict success in the marriage market, which in turn would lead to further well-being. Results in favor of cumulative disadvantage would, on the contrary, argue for the explanatory powers of symbolic interaction and social support theories: not enjoying the compensatory mechanisms of stable unions would pose those who are already vulnerable at a higher risk of adversities. Likewise, the highly educated would not gain equally from internalized roles or social support as education itself brings with it similar perks. That said, identifying which mechanism is driving the association between partnership and well-being is challenging with retrospective survey data. While our empirical models took some selection into consideration, it is difficult to distinguish between different pathways, especially between role conformity and social support.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%
+%% MISC cumulative dis/advantage education text, to be used or removed
+%%%%%%%%%%
+
+%%% The highly educated also have more resources to support one another and be more prone to live out the roles associated with being a couple. 
+%Correspondingly, those with more resources might be able to provide stronger support in partnerships.  &&MM: EN HALUAISI LAITTAA TÄTÄ SOCIAL SUPPORT / ROLES TÄHÄN, KOSKA KOKO PAPERIN ARGUMENTAATIO EI TOIMI NIIN HYVIN
+
+% EHKÄ VÄHÄN off-topic, kun tässä ei silti tutkita gestational periodia
+%In fact, life-course well-being defining  events start already in the pre-conception and gestational period and are especially shaped by early childhood experiences  \citep{pakpahanLongArmChildhood2017, godfreyFetalNutritionAdult2000}. %long time%
+
+%Tämä ihan kiinnostava, mutta se pikkaisen "interrupts the flow" kun käsittelet cumulative advantage käsitettä. Voiko sen siirtää (en ihan varma jos tarvitset tätä tulosta). 
+% For instance, \citet{ploubidisLifelongSocioEconomic2014} discovered that socioeconomic status in childhood is linked with health at least 65 years later.
+
+%Another possible mechanism is that of compensation, were positive life events can nulkify or mitigate the challenges created from a negative event (joku viite).%% MM: ehkä selkeämpi pysyä vain tuossa cum adv/ disadv teoriassa.
+
+%% Those with more resources would be more resistant to any strain during their lives. 
+
+
+% You need to be much more explicit on what this means for relationship 
+
+%% Mitä tarkoitat tällä - eikö tässä kuvailla samaa processia: hyväosaiset hyötyvät; huono-osaisilla kasautuu. 
+% Mielestäni compensation on toinen mekanismi. eli parisuhde tärkeämpi niille, joilla vähän resursseja. Se ei tässä vielä käy niin hyvin ilmi. 
+%% In theory, cumulative disadvantage and advantage cancel each other out: either benefits are more heavily concentrated to those that are already better off, the drawbacks are pronounced with those that are already vulnerable, or neither of those. %%% OR: partnership as a resource matters more for those in a disadvantaged position???
+
+% TÄMÄ LAUSE EHKÄ VÄHÄN TURHA, poistaisin. 
+%Real life is more complicated — especially when examining multiple life domains at the same time — but the rule of thumb is that one should at least weaken the other.
+
+
+%% IN WHICH DIRECTION DOES THIS GO?? IF ONE HAS A LOT OF RESOURCES, does one benefit more or less from partnership??
+
+%By studying the education interaction effects, it is possible to identify how people with different resources react to different romantic life histories. 
+
+%While we are not here focusing on early life events, we will take into account childhood home conditions to capture how both childhood socioeconomic status and educational attainment magnify and bumper the impacts of subsequent family life events.
+
+%It is maybe unsurprising then that the gap of health outcomes between educational groups widens during the ageing process \citep{mirowskyEducationSelfRatedHealth2008,rossEducationAgeCumulative1996}. \citet{mirowskyEducationCumulativeAdvantage2005} argue that this is because education transforms individuals and puts their lives on a different track.
+
+% The combined effects of relationship histories and education could be multiplicative as opposed to additive \citep[cf. ][]{pampelSocioeconomicStatusSmoking2004, orandProcessesCumulativeAdversity2005}.
+%% NEED A STRONGER ARGUMENT MORE EXPLICIT FOR EDUCATION AND PARTNERSHIP. WHAT IS THE MECHANISM? SUPPORT GIVEN AND RECEIVED BETTER? THEREFORE PROFIT MORE?
+
+
+%COULD YOU CHANGE CATALYST - strange expression. 
+%% TÄMÄ ei vielä niin selkeä. Is the educational gradient stronger or weaker for highly-educated individuals. 
+% If you have competing hypotheses, these need to be argued more explicitly. 
+% I think this is a great example where competing hypotheses would work (partnership trajectories matters more/less for low-educated), but this needs to be much more explicit.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{Hypotheses}\label{hypotheses}
+
+Based on previous research, we hypothesize that (1a) stable marital relationship histories are associated with well-being after age 60. We also predict that (1b) individuals with more unstable relationship histories, tend to be less well off.
+In addition, we expect (1c) more robust and consistent results for men, but possibly some associations also for women.
+
+The association between partnership histories and well-being should vary by education, yet the direction is not clear. If the educational gradient is in line with cumulative advantage, we expect high education to strengthen the positive associations between stable partnership histories and well-being (2a). If, on the contrary, cumulative disadvantage occurs, we expect low education to strengthen the negative association between unstable partnership histories and well-being (2b).
+
+% and (2c) that the well-being effects are larger than observed in studies with younger study groups.
+
+
+%%%%-----------------------------------------------
+%%%% Data and Methods
+
+\section{Data and methods}\label{datamethods}
+
+Life histories were generated with the help of the SHARELIFE interviews of the Survey of Health, Ageing, and Retirement in Europe \citep{borsch2019share}\footnote{
+This paper uses data from SHARE Waves 1, 2, 3, 4, 5, 6, and 7 (DOIs: 10.6103/SHARE.w1.710, 10.6103/SHARE.w2.710, 10.6103/SHARE.w3.710, 10.6103/SHARE.w4.710, 10.6103/SHARE.w5.710, 10.6103/SHARE.w6.710, 10.6103/SHARE.w7.711). See \citet{borsch-supanDataResourceProfile2013} for methodological details.}. SHARE is a micro panel data infrastructure that covers households with at least one member aged 50 in all EU countries, Switzerland, and Israel. The survey collects both panel and retrospective life course data. The retrospective SHARELIFE pseudo-panel interviews were conducted in 2008 and 2017 (wave 3 and 7, respectively). Respondents were asked to report, amongst others, on their childhood circumstances as well as their past partners, including all cohabitational, marital, and dating relationships. If the life history interviews were conducted in 2008, any changes in relationship statuses were updated with subsequent panel interview data.
+
+We selected baby boomers from Northern and Western Europe that were at least 60 years of age in 2017, and, as a result, studied the cohort born between 1945-1957 \citep[cf.][]{bavelBabyBoomIts2013}. By restricting the sample, we reduced the heterogeneity of the study population; by extending the life courses until the verge of retirement, we could study the association between different relationship trajectories and health. The final sample size for analysis was 18,256 individuals. In order to get an adequate sample size, all couples were heterosexual.
+
+The first part of the analyses was creating relationship history typologies that were created by sequence analysis or agglomerative hierarchical clustering \citep[see ][ for a theoretical overview]{cornwellSocialSequenceAnalysis2015}. We first created a distance matrix with dynamic hamming method. The substitution costs of two states at position $p$ are calculated as follows:
+
+\begin{equation}
+	s_p(A,B) = 4 - 
+	\begin{pmatrix}
+	pr(X_p=A|X_{p-1} = B ) + & pr(X_p=B|X_{p-1} = A ) + \\
+	pr(X_{p+1}=A|X_{p}= B) + & pr(X_{p+1}=B|X_{p}=A) 
+	\end{pmatrix}
+	,
+	\label{eq:dynamic_hamming}
+\end{equation}
+
+\noindent where $s_p(A,B)$ is the substitution cost at position $p$ and $X_p$ is the state at the $p^{th}$ position. The method assesses both the probability of being in state $A$ and state $B$ at position $p$ as well as the transition probabilities from $A$ to $B$ at position $p$ and vice versa. This means that both timing and order are taken into account. \citep[:128]{cornwellSocialSequenceAnalysis2015} That way the substitution costs are calculated automatically based on how common a certain transition is at a given age—rather than imposing subjective substitution costs that might not reflect reality.
+
+The distance matrix between the individual trajectories was further analyzed using Wald's agglomerative clustering method to form groups. The clusters are obtained by minimizing the within-cluster sum of squares, and hence, produce groups with similar histories. We also experimented with other algorithms but the clustering alternatives with Ward's method made the most sense conceptually. 
+
+\begin{equation}
+	\begin{aligned}
+		\Delta(A, B) &=\sum_{i \in \Lambda \cup B}\left\|\vec{x}_{i}-\vec{m}_{A \cup B}\right\|^{2}-\sum_{i \in A}\left\|\vec{x}_{i}-\vec{m}_{A}\right\|^{2}-\sum_{i \in B}\left\|\vec{x}_{i}-\vec{m}_{B}\right\|^{2} \\
+		&=\frac{n_{A} n_{B}}{n_{A}+n_{B}}\left\|\vec{m}_{A}-\vec{m}_{B}\right\|^{2} , 
+	\end{aligned}
+\end{equation}
+
+\noindent where $\Delta$ is the merging cost of arbitrary clusters  $A$ and $B$, and $\vec{m}_{A}$,$\vec{m}_{A}$,$\vec{x}_{i}$ are the centers of individual and combined clusters. If there are $n$ clusters at a given point of the process, $\binom{n}{2}$ distances are calculated and the clusters with the smallest distance $d$ are merged. \citep[:231]{kaufmanFindingGroupsData1990a}
+
+We performed goodness-of-fit tests to decide how many clusters to choose: Average Silhouette Width (ASW) indicates high between-group dissimilarity and high within-group similarity; Hubert's Gamma (HG) measures the capacity of the clusters to reproduce the distances \citep{studerWeightedClusterLibraryManual2013}. In addition, we corroborated the test statistics by inspecting the clustering trees visually.
+
+Initially, we added a second sequence channel with children histories, but the clusters depended almost entirely on the completed number of children—regardless of which algorithm we used. Since we do not focus on the associations of childbearing and parenting here, we dropped the children channel and added the number of children as a control variable.
+
+The typologies were created jointly for men and women for two reasons. First, we wanted to compare differences in well-being outcomes by gender, and having the same typologies for both groups, made the comparison easier. Second, the relationship histories of men and women are interrelated by definition. %% We also figured that the cluster solutions resembled the aggregated analysis even if the typologies were created separately (results not shown).
+
+Health was measured by a subjective health question\footnote{Would you say your health is... 1. Excellent, 2. Very good, 3. Good, 4. Fair, 5. Poor} and well-being by self-reported life satisfaction\footnote{On a scale from 0 to 10 where 0 means completely dissatisfied and 10 means completely satisfied, how satisfied are you with your life?}, as they are direct and established ways to access well-being.\citep{fischerSubjectiveWellBeingWelfare2009,jenkinsonMeasuringHealthMedical2013} 
+
+Robustness checks were carried out with grip strength—an objective estimator for health that predicts a multitude of advantageous active aging outcomes\citep{bohannonGripStrengthIndispensable2019}— and CASP-12, an old age quality-of-life indicator with a robust theoretical underpinnings\footnote{The SHARE version of CASP-12 includes 12 statements on control, autonomy, pleasure, and self-realization: My age prevents me from doing the things I would like to do; I feel that what happens to me is out of my control; I feel left out of things; I can do the things I want to do; Family responsibilities prevent me from doing the things I want to do; Shortage of money stops me from doing things I want to do; I look forward to each day; I feel that my life has meaning; On balance, I look back on my life with a sense of happiness; I feel full of energy these days; I feel that life is full of opportunities; I feel that the future looks good for me.} \citep{borrat-bessonEvaluationCASP12Scale2015}. All well-being variables are measured at the most recent interview with the respondent, but no later than in 2017 (wave 7).
+
+We treated subjective health and life satisfaction as continuous rather than ordinal to preserve comparability with Grip Strength and CASP-12. For the same reason, we standardized all continuous and ordinal variables. As \citet[:214-215]{agrestiFoundationsLinearGeneralized2015} points out, using OLS for ordinal response variables can lead to misleading results because of ceiling and floor effects. Consequently, we performed robustness checks with ordinal regression to ensure that such effects were not present.
+
+We analyze the associations between partnership histories and later life outcomes with four linear regression models. The first regression model did not have any controls, and thus gives the raw associations of the clusters. The second (also the main model) had control variables that were exogenous to the clusters themselves: age, family composition at 10 years of age, and childhood socioeconomic background measured by the number of books, features, and rooms at home, and whether respondent experienced hunger as a minor (see \citet{havariCanWeTrust2015} for a discussion about the reliability of these measures). The third model was an over-controlled one: it makes sure the cluster associations are not merely artifacts of the number of children, educational attainment, or income. The final model is equal to the second or main model but includes, in addition, cluster and education interaction effects. Our first intention was to build a three-way interaction effect model with the number of children but the sample size was not large enough for reliable results.
+
+Missing values (please refer to \autoref{tab:descriptives_cluster}and \autoref{tab:descriptives_gender}) were handled with multiple imputation with 6 imputed datasets. 
+
+Although we did measure associations, we were inherently interested in the possible causal relationship between relationship histories and later life outcomes. To further analyze the robustness of the associations, we examined how an unmeasured confounder would alter our results. For that, we computed the E-value \citep{vanderweeleSensitivityAnalysisObservational2017} for each of the models without the interaction effect. It approximates how strong an unmeasured confounder associated both with the independent and dependent, conditional on the covariates, would have to be so that it would explain away their relationship. It does not make any assumptions about the confounder. Yet, it is no more conservative than other often used sensitivity analyses and it is straightforward to implement. \citep{dingSensitivityAnalysisAssumptions2016}
+
+E-value is calculated simply as:
+	\begin{equation}
+		\begin{aligned}
+			E-value &= RR + \sqrt{RR \cdot (RR - 1)} & if RR\ge1 \\
+					&=RR' + \sqrt{RR' \cdot (RR' - 1)} & if RR<1
+		\end{aligned}
+		\label{eq:evalue}
+	\end{equation}
+
+\noindent where $RR$ stands for risk ratio and $RR'$ its inverse $1/RR$ Before that, the estimates of linear regression are transformed to the risk ratio scale. The transformation takes into account effect sizes and standard errors:
+
+\begin{equation}
+	\begin{aligned}
+		RR &\approx exp\{0.91 \cdot d\}  \\
+		CI &\approx exp\{0.91 \cdot d \pm 1.78 \cdot se\}
+	\end{aligned}
+\end{equation}
+
+\noindent where $d$ is the standardized effect size and $se$ the standard error of $d$\citep{vanderweeleSensitivityAnalysisObservational2017}. The approximation relies on assumptions from meta-analyses to convert standardized effect sizes into odds ratios and further the obtained odds ratios into risk ratios \citep{vanderweeleSquareRootTransformationOdds2017, hasselbladMetaanalysisScreeningDiagnostic1995,borenstein2021introduction}. Note that by definition, E-value equals one if the upper and lower confidence bounds of the corresponding risk ratios are under and above one, respectively. This becomes evident when looking at the definition in \autoref{eq:evalue}: if the confidence bounds of the E-values cross one, the interpretation of the upper/lower tail becomes meaningless. 
+
+All analyses were conducted with the Puhti supercomputer R singularity container \citep{cscPuhtiEnvironmentHigh2021, rcoreteamLanguageEnvironmentStatistical2021}: Sequence analyses and clustering trees with Graphviz and the R package TraMineR  \citep{gabadinhoAnalyzingVisualizingState2011,gansnerOpenGraphVisualization2000}; all other visualizations with ggplot2 and jtools \citep{wickhamGgplot2ElegantGraphics2016,jtools}; multiple imputations with mice \citep{vanbuurenMiceMultivariateImputation2011}; unmeasured confounding with EValue \citep{vanderweeleSensitivityAnalysisObservational2017}; interaction forecasting with emmeans \citep{lenthEmmeansEstimatedMarginal2021}, and tables with table1 and stargazer  \citep{richTable1TablesDescriptive2021,hlavacStargazerWellformattedRegression2018}.
+
+
+%%%%-----------------------------------------------
+%%%% Results
+
+\bigskip % NB! check if needed
+
+\section{Results}\label{results}
+Our analyses, taken together identified five relationship typologies, demonstrated that stable union trajectories had the best well-being associations, and that low education appeared to aggravate the well-being associations of trajectories characterized by divorce but no remarriage.
+
+\autoref{tab:descriptives_gender} displays the descriptives of the regression covariates and an overview for the prevalence of relationship statuses between ages 15 and 60. 
+
+\toWorS{\input{descriptive_table_gender.tex}}{}
+%%%%-----------------------------------------------
+%%%% Partnership typologies
+\subsection{Partnership typologies}\label{clusters}
+
+
+% creating a figure command
+\newcommand{\ClustersAndTitle}{
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[width=\textwidth]{clusters_and_title}
+		\caption{Partnership history clusters for Western and Northern Europeans born in 1945 - 1957 at the age of 15 - 60}
+		\label{fig:clusters_and_title}
+	\end{figure}
+}
+
+% pasting the picture here or at the end, whether working (W) or publish (P) version
+
+\toWorS{\InsertFloat{ClustersAndTitle}}{}
+
+We will start by describing the relationship trajectories. Our analyses identified five, distinct types of relationship trajectories. This five-cluster solution (\autoref{fig:clusters_and_title}) was the most optimal according to both goodness-of-fit tests and visual inspection (\autoref{fig:s_cluster_fit_comparisons_only_both} and \autoref{fig:tree.s}).The \emph{marriage} (1) cluster is characterized by a brief period of dating—and sometimes cohabitation—followed by  a permanent first marriage in the late 20s. The \emph{remarriage} (2) cluster tended to marry around their 20s and divorce within the first ten years of marriage. Most would remarry in their 30s. The higher-order marriages were often preceded by cohabitation. The \emph{dissolution} (3) cluster is identical to the first two clusters until the mid-20s. However, unlike the remarriage cluster (2), people remained single or widowed, or started dating or cohabiting after divorce, but did not generally remarry. In the \emph{serial cohabitation} (4) cluster, cohabiting and dating were prominent throughout the life course. Marriages, in turn, were rare, and usually ended in divorce. There was a considerable amount of variation in the relationship stages after the initial period of singlehood. The sequence index plot (see \autoref{fig:indices_and_title}) reveals that this cluster was, indeed, characterized by serial as opposed to stable cohabitation. Finally, the vast majority in the \emph{single} (5) cluster never dated or co-resided. Those who did, by and large, returned to singlehood in a matter of a few years.
+
+
+\toWorS{\input{descriptive_table_cluster.tex}}{} % ref from the file
+%OBS! check that clusters in right order
+
+
+Overall, the clusters resemble each other in terms of demographical characteristics (see \autoref{tab:descriptives_cluster}). There are a few exceptions: men were over-represented in the singlehood (5) and women in the dissolution (3) cluster. While educational differences were generally insubstantial, men with stable relationship trajectories tended to be more educated. For women, the opposite pattern prevails. (\autoref{fig:statsby_cluster_education_gender}). The distribution of relationship clusters did not vary much across countries. One stable union trajectories were by far the most common, and single or serial cohabitation trajectories were the rarest. Further inspection by multinomial regression revealed that northern European respondents were more likely to belong to the serial cohabitation cluster. No other clear patterns were observed (see \autoref{tab:multinom_ref_1}) and \autoref{fig:statsby_cluster_country}.
+ 
+
+
+\newcommand{\StatsByClusterEducationGender}{
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[width=\textwidth]{statsby_cluster_education_gender}
+		\caption{Educational attainment by gender and partnership  trajectory}
+		\label{fig:statsby_cluster_education_gender}
+	\end{figure}
+}
+
+\toWorS{\InsertFloat{StatsByClusterEducationGender}}{}
+%%%%-----------------------------------------------
+%%%% Well-being outcomes
+\subsection{Well-being outcomes}\label{wellbeing}
+
+%%%%%%%%%%TO DO%%%%%%%%%%%%%
+%% AEH: COULD YOU WRITE SOMETHING LIKE: THE RESULTS CONFIRM BUT PREVIOUS FINDINGS, BUT OFFER A MORE NUANCED PICTURE. HIGHLIGHT CONTRIBUTION MORE OF TRAJECTORY APPROACH MORE!!!
+%% mäki: I AM HESITANT TO COMPARE MY RESULTS TO OTHER RESULTS IN THIS SECTION. MY UNDERSTANDING IS THAT DISCUSSION IS WHERE THAT HAPPENS.
+% WOULD MENTION BRIEFLY HERE AND THEN ELABORATE IN DISCUSSION, but can do it either way. Anyhow, need to sell it better
+%MÄKI: ROGER.
+
+%%%%%%%%%%TO DO%%%%%%%%%%%%%
+% AEH: WOULD IT BE POSSIBLE TO EITHER DO FIGURE 3 in two figures (one for main effects and one for interaction)? Then easier to refer to the specific part of the figure - or give each section a letter (a, b, c, d) in the corner?
+%mäki: will have alook.
+We then proceed to analyze the association between partnership histories and well-being. The results are depicted in \autoref{fig:reg_sub_life}, where the marriage (1) cluster is our reference category. As all non-binary variables were standardized, an effect size of one would imply a difference of one standard deviation in the response variable compared with the reference catagory. The white circles and squeares represent point estimates, while the thick and narrow bars the 95\% and 99\% confidence intervals, respectively. Overall, the results confirmed that trajectories characterized by stable unions  (cluster 1) were associated with higher subjective health and higher life satisfaction for men and women. Clusters characterized by singlehood (5) and dissolution (3), in turn, seemed to be the most vulnerable to lower well-being in old age. Remarriage (2) was not associated with substantial losses in well-being. Specifically, the well-being of men in this cluster was only slightly worse when compared to that of men with one stable union. For women, differences in effect sizes were larger but still modest. These patterns remained after exogenous controls (model 2) and even in the over-controlled model (model 3). (for full models, see \ref{tab:table_sub_health_lm_m}, \ref{tab:table_life_sat_lm_m}, \ref{tab:table_sub_health_lm_f},and \ref{tab:table_life_sat_lm_f}.
+
+%%Overall, the general pattern was similar for both genders with subjective health and life satisfaction, but as we will see, robustness checks  with alternative well-being measures revealed that the associations seem to hold more consistently for men (findings described in more detail below).
+
+%%%%%%%%%%TO DO%%%%%%%%%%%%%
+%Tables for the interactions are omitted for brevity)
+% BUT: are the interactions part of the online appnedix? These your most important results, so should be part of the appendix!!
+% mäki: will add
+
+ %YOU STILL HAVE NOT SAID WHETHER THERE ARE GENDER DIFFERENCES OR NOT. HERE write one sentence to H1c. (the one above it not clear enogugh - if you have a hypthsis to gender relations, you need to be precise in where you find them, but also where you do not find them! Do you find that effects are more pronounced for men?) 
+% Mäki: Yes, but only really after the robustness checks (in grip strength no associations for women, also single cluster larger effect size)
+
+% Logic of argument: start with the most intuitive result (marriage and divorce), and then discuss re-marriage, which is a bit more complicated. 
+Finally, we assess whether the association between well-being and partnership is contingent on education. \autoref{fig:plot_inter3_education_sub_life} displays the \emph{predicted values} of all education and cluster combinations by gender conditional on the exogenous controls. Our results point to an educational gradient in line with cumulative disadvantage, as the negative relationship between the divorce cluster and subjective health and life satisfaction were stronger among the basic and secondary educated for both men and women. Correspondingly, higher education seemed to shelter both men and women from the possible adverse effects of union dissolution. In other words, those with basic and secondary education were considerably worse off if they have divorced and remained unmarried. 
+
+The findings also point out that patterns are more complex than theoretically assumed. In contrast to union dissolution, the negative implications of singlehood are not more pronounced among low or medium educated. Although the singlehood cluster (5) had the lowest well-being outcomes and stable marriages (2) the highest, the educational gradient was constant within both clusters. The educational gradient also seems to vary by gender: while serial cohabitation (4) was disadvantageous for all men, the association varied by education among women. Highly educated women with serial cohabitation fared best out of all groups. Those with basic or secondary education seemed to experience equally negative well-being implications from their complex partnership histories as those in the permanent singlehood (5) cluster.
+
+\newcommand{\RegSubLife}{
+	\begin{figure}[!phtb]
+		
+			\begin{subfigure}{1\linewidth}
+				\centering
+				\includegraphics[width=\textwidth,height=0.45\textheight,keepaspectratio]{reg_sub_life.m} 
+				\caption{Men}
+				\label{fig:reg_sub_life.m}
+				\vspace{0.5cm}
+			\end{subfigure}
+			\vspace{0.5cm}
+			\begin{subfigure}{1\linewidth}
+				\centering
+				\includegraphics[width=\textwidth,height=0.45\textheight,keepaspectratio]{reg_sub_life.f}
+				\caption{Women}
+				\label{fig:reg_sub_life.f}
+			\end{subfigure}
+			
+			\caption{Linear regression for Subjective Health and Life Satisfaction without interaction effects (Models 1,2 \& 3))}
+			\fnote{\NoteOnClusters}
+			\label{fig:reg_sub_life}
+		\end{figure}
+}
+
+\toWorS{\InsertFloat{RegSubLife}}{}
+
+
+\newcommand{\InterSubLife}{
+	\begin{figure}[!phtb]
+			\begin{subfigure}{1\linewidth}
+				\includegraphics[width=0.98\linewidth]{plot_inter3_education_sub_life.m} 
+				\caption{Men}
+				\label{fig:plot_inter3_education_sub_life.m}
+				\vspace{0.5cm}
+			\end{subfigure}
+			\vspace{0.5cm}
+			\begin{subfigure}{1\linewidth}
+				\includegraphics[width=0.98\linewidth]{plot_inter3_education_sub_life.f}
+				\caption{Women}
+				\label{fig:plot_inter3_education_sub_life.f}
+			\end{subfigure}
+			
+			\caption{Linear regression for Subjective Health and Life Satisfaction with educational interaction effects (Model 4)}
+			\label{fig:plot_inter3_education_sub_life}
+		\end{figure}
+}
+
+\toWorS{\InsertFloat{InterSubLife}}{}
+
+%%%%-----------------------------------------------
+%%%% Robusteness checks
+\subsection{Robustness checks}\label{robustness_checks}
+
+The results were similar when measured with grip strength and CASP-12 (\autoref{fig:reg_grip_casp}, \autoref{fig:plot_inter3_education_grip_casp}). Grip strength deviated from the other response variables: effect sizes were larger for men and smaller for women for whom the effect sizes were almost zero.  The direction of the association was mostly as expected. Still, the near disappearance of association in grip strength implies that the relationship between partnership and well-being, or health, is more robust for men.
+
+As subjective health and life satisfaction were measured on 5- and 11-point scales, we also estimated each model using ordinal regression. The results were in line with the OLS estimates\toAorB{(results omitted for brevity).}{ (see \autoref{fig:polr.all.3}).}
+
+We also estimated the fourth and final model without controls to examine the raw interaction effects (results not shown). When the exogenous controls—age and childhood circumstances—were excluded, the positive total association of serial cohabitation for highly educated increased considerably. Otherwise, the size of the interaction effects increased slightly in models excluding control variables, but the general trends were the same.
+
+Estimating how an unobserved confounder would change the associations hints faintly at a possible causal relationship with the clusters and response variables when compared with the marriage (1) cluster. The E-values in \autoref{fig:plot_evalue_sub_life} are mainly around 1.5 and 2 for all three non-interaction models, meaning that, on the risk ratio scale, an unmeasured confounder associated both with partnership histories and later life outcomes would have to have a 1.5 to 2.0 fold effect in explaining the association. The remarriage (2) cluster for men and serial cohabitation (4) cluster for the subjective health of women is an exception: even a small confounder would be enough to nullify the findings. In other words, the associations are somewhat robust for the divorce (3) and single (5) groups for both sexes, for remarriage (2) group among women, and for serial cohabitation (4) group among men. For women, the robustness of serial cohabitors is debatable.
+
+%% for life courses characterized by serial cohabitation (4) and even more sore with regards to the remarriage cluster.
+
+\newcommand{\EvalueSubLife}{
+\begin{figure}[!phtb]
+			\begin{subfigure}{1\linewidth}
+				\includegraphics[width=\textwidth,height=0.45\textheight,keepaspectratio]{plot_evalue_sub_life.m.png} 
+				\caption{Men}
+				\label{fig:plot_evalue_sub_life.m}
+				\vspace{0.5cm}
+			\end{subfigure}
+			\vspace{0.5cm}
+			\begin{subfigure}{1\linewidth}
+				\includegraphics[width=\textwidth,height=0.45\textheight,keepaspectratio]{plot_evalue_sub_life.f.png}
+				\caption{Women}
+				\label{fig:plot_evalue_sub_life.f}
+			\end{subfigure}
+			
+			\caption{E-values to estimate the magnitude that an unmeasured confounder would have to have in order to explain away the association.}
+			\fnote{\NoteOnClusters}
+			\label{fig:plot_evalue_sub_life}
+		\end{figure}
+}
+
+\toWorS{\InsertFloat{EvalueSubLife}}{}
+
+In sum, the results were mainly corroborated with alternative response variables; ordinal regression produced similar results; adding or removing covariates did not change the general trends, and sensitivity analysis revealed that the associations were rather resistant to potential unmeasured confounding especially in clusters with extensive periods without a partner. The thus results seem rather robust. Despite consistent findings for life courses characterized by singlehood or divorce without repartnering, the question of causality cannot be answered with confidence.
+
+%%%%-----------------------------------------------
+%%%% Discussion and conclusion
+
+%%%%%%%%%%%%%%%%%
+% ADD: link background to discussions (marital status & CAD)
+%%%%%%%%%%%%%%%%%
+
+\section{Discussion and conclusion}\label{discussion}
+
+%%%% Interpretation of results
+%%Summary first: We investigated .... Confirming to our first research hypotheses, we found... our second, we cound that %%
+
+We investigated, for the first time, how partnership trajectories are associated with health and quality of life in old age by education groups. Our findings show that stable relationship histories are associated with well-being in old age.  Interaction analyses further indicate that lower education aggravates the negative consequences of trajectories characterized by divorce without remarriage.
+
+%% Comparison or synthesis with results from literature
+%%%%%%%%%%TO DO%%%%%%%%%%%%%
+% HERE DISCUSS H1a and H1b and how your findings improve previous research. 
+Our first set of hypotheses was mainly confirmed: Histories with one stable union were associated with higher well-being outcomes. (1a); the general trend was that the less attached individuals were from one stable union, the less happy and healthy they were, with life-long singles faring the worst (1b). Thus, in contrast to studies using more crude measures of relationship histories and health \citep[see e.g. ][]{gumaRelationshipHealthPartnership2014}, our findings lend support for the associations between different partnership typologies and well-being. The findings also provided a more nuanced view on those in partnerships: stable second or higher-order marriages did not consistently seem to lower well-being, although the direction of the association was as expected. This finding differs from previous research ( \citep{zahl-olsenDivorceRemarriageNorway2019, boothStartingWhyRemarriages1992}), which provided a starker difference between trajectories characterized by remarriages and those of first marriages.
+
+%Here discuss H1c. 
+Our findings also showed that patterns were similar for men and women, although we found no associations in grip strength for women (1c). Still, our results imply more clearly than previous research that relationship histories are linked to self-assessed health and quality of life measures also for women \citep{zimmermannStableCohabitationalUnions2019, oflahertyFamilyLifeCourse2016}, at least when accessed subjectively.  This suggests that in order to discern how health, happiness, and partnership histories interplay, one will have to wait as long as until the verge of retirement for the association to become visible. Our findings also highlight that the choice of typologies and measurements of well-being matter. 
+
+% NOT CLEAR WHAT YOU MEAN BY THIS? WHAT IS YOUR E SCALE (that you use predictions?), or what is your relative scale (whether the interaction is significant)? 
+% Is this important for the conclusions?
+%%% Ordinary least square regression coefficients model hypothetical changes by covariates on the absolute scale. Thus, the interaction effects would be even larger on a relative scale. 
+
+%long time%
+
+% AGAIN, you go too much into detail - this you should have discussed with the literature review (capture a binary variable and so on)
+
+% HERE YOU NEED TO DO MORE. The exploration of educational gradient substantial. 
+One substantial contribution of the paper was its differentiation between cumulative advantage and disadvantage. The results are more in line with the the latter in that lower education seems to strengthen the negative well-being associations of unstable trajectories (2b). High education, in turn, did not seem to give further advantage to those with stable relationship histories (2a). As suggested by \citet{ferraroCumulativeInequalityTheory2009}, the impact of cumulative disadvantage seems indeed to be a greater force than cumulative advantage. The even distribution of educational attainment across the clusters made it meaningful to study the interaction effects as education did not seem to determine the relationship history pattern.
+
+%It appears that the cumulative disadvantage could be an appropriate theory for adverse outcomes but the set point theory or some other framework focusing more on the present moment could be more suitable for positive outcomes rather than the theory of cumulative advantage \citep{headeySetPointTheory2010}.
+%NORT CLEAR WHAT YOU MEAN BY THIS " focusing more on the present moment could be more suitable for positive outcomes rather than the theory of cumulative advantage"
+
+%Avoid complicated expressions such as "accelerated well-being outcomes"
+Greater resource substitution of the highly educated is likely to explain why results are in line with cumulative disadvantage: highly educated individuals are less dependent on partnership history, indicating that stable trajectories will dot give an extra boost to well-being to the highly educated. This suggest that the highly educated are also less vulnerable to unstable partnership trajectories \citep[cf.][]{mirowskyEducationCumulativeAdvantage2005}. Conversely, our results indicate that those with fewer resources have inferior opportunities to compensate for life course events that hamper well-being. Surprisingly, however, the educational gradient was not present in singlehood: spending a life without romantic relationships seemed to affect all education groups with the same magnitude. This could be explained by the fact that divorce rapidly changes life circumstances after which one needs resources to recover. Permanent singlehood, while associated with lowest well-being outcomes, is not a similar shock, which could explain why education does not boost the association.
+%WHY NO DIFFERENCE IN SINGLE? W DISCUSS COMPLEXITIES IN GREATER DETAIL. MORE NUANCED. 
+
+In terms of mechanisms, the evidence for cumulative disadvantage supports the theories of symbolic interactionism and social support (although we cannot distinguish between the two): the low-educated benefit more from internalized roles and increased social regulation as the same mechanisms are associated with education itself. Similarly, no evidence of cumulative advantage would appear to speak against the selection hypothesis \citep[cf. ][]{mertonMatthewEffectScience1968,dickensHeritabilityEstimatesLarge2001}. In addition to the theoretical reasoning against selection effects, the sensitivity analyses of unmeasured confounding provided modest support for a robust association. Therefore, while it is impossible with our study setting to prove the reason for the associations we found, it is likewise difficult to dismiss our findings as mere artifacts of selection.
+
+%% THE NEXT SENTENCE IS VERY COMPLICATED - MANY NEGATIONS, REWRITE (no evidence would speak against)!!! 
+
+%%%% COMPARISON OF RESULTS WITH CROSS-SECTIONAL RESEARCH
+% ?? number of children, even if controlled for
+% ?? Income women does not reflect their well-being but their partners might.
+
+%% Surprising results?
+
+%TWO SENTENCES ARE NOT A PARAGRAPH! You need bring arguments together - elseway this seems very jumpy!
+% THESE NOW MISPLACED. "It came as no surprise that stable single life courses were the worst off and that those findings were pronounced in men \citep[see ][ for review]{coombsMaritalStatusPersonal1991}. What struck us  was that permanent singlehood hit people of all education levels with the same magnitude." I moved them. The text here jumps quite a bit back and forth
+
+%THIS UP WHERE YOU DISCUSS HYPOTHESIS 1 abc, now you jump much back and forth between different findings. AND: You do not find it surprising when discussing the results.. 
+
+% NOT GOOD STRUCTURE OF SENTECE. "Something that our theories did not predict,"
+% Look at the sentence before "Ordinary least square regression coefficients model hypothetical changes by covariates on the absolute scale. Thus, the interaction effects would be even larger on a relative scale." - this does not link well to your next point. 
+
+Our hypotheses did not predict that the highly educated women would benefit from serial cohabitation above any other relationship history typology. It is possible that women in our study cohort, who moved from one cohabitational spell to another, were a distinct group with resources and characteristics different from the general population. As the gap between the lower and higher educated was reduced substantially by controls, we assume that these women differ on other, unmeasured characteristics as well. As associations did not fully disappear after controls, it is also possible that the mechanisms between serial cohabitation and well-being could be different for the highly educated women.
+
+%% In all, our study highlights that relationship histories are inherently linked with well-being in old age and that the negative association for the divorced increases with lower education. In addition, following the life courses until the age of 60 allowed for especially health outcomes to develop, thus emphasizing how life course events increase in magnitude as time elapses. Cross-national sample made it possible to infer general trends and allowed for a reasonable sample size, which also made studying interaction effects possible. 
+% "and allowed for a reasonable sample size" - could you mention this somewhere else? Maybe in data? Many things come up for the first time here!
+
+%%%% Possible weaknesses
+% QUESTION: Too many weaknesses, remove some?
+% NO: But you would need 
+A pseudo panel has the unfortunate feature of excluding the most vulnerable population. Not only are those better off and in relationships more likely to participate, but those who have passed away are excluded by design. As a result, the cumulative disadvantages that we observed here are most likely to be stronger in reality \citep[cf. axiom 5 in ][]{ferraroCumulativeInequalityTheory2009}. Although we did measure the effect of an unmeasured confounder, these would be easier to address if the panel was not retrospective. Unmeasured traits could have been, for instance, relationship quality, personal characteristics, contentment with relations with own children and near kin, mutual friends et cetera.
+
+We chose to aggregate our analysis for Western and Northern Europe as we were interested in the general associations of union histories as opposed to country interaction effects. While the current literature does not support the hypothesis that the contribution of relationship status (or histories) would have notable cross-national variation \citep{dienerSimilarityRelationsMarital2000,verbakelSubjectiveWellBeingPartnership2012} and we found no distinct patterns in the country distributions per cluster, it is still possible that some intriguing between-country variations were lost in the analysis. %% Those were not, however, our research interests in this paper. Even if it was, the our sample would have been too small for meaningful cross-country comparisons.
+
+%% Add this ??
+%%The union histories presented here could well reflect the end stages of the relationship histories as most of the people in any given cluster have the same partnership status with one another. How does studying life courses then differ from studying partnership statuses in old age? As we have demonstrated above, well-being outcomes take decades to develop. Furthermore, a long and stable cohabiting union is qualitatively different from serial cohabitation; someone who gets married for the first time just before retirement certainly  is expected to have led a unique life compared with someone who has been married since their early 20s. Thus, the question can be reversed: why study the current relationship status if that is merely a proxy for relationship histories?
+
+%%The retrospective inquiries might not be the most accurate childhood SES estimators. Yet, they offer a glimpse into the time just before the relationship histories start to develop. Even if we did control for childhood circumstances and in the """tårta på tårta""" model income and education, it is possible that some selection """is in play""": advantage start to accumulate in the womb.
+
+%%As noted above, most considerations revolve around the appropriateness of survey data in our study setting. As we were interested in outcomes that require subjective assessment or objective measurements as well as information on cohabiting and LAT-relationships in Northern and Western Europe, SHARELIFE data served that purpose well. For a review about the pros and cons of registers and surveys, kindly refer to !!!ref.
+
+%% Having said that, our data enabled finding patterns in Northern and Western Europe and hinting towards over-arching trends.
+
+%%We did not study relationship satisfaction.\citep{lawrenceMaritalHappinessMarital2019}
+
+%%%% Broader implications.
+%% how does relate to other research questions?
+%% does it support current hypotheses in your field?
+%% how does it relate with literature (wider than topic of this paper)
+
+% AS A READER, it is still not clear to me how your "trajectory" conceptualization advances the "basic" "current relationship status". Relationship status currently would confirm that divorced or single individuals are worse off, married better - this is pretty much in line with you trajectories? Instead of repeating that we need examine it as a trajectory (which I buy in theory!), I would like to have it written more explicitly what the difference between static and history conceptualizations were - what did we learn that the mere status "divorced", "first union ", "remarriage" did not tell us?
+The results are in line with the consensus from earlier research focusing on current relationship status: stable first marriages are associated with a range of well-being outcomes. \citep{demoSinglehoodMarriageRemarriage1996,kimRelationshipMarriagePsychological2002} Our findings reinforce the idea that differences in well-being diverge with age and that health conditions take decades to develop \citep{kuhLifeCourseEpidemiology2003,monnatLongTermPhysicalHealth2015}. In addition, conceptualizing the relationship statuses into trajectories gives a more holistic and accurate view on the relationship history that give a nuanced picture of the well-being outcomes \citep[cf.][]{gumaRelationshipHealthPartnership2014,schutzMaritalBiographyHealth2019}. The education gradient of relationship histories and well-being had not been studied before. 
+
+%%add something on education!!!!!
+
+%%HERE YOU NEED TO MENTION ONE MORE TIME WHAT YOU ADD: more nuanced view on relationship trajectories; Educational gradient. 
+
+%As the outcomes of non-traditional life courses were dependent on education attainment with this baby-boomer cohort, we should expect similar trends with regards to the even less common organization of love life that are gradually becoming mainstream in the 2020s: those with cultural, social and monetary capital could seem to benefit from non-standard love life and are probably at the forefront for the change in relationship behavior; the less well off would not fare so well. %The highly educated women in our study cohorts who had resources for serial cohabitation were likely a distinct group. As our sensitivity analysis revealed, introducing control variables almost nullified the positive associations of life courses characterized by serial cohabitation.
+
+%As currently unconventional relationship forms become more common, the association of marriage on well-being could fade. While there is some evidence to this claim there is a tendency to downplay the benefits of marriage and exaggerate or extrapolate current trends \citet[cf.][]{liuTimesTheyAre2008,mastekaasaMaritalStatusSubjective1993}.
+
+%While social expectations could partly explain the well-being outcomes, it is likely that the relationship histories themselves are the main factor: studies with younger cohorts where divorce and serial cohabitation has become normative have produced similar findings \citep{lichterSerialCohabitationMarital2008,pollardNonmaritalCohabitationMarriage2013}.
+
+
+%%%% Prospects for future research
+
+Future research could try to replicate if the results hold for younger cohorts. Indeed, the ultimate question is whether the association is due the benefits of the stable relationship histories themselves, or whether social life, sanctions, and internalized roles will play out differently for the cohorts that have entered the marriage market in the 21st century. We know that the inequalities of health have increased by education during the past decades \citep{mearaGapGetsBigger2008}, and similary, the gap could further widen when relationship histories are taken into account. On the contrary, as family life patterns have transformed since the late 20th century \citep{lesthaegheTweeDemografischeTransities1986}, leading a non-traditional family life course might not have the same social implications as before. 
+
+In addition to studying younger cohorts, qualitative inquiries could further inform about the mechanisms behind the associations, such as the role of children in more detail, or social networks and financial support within. Register studies could dig deeper into the combined effect of education, the number of children, and other demographic characteristics, and shed more light on the causal mechanisms.
+
+% Conclusion for Article
+
+Life courses characterized by stable marriages tend to be coupled with good health and high quality of life. Unstable and single histories less so. Education pronounces the associations of unstable partnership histories. Our results hint at family formation patterns that foster well-being and mechanisms that may boost or buffer the outcomes, and inform policy makers in identifying vulnerable groups in society.
+	
+\clearpage
+%%%-----------------------------------------------
+% Bibliography
+
+%TC:ignore 
+
+\bibliography{0MyLibrary.bib}	% natbib (this is for my old 
+
+%%%-----------------------------------------------
+%% Figures for Submit (S) version
+
+% Figures and tables that appear in the body here again for the submit (S) version
+% Appendice figures already at the end
+\begin{S}
+	\clearpage
+
+	\listoftables
+
+	\input{descriptive_table_gender.tex}
+	
+	\input{descriptive_table_cluster.tex} % ref from the file
+	
+	\listoffigures
+	
+	\InsertFloat{ClustersAndTitle}
+	
+	\InsertFloat{StatsByClusterEducationGender}
+	
+	\InsertFloat{RegSubLife}
+
+	\InsertFloat{InterSubLife}
+
+	\InsertFloat{EvalueSubLife}
+	
+\end{S}
+
+\savepage{lastpage} % page count 
+
+%-------------------------------------------------------------
+% Appendix
+%-------------------------------------------------------------
+
+
+% First some settings, bear with me!
+\clearpage
+\setcounter{secnumdepth}{3} % add numbers to section headings, needed for prefix in the figures
+\appendix % start appendix
+\counterwithin{figure}{section} % A prefix for figures
+\counterwithin{table}{section} % A prefix for tables
+\stepcounter{section} % stars numbers from 1 onwards (A.1 etc)
+\pagenumbering{arabic} % page count in arabic numbers
+\renewcommand{\thepage}{A.\arabic{page}} % A. prefix for  page numbering
+
+\addsec{Appendix}\label{appendix} % KOMA-class section without numbers (same as \section*{}), but will keep the "A."-prefixes in floats and include the section in table of contents
+
+%% Relationship frequencies
+
+%% cluster fit comparisons
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\textwidth]{s_cluster_fit_comparisons_only_both}
+	\caption{Goodness of fit tests for the number of clusters}
+	\label{fig:s_cluster_fit_comparisons_only_both}
+\end{figure}
+
+% sequence tree
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{tree.s}
+	\caption{Sequence regression tree displaying all options for the number of clusters}
+	\label{fig:tree.s}
+\end{figure}
+
+
+% multinomial regressions by country
+\input{multinom_ref_1.tex}
+
+% clusters & countries
+\begin{figure}
+	\includegraphics[width=\linewidth]{statsby_cluster_country}
+	\caption{Cluster membership percentages by country}
+	\label{fig:statsby_cluster_country}
+\end{figure}
+	
+
+%Sequence index plot 
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\textwidth]{indices_and_title}
+	\caption{Sequence index plots for partnership history clusters for Western and Northern European men and women born in 1945 - 1957 at the age of 15 - 60}
+	\label{fig:indices_and_title}
+\end{figure}
+
+\input{table_sub_health_lm_m.tex}
+\input{table_life_sat_lm_m.tex}
+\input{table_sub_health_lm_f.tex}
+\input{table_life_sat_lm_f.tex}
+
+%Grip strength and casp-12
+\begin{figure}[!phtb]
+		\begin{subfigure}{1\linewidth}
+			\includegraphics[width=\textwidth,height=0.45\textheight,keepaspectratio]{reg_grip_casp.m} 
+			\caption{Men}
+			\label{fig:reg_grip_casp.m}
+			\vspace{0.5cm}
+		\end{subfigure}
+		\vspace{0.5cm}
+		\begin{subfigure}{1\linewidth}
+			\includegraphics[width=\textwidth,height=0.45\textheight,keepaspectratio]{reg_grip_casp.f}
+			\caption{Women}
+			\label{fig:reg_grip_casp.f}
+		\end{subfigure}
+
+		\caption{Linear regression for grip strength and CASP-12 without interaction effects (Models 1,2 \& 3)}
+		\fnote{\NoteOnClusters}
+		\label{fig:reg_grip_casp}
+	\end{figure}
+
+
+
+\begin{figure}[!phtb]
+		\begin{subfigure}{1\linewidth}
+			\includegraphics[width=0.98\linewidth]{plot_inter3_education_grip_casp.m} 
+			\caption{Men}
+			\label{fig:plot_inter3_education_grip_casp.m}
+			\vspace{0.5cm}
+		\end{subfigure}
+		\vspace{0.5cm}
+		\begin{subfigure}{1\linewidth}
+			\includegraphics[width=0.98\linewidth]{plot_inter3_education_grip_casp.f}
+			\caption{Women}
+			\label{fig:plot_inter3_education_grip_casp.f}
+		\end{subfigure}
+		
+		\caption{Linear regression for grip strength and CASP-12 with educational interaction effects (Model 4)}
+		\label{fig:plot_inter3_education_grip_casp}
+	\end{figure}
+
+
+
+
+
+% Ordinal regression 
+\begin{B}
+	\begin{figure}[!htb]
+		\begin{subfigure}{1\linewidth}
+			\includegraphics[width=\textwidth,height=0.45\textheight,keepaspectratio]{polr.all.3.m} 
+			\caption{Men}
+			\label{fig:polr.all.3.m}
+			\vspace{0.5cm}
+		\end{subfigure}
+		\vspace{0.5cm}
+		\begin{subfigure}{1\linewidth}
+			\includegraphics[width=\textwidth,height=0.45\textheight,keepaspectratio]{polr.all.3.f}
+			\caption{Women}
+			\label{fig:polr.all.3.f}
+		\end{subfigure}
+		
+		\caption{Ordinal regression for subjective health and life satisfaction (Odds-ratios)}
+		\label{fig:polr.all.3}
+	\end{figure}
+\end{B}
+
+\begin{comment}
+\begin{figure}[!phtb]
+		
+		\begin{subfigure}{1\linewidth}
+			\includegraphics[width=\textwidth,height=0.45\textheight,keepaspectratio]{plot_evalue_grip_casp.m.png} 
+			\caption{Men}
+			\label{fig:plot_evalue_grip_casp.m}
+			\vspace{0.5cm}
+		\end{subfigure}
+		\vspace{0.5cm}
+		\begin{subfigure}{1\linewidth}
+			\includegraphics[width=\textwidth,height=0.45\textheight,keepaspectratio]{plot_evalue_grip_casp.f.png}
+			\caption{Women}
+			\label{fig:plot_evalue_grip_casp.f}
+		\end{subfigure}
+		
+		\caption{E-values to estimate the magnitude that an unmeasured confounder would have to have in order to explain away the association.}
+		\label{fig:plot_evalue_grip_casp}
+	\end{figure}
+
+
+\end{comment}
+
+%TC:endignore
+\savepage{applastpage} % page count
+
+\end{document}

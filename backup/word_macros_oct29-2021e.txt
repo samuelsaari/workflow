@@ -1,0 +1,174 @@
+Sub A_RUN_SHORTCUTS()
+CustomizationContext = NormalTemplate
+KeyBindings.Add KeyCategory:=wdKeyCategoryMacro, _
+    Command:="ZoteroAddEditCitation", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyShift, wdKeyAlt, wdKeyJ)
+    
+KeyBindings.Add KeyCategory:=wdKeyCategoryMacro, _
+    Command:="ZoteroAddEditBibliography", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyShift, wdKeyAlt, wdKeyB)
+    
+KeyBindings.Add KeyCategory:=wdKeyCategoryMacro, _
+    Command:="ZoteroRefresh", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyShift, wdKeyAlt, wdKeyR)
+
+KeyBindings.Add KeyCategory:=wdKeyCategoryMacro, _
+    Command:="selecthighlight", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyShift, wdKeyAlt, wdKeyL)
+
+KeyBindings.Add KeyCategory:=wdKeyCategoryMacro, _
+    Command:="selecthighlightR", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyShift, wdKeyAlt, wdKeyK)
+
+KeyBindings.Add KeyCategory:=wdKeyCategoryMacro, _
+    Command:="Normal_select", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyShift, wdKeyAlt, wdKeyN)
+
+KeyBindings.Add KeyCategory:=wdKeyCategoryMacro, _
+    Command:="Select_para", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyShift, wdKeyAlt, wdKeyP)
+
+KeyBindings.Add KeyCategory:=wdKeyCategoryMacro, _
+    Command:="Heading1_select", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKey1)
+
+KeyBindings.Add KeyCategory:=wdKeyCategoryMacro, _
+    Command:="Heading2_select", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKey2)
+
+KeyBindings.Add KeyCategory:=wdKeyCategoryMacro, _
+    Command:="Heading2_select", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKey2)
+
+KeyBindings.Add KeyCategory:=wdKeyCategoryMacro, _
+    Command:="Heading3_select", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKey3)
+
+KeyBindings.Add KeyCategory:=wdKeyCategoryMacro, _
+    Command:="Heading4_select", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKey4)
+
+KeyBindings.Add KeyCategory:=wdKeyCategoryMacro, _
+    Command:="Title_select", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKey0)
+
+KeyBindings.Add KeyCategory:=wdKeyCategoryMacro, _
+    Command:="Emphasis_select", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKeyE)
+
+' // CustomizationContext = NormalTemplate
+' // KeyBindings.Add KeyCategory:=wdKeyCategoryMacro, _
+' // Command:="EmDash", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyShift, wdKeyHyphen)
+
+End Sub
+
+
+
+Sub selecthighlight()
+'
+    Selection.Paragraphs(1).Range.Select
+    Options.DefaultHighlightColorIndex = wdBrightGreen
+    Selection.Range.HighlightColorIndex = wdBrightGreen
+
+End Sub
+
+Sub selecthighlightR()
+'
+    Selection.Paragraphs(1).Range.Select
+    Options.DefaultHighlightColorIndex = wdNoColor
+    Selection.Range.HighlightColorIndex = wdNoColor
+
+End Sub
+
+
+Sub Normal_select()
+'
+    Selection.Paragraphs(1).Range.Select
+    Selection.Style = ActiveDocument.Styles("Normal")
+End Sub
+
+
+Sub Select_para()
+'
+    Selection.Paragraphs(1).Range.Select
+End Sub
+
+
+Sub Heading1_select()
+'
+    Selection.Paragraphs(1).Range.Select
+    Selection.Style = ActiveDocument.Styles("Heading 1")
+End Sub
+
+
+
+Sub Heading2_select()
+'
+    Selection.Paragraphs(1).Range.Select
+    Selection.Style = ActiveDocument.Styles("Heading 2")
+End Sub
+
+
+
+Sub Heading3_select()
+'
+    Selection.Paragraphs(1).Range.Select
+    Selection.Style = ActiveDocument.Styles("Heading 3")
+End Sub
+
+
+
+Sub Heading4_select()
+'
+    Selection.Paragraphs(1).Range.Select
+    Selection.Style = ActiveDocument.Styles("Heading 4")
+End Sub
+
+
+
+Sub Title_select()
+'
+    Selection.Paragraphs(1).Range.Select
+    Selection.Style = ActiveDocument.Styles("Title")
+End Sub
+
+
+
+Sub Emphasis_select()
+'
+    Selection.Paragraphs(1).Range.Select
+    Selection.Style = ActiveDocument.Styles("Emphasis")
+End Sub
+
+
+'// Sub EmDash()
+'
+' EmDash Macro
+'
+'
+' //    Selection.InsertSymbol Font:="+Body", CharacterNumber:=8212, Unicode:=True
+' // End Sub
+
+'''''''''''''''''
+
+
+Sub A_TEST_SHORTCUTS()
+
+CustomizationContext = NormalTemplate
+KeyBindings.Add KeyCategory:=wdKeyCategoryMacro, _
+    Command:="testi1", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyShift, wdKeyAlt, wdKeyQ)
+
+KeyBindings.Add KeyCategory:=wdKeyCategoryMacro, _
+    Command:="testi2", KeyCode:=BuildKeyCode(wdKeyControl, wdKeyShift, wdKeyAlt, wdKeyW)
+
+End Sub
+
+
+Sub testi1()
+'
+' testi1 Macro
+'
+'
+    Selection.Font.Bold = wdToggle
+End Sub
+Sub testi2()
+'
+' testi2 Macro
+'
+'
+    Selection.Font.Italic = wdToggle
+End Sub
+
+
+''''''''''''''''''''''''''''''''''''''''''''''
+
+
+
+
+

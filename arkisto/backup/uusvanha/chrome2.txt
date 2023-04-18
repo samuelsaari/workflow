@@ -1,0 +1,49 @@
+else if (WinExist("Google Keep") & WinExist("ahk_group notkeep"))
+	WinActivate, ahk_exe chrome.exe,,Google Keep
+else if WinExist("ahk_exe chrome.exe")
+	WinActivate, ahk_exe chrome.exe,,Google Keep
+else
+	Run, chrome.exe
+
+
+& !WinActive("Google Keep")
+
+if WinActive("ahk_group notkeep")
+	WinMinimize
+else
+Send, testi
+
+;;;;;
+
+if (WinExist("Google Keep") & WinExist("ahk_group notkeep"))
+	WinActivate, ahk_exe chrome.exe,,Google Keep
+else if WinExist("ahk_exe chrome.exe")
+	WinActivate, ahk_exe chrome.exe,,Google Keep
+else
+	Run, chrome.exe
+Return
+
+
+if WinExist("notepad")
+Msgbox, hyvä!
+else
+Msgbox, testi ei toimi!
+Return
+
+if (WinExist("Google Keep")) && (WinExist("Google Calendar"))
+	WinActivate, ahk_exe chrome.exe,,Google Keep
+else if WinExist("ahk_exe chrome.exe")
+	WinActivate, ahk_exe chrome.exe,,Google Keep
+else
+	Run, chrome.exe
+Return
+
+
+;;;;;;toimii, huom calendar
+if (WinExist("Google Keep")) && (WinExist("Google Calendar"))
+	WinActivate, ahk_exe chrome.exe,,Google Keep
+else if (WinExist("ahk_exe chrome.exe")) && (!WinExist("Google Keep"))
+	WinActivate, ahk_exe chrome.exe,,Google Keep
+else
+	Run, chrome.exe
+Return

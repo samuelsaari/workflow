@@ -1,0 +1,116 @@
+Sub SC_ZoteroAddEditCitation()
+         ' \\ where to do customization
+CustomizationContext = NormalTemplate
+         ' \\ Add keybinding to this Shorcut:
+KeyBindings.Add KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKeyJ), _
+KeyCategory:=wdKeyCategoryMacro, _
+Command:="ZoteroAddEditCitation"
+End Sub
+
+
+Sub SC_ZoteroAddEditBibliography()
+         ' \\ where to do customization
+CustomizationContext = NormalTemplate
+         ' \\ Add keybinding to this Shorcut:
+KeyBindings.Add KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKeyB), _
+KeyCategory:=wdKeyCategoryMacro, _
+Command:="ZoteroAddEditBibliography"
+
+End Sub
+
+Sub SC_ZoteroRefresh()
+         ' \\ where to do customization
+CustomizationContext = NormalTemplate
+         ' \\ Add keybinding to this Shorcut:
+KeyBindings.Add KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKeyR), _
+KeyCategory:=wdKeyCategoryMacro, _
+Command:="ZoteroRefresh"
+
+End Sub
+
+
+
+Sub selecthighlight()
+
+'
+'
+    Selection.Paragraphs(1).Range.Select
+    Options.DefaultHighlightColorIndex = wdBrightGreen
+    Selection.Range.HighlightColorIndex = wdBrightGreen
+
+End Sub
+
+Sub selecthighlightR()
+'
+'
+'
+    Selection.Paragraphs(1).Range.Select
+    Options.DefaultHighlightColorIndex = wdNoColor
+    Selection.Range.HighlightColorIndex = wdNoColor
+
+End Sub
+
+
+Sub SC_selecthighlight()
+With Application
+         ' \\ where to do customization
+.CustomizationContext = NormalTemplate
+         ' \\ Add keybinding to this Shorcut:
+.KeyBindings.Add KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKeyL), _
+KeyCategory:=wdKeyCategoryMacro, _
+Command:="selecthighlight"
+End With
+End Sub
+
+Sub SC_selecthighlightR()
+         ' \\ where to do customization
+CustomizationContext = NormalTemplate
+         ' \\ Add keybinding to this Shorcut:
+KeyBindings.Add KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKeyK), _
+KeyCategory:=wdKeyCategoryMacro, _
+Command:="selecthighlightR"
+End Sub
+'
+'
+'
+'
+'
+
+Sub Normal_select()
+'
+' Macro1 Macro
+'
+'
+    Selection.Paragraphs(1).Range.Select
+    Selection.Style = ActiveDocument.Styles("Normal")
+End Sub
+Sub SC_Normal_select()
+         ' \\ where to do customization
+CustomizationContext = NormalTemplate
+         ' \\ Add keybinding to this Shorcut:
+KeyBindings.Add KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKeyI), _
+KeyCategory:=wdKeyCategoryMacro, _
+Command:="Normal_select"
+End Sub
+
+Sub Select_para()
+'
+' Macro1 Macro
+'
+'
+    Selection.Paragraphs(1).Range.Select
+End Sub
+
+Sub SC_Select_para()
+         ' \\ where to do customization
+CustomizationContext = NormalTemplate
+         ' \\ Add keybinding to this Shorcut:
+KeyBindings.Add KeyCode:=BuildKeyCode(wdKeyControl, wdKeyAlt, wdKeyP), _
+KeyCategory:=wdKeyCategoryMacro, _
+Command:="Select_para"
+End Sub
+
+
+
+
+

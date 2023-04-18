@@ -1,0 +1,21 @@
+{
+    "latex-workshop.view.pdf.viewer": "tab",
+    "latex-utilities.zotero.latexCommand": "citep",
+    "window.zoomLevel": -1,
+    "code-runner.respectShebang": false,
+    "code-runner.runInTerminal": true,
+    "code-runner.executorMap": {
+    "python": "$pythonPath $fullFileName",
+    },
+    "latex-workshop.intellisense.bibtexJSON.replace": {
+    },
+    "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
+    "json.schemas": [
+    
+    ],
+    "python.pythonPath": "C:\\Users\\mmak\\AppData\\Local\\Continuum\\anaconda3\\python.exe",
+    "python.terminal.executeInFileDir": true,
+    "diffEditor.wordWrap": "on",
+    "editor.wordWrap": "on"
+
+}

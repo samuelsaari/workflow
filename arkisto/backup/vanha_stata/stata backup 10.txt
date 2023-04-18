@@ -1,0 +1,25 @@
+else if WinActive("Data Editor")
+msgbox, WinActivate Stata
+	;WinActivate,Do-file
+else if WinExist,Data Editor
+msgbox, WinActivate
+	;WinActivate
+Return
+
+
+<#q::
+If (WinActive("Data Editor") && WinExist(Do-file))
+	WinActivate,Do-file
+;else if WinActive("Data Editor")
+;	WinActivate,Stata
+else
+	WinActivate, Data Editor
+Return
+
+{
+	WinGet,WinState,MinMax,A
+	If WinState = -1
+   	WinMaximize
+	else
+   	WinMinimize
+}
