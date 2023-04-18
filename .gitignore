@@ -338,4 +338,10 @@ docs/
 po/*~
 
 # shortcuts?
-.lnk
+.Endscripts.ahk-Shortcut
+
+#folders
+backup/
+ahk_matskua/
+ignored_files_and_folders/
+Latex/

@@ -1,3 +1,0 @@
-^!-::send, {LAlt down}0150{LAlt up}
-
-Return

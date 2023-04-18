@@ -1,3 +1,0 @@
-﻿#q::Send {Ctrl Down}f{Ctrl Up}
-
-Return

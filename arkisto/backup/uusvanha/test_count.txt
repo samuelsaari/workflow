@@ -1,6 +1,0 @@
-^!l::
-SetTitleMatchMode, 2
-WinGet, num, count, Notepad
-msgbox, 64, , Notepads(%num%)
-SetTitleMatchMode, 1
-Return
