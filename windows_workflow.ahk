@@ -194,8 +194,12 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 
 <!§::roar("ahk_class PPTFrameClass", "powerpnt.exe") ; see also <
 ;<!1::roar("ahk_exe StataSE-64.exe", "C:\Program Files (x86)\Stata15\StataSE-64.exe")
-<!1::roar("ahk_exe StataMP-64.exe", "C:\Program Files\Stata17\StataMP-64.exe")
-<!2::roar("ahk_exe outlook.exe", "outlook.exe")
+;<!1::roar("ahk_exe StataMP-64.exe", "C:\Program Files\Stata17\StataMP-64.exe")
+<!1::roar("ahk_exe StataMP-64.exe", "C:\Program Files\Stata18\StataMP-64.exe")
+
+;<!2::roar("ahk_exe outlook.exe", "outlook.exe") ; old outlook
+;<!2::roar("ahk_exe olk.exe", "outlook.exe") ; new outlook
+<!2::roar("Outlook","outlook.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=2,Parambox:=0,ID_3:="") ; add hoc subsitute, above does not work
 ;<!3::roar("ahk_exe acrord32.exe","acrord32.exe") ;ADOBE READER
 ;<!3::roar("ahk_exe acrobat.exe","acrobat.exe") ;ADOBE READER
 <!3::roar("ahk_exe acrobat.exe","acrobat.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="acrord32.exe",ID_2:="ahk_exe acrord32.exe",Mode:=1,Parambox:=0,ID_3:="ahk_class AcrobatSDIwindow")
@@ -221,8 +225,7 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 ;<!u:: 
 ;<!i::roar("Photos ahk_class ApplicationFrameWindow","ms-photos:",,,,,Mode:=2)
 <!i::roar("Pictureflect Photo Viewer ahk_class ApplicationFrameWindow","pictureflect-photo-viewer.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=2,Parambox:=0,ID_3:="") ; https://pictureflect.com/how-to/app-scripting-help
-<!o::roar(ID_1:="ahk_exe spotify.exe",TARGET_1:="\AppData\Roaming\Spotify\Spotify.exe", , ,TARGET_2:="\AppData\Local\Microsoft\WindowsApps\Spotify.exe")
-
+<!o::roar("ahk_exe opera.exe", "opera.exe")
 <!p::roar("ahk_exe mspub.exe", "mspub.exe") ; PUBLISHER
 ;<!å::
 
@@ -250,7 +253,7 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 <!x::roar("ahk_exe rstudio.exe","rstudio.exe")
 ;<!c::roar("ahk_exe powershell.exe", "powershell.exe") ; not sure how to execute anaconda powershell
 <!c::roar("ahk_exe cmd.exe","cmd.exe",,,"C:\Windows\SysWOW64\cmd.exe") ; not sure how to execute anaconda powershell
-<!v::roar("ahk_exe Skype.exe", "Skype.exe")
+;<!v::roar("Windows 10 for Staff", "vmware-view.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=2,Parambox:=0,ID_3:="")
 <!b::roar("Settings ahk_class ApplicationFrameWindow", "ms-settings:bluetooth") ; toggle (all) setting windows or launch bluetooth settings
 <!n::roar("ahk_class Notepad", "notepad.exe")
 <!m::roar("ahk_class Notepad++", "notepad++.exe")
@@ -261,7 +264,9 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 
 
 ;---------------------------------------CtrlWinAltSPACE---------------------------------------
-<!LCTRL::roar("ahk_exe opera.exe", "opera.exe")
+<!LCTRL::roar(ID_1:="ahk_exe spotify.exe",TARGET_1:="\AppData\Roaming\Spotify\Spotify.exe", , ,TARGET_2:="\AppData\Local\Microsoft\WindowsApps\Spotify.exe")
+
+
 <!LWIN::roar("Google Keep", "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe --app=https://keep.google.com", , ,TARGET_2:="C:\Program Files\Google\Chrome\Application\chrome.exe --app=https://keep.google.com",ID_2:="",mode:=2,ParamBox:=0) ;NB!
 ;ahk_exe chrome.exe"
 ;<!SPACE::roar("A") ; Active process. Does not work
@@ -806,7 +811,19 @@ Return
 ;;;; 3. OTHER
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
+; Change primary mouse button
+<!SPACE::
+Run, main.cpl
+Winwait, Mouse Properties,,0.5
+if ErrorLevel
+{
+    MsgBox, Mouse Properties did not open in time
+    return
+}
+Sleep,20
+Send, {Space}{pause}{Enter}
+MsgBox,64,Autohotkey message:,Primary mouse button changed,0.8
+Return
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; X Links
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

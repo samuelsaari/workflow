@@ -174,23 +174,31 @@ Return
 ;-------GIT-------
 #IfWinNotActive,ahk_class OpusApp
 ; Git most frequently used path
-<^<+!j::
+<^<!j::
 Send,C:\Users\mmak\OneDrive - Väestöliitto ry\FLH-THESIS\1_determinants\1publish_determinants
 Return
 
-; Git most frequently used path cd to it
 <^<+j::
 Send,cd C:\Users\mmak\OneDrive - Väestöliitto ry\FLH-THESIS\1_determinants\1publish_determinants
 Return
 
 ; Git second most frequently used path
-<^<+<!j::
-Send,cd C:\Users\mmak\OneDrive - Väestöliitto ry\FLH-THESIS\1_determinants\3publish_outcomes
+<^<+,::
+Send,cd C:\Users\mmak\OneDrive - Väestöliitto ry\FLH-THESIS\3_outcomes\3publish_outcomes
+Return
+
+<^<!,::
+Send,C:\Users\mmak\OneDrive - Väestöliitto ry\FLH-THESIS\3_outcomes\3publish_outcomes
+Return
+
+;Most frequently used Backup location
+<^<!m::
+Send,C:\Users\mmak\OneDrive - Väestöliitto ry\FLH-THESIS\1_determinants\1BACKUP_determinants
 Return
 
 ;delete
 <^<+l::
-Send,del /S *.aux *.bbl *.blg *.log *.out  *.fdb_latexmk *.fls *.synctex.gz *.run.xml *.xdv *.xtr *.bcf
+Send,del /S *.aux *.bbl *.blg *.log *.out  *.fdb_latexmk *.fls *.synctex.gz *.run.xml *.xdv *.xtr *.bcf *.lot *.lof
 Return
 
 ; git commit all
@@ -200,8 +208,12 @@ Return
 
 
 ; Git most frequently used path
-<^<!h::
+<^<+h::
 Send,cd C:\Users\mmak\OneDrive\Autohotkey
+Return
+
+<^<!h::
+Send,C:\Users\mmak\OneDrive\Autohotkey
 Return
 
 
