@@ -319,7 +319,7 @@ Return
 SetTitleMatchMode, 3
 IfWinNotExist,tooltip.ahk
 	try {
-		Run, "%UserProfile%\OneDrive\Autohotkey\Useful_material\tooltip.ahk" ;NB!
+		Run, "%UserProfile%\OneDrive\Autohotkey\Useful_material\tooltip.ahk" ;NB! Edit this where you have put this file
 		Return
 	} catch e{
 		MsgBox, not implemented yet `n Search for "Toggle tooltip" in the the windows_workflow.ahk script 
