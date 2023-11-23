@@ -389,7 +389,7 @@ Return
 ;Make paragraph green
 ; selecthighlight
 #IfWinActive, ahk_exe winword.exe
-$^ö::
+$^-::
 Send, ^+!l
 Return
 #IfWinActive
@@ -398,7 +398,7 @@ Return
 ;Remove color from paragraph
 ;selecthighlightR
 #IfWinActive, ahk_exe winword.exe
-$^+ö::
+$^+-::
 Send, ^+!k
 Return
 #IfWinActive
@@ -428,7 +428,7 @@ Return
 ;Refresh bibliography ZOTERO
 ;note that word's own ctrl/alt/r works
 #IfWinActive, ahk_exe winword.exe
-$^+ä::
+$^!ä::
 Send, ^+!r
 Return
 #IfWinActive

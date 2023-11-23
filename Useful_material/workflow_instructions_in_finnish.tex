@@ -241,14 +241,15 @@ Valitse ''Download Autohotkey Installer''
 \subsubsection{Autohotkey scriptit} \label{downloads}
 
 \begin{framed}
+	\textbf{Tapa 1 (helppo)}
 	
-	\underline{1.Mene osoitteeseen:}
+	\underline{A) Mene osoitteeseen:}
 	
 	\url{https://github.com/samuelsaari/workflow})
 	
 	\medskip
 	
-	\underline{2. Lataa tiedostot}
+	\underline{B) Lataa tiedostot}
 	
 	windows\_workflow.ahk
 	
@@ -258,10 +259,37 @@ Valitse ''Download Autohotkey Installer''
 	
 	\medskip
 	
-	\underline{3.Lataa myös tiedostot kansiosta Useful\_material}
+	\underline{C) Lataa myös tiedostot kansiosta Useful\_material}
 	
-	Esim. \emph{ZoteroWord\_only\_workflow.ahk} sisältää vain Zoteroon ja joitain Wordiin liittyviä pikanäppäimiä (päivitetyin versio Zotero-komennoista aina \emph{windows\_workflow.ahk} tiedostossa). Lisäksi siellä on esim. harjoituksia pikanäppäinten käyttöönottoon. P
+	Esim. \emph{ZoteroWord\_only\_workflow.ahk} sisältää vain Zoteroon ja joitain Wordiin liittyviä pikanäppäimiä (päivitetyin versio Zotero-komennoista aina \emph{windows\_workflow.ahk} tiedostossa). Lisäksi siellä on esim. harjoituksia pikanäppäinten käyttöönottoon. 
 	
+	\textbf{Tapa 2 (pro, tiedostot pystyy päivittämään helposti)}
+	
+	\underline{Lataa git}
+	
+	\url{https://git-scm.com/}
+	
+	\underline{A) Avaa command prompt}
+	
+	\keys{Win}+\keys{R}, kirjoita "cmd" ja paina \keys{Enter}
+	
+	\underline{B) Valitse kansio, jonne haluat laittaa kaikki workflow tiedostot}
+	\begin{verbatim}
+		cd *PATH_TO_YOUR_FOLDER*
+	\end{verbatim}
+	
+	\underline{Kopioi tiedostot}
+	\begin{verbatim}
+		git clone https://github.com/samuelsaari/workflow.git
+	\end{verbatim}
+	
+
+	Jos haluat ladata viimeisimmän version workflow-paketista koneellesi, voit jatkossa päivittää tiedostot ollessasi samassa kansiossa:
+	\begin{verbatim}
+		git pull
+	\end{verbatim}
+
+	\underline{}
 	
 	%% Erityisesti \textbf{shorcut\_chart.pdf} on hyvä katsoa läpi, koska siinä näkyy suhteellisen havainnollisesti suurin osa autohotkey-pikanäppäimistä. Muita tiedostoja Useful\_material-kansiosta et välttämättä tarvitse akuutisti, mutta niille tulee luultavasti käyttöä jossain vaiheessa, joten ne on hyvä ladata valmiiksi.
 	
@@ -330,7 +358,7 @@ Yleisesti \keys{Alt}+\keys{"näppäin"} tekee kullekin ohjelmalle jotain seuraav
 
 \keys{Alt}+\keys{3} Adobe Reader
 
-\keys{Alt}+\keys{§} PowerPoint
+\keys{Alt}+\keys{\S} PowerPoint
 
 \keys{Alt}+\menu{<} PowerPoint (ellei Stata ole auki, ks. \emph{stata\_worflow.ahk})
 
@@ -413,7 +441,7 @@ Kun dokumentti on valmis, lisää lähdeluettelo wordiin pikanäppäimellä:
 
 Olemassa olevan lähdeluettelon päivitys:
 
-\keys{\ctrl + \shift + ä}
+\keys{\ctrl}+\keys{Alt}+\keys{ä}
 
 Näin välttyy kokonaan viitteiden tarkistamiselta, ja monelta muulta harmilta.
 
@@ -430,11 +458,11 @@ Ks. lisätiedot:
 
 Tämän jälkeen lue teksti alusta loppuun ja merkitse käytetyt viitteet värittämällä ne. Yhden lähdeviitteen (kappaleen) korostaminen onnistuu pikakomennolla
 
-\keys{Ctrl}+\keys{ö}. 
+\keys{Ctrl}+\keys{-}. 
 
 Jos haluat poistaa värityksen yhdestä viitteestä (kappaleesta) paina
 
-\keys{ctrl}+\keys{shift}+\keys{ö}
+\keys{ctrl}+\keys{shift}+\keys{-}
 
 Kun olet päässyt tekstin loppuun, voit poistaa värjäämättömät viitteet, poistaa värit ja dokumentin kahtia jaon. Jos käytät Zoteroa niin tällaista tarkistustahan ei tarvi tehdä!
 
