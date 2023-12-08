@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "Citing suggestion:"
+authors:
+- family-names: "Mäki"
+  given-names: "Miika"
+  orcid: "https://orcid.org/0000-0003-1212-1304"
+title: "Workflow for Windows - Keyboard shortcuts with Autohotkey"
+date-released: 2019
+url: "https://github.com/samuelsaari/workflow/"

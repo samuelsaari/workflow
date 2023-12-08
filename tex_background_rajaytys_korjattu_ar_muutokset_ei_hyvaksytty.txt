@@ -1,0 +1,748 @@
+%%--------------------------------------------------
+
+%READ ME 
+% Use this like Google docs. Track changes should be on (for you). Make any changes you desire (or comment) and I will make sure it compiles nicely should you encounter any issues.
+
+% This short video will help you get started if needed:
+% https://youtu.be/S6Si-F5ArIw 
+% The video is for an old article but the principle is the same
+
+% Cite like this: (Smith 2021 "Article title") and I will look it up.
+
+% Note that the preamble is in the 1Preamble.sty file
+% ---> Preamble includes settings, author information, affiliations, and title of the document.
+
+%%%-----------------------------------------------
+
+%% Notes                      ~~~~~~~~~~~~~
+% 1st and 2nd level headings: Title Case
+% 3rd level headings: 		  Sentence case
+%                             ~~~~~~~~~~~~~
+% 35 pages, including references
+
+
+% TO DO
+
+% release 8.0.0. (wait for AEH)
+% tone down causal language
+
+
+% UP TO six keywords
+% Title case figure captions, section headers. sentence case level 3. Joko automatically tai sitten suoraan.
+
+% Submission
+% > Make sure title page as it should be
+% --> check author order, institutions and emails
+
+%%%-----------------------------------------------
+% Some settings that cannot be included in the 0Preamble-file
+
+\RequirePackage{snapshot} % creates a .dep file of the dependencies
+\documentclass[a4paper,12pt,bibliography=totoc,numbers=noenddot,egregdoesnotlikesansseriftitles,abstract=true,notitlepage]{scrartcl} % NB! TexPublish reguires this to be on a single line
+\usepackage{1Preamble_Determinants_Maki}
+
+% include all figures inserted with \InsertFloat in texcount
+%TC:macroword \InsertFloat [float]
+
+% do not count stuff inside begin{comment/B}..end{comment/B} 
+%TC:group comment 0 0
+%TC:group B 0 0
+
+%%%%-----------------------------
+\addbibresource{0MyLibrary.bib}
+
+\begin{document} % Document starts here
+	
+	
+	\begin{singlespace}
+		\maketitle % Brings front page information from the 0Preamble-file
+		
+		\begin{abstract}
+			{\parindent0pt % disables indentation for all the text between { and }
+				 
+				% A structured abstract of roughly 200–225 words should precede the body of the paper, in the following format:
+				
+				\noindent\textbf{Objective}
+				% (1 sentence): Describe the objective of your study in one clear and succinct sentence.
+				The study examines how childhood experiences predicted the development of romantic partnership trajectories and how individual characteristics moderated the association. We were especially interested in whether childhood circumstances and individual resources complemented, augmented or compensated each other. //tai joku tällainen teoreettinen kysymy/ 
+				\\
+				\textbf{Background} 
+				% (2-3 sentences): Briefly describe key background context that situates the importance of the study.
+				Childhood experiences are linked with a variety of adult outcomes. In particular, health, residential stability and relations with parents may associate with less stable couple relations in adulthood. Our understanding of how different childhood experiences foreshadow partnerships in adulthood and how this varies by sex has been limited.
+				\\
+				\textbf{Method} 
+				%(2–3 sentences): Briefly overview of the sample (size, population, type [e.g., convenience sample, random probability sample]), design, measures, procedures, and analytical approach.
+				Drawing upon retrospective interviews from the Survey of Health Ageing, and Retirement in Europe (N=26 469), Latent Class Growth Modelling was employed to construct partnership trajectories between ages 15\textendash50. We then assessed how childhood experiences predicted arriving at different partnership trajectories with Confirmatory Factor Analysis and Multinomial Logistic Regression.
+				\\
+				\textbf{Results} 
+				% (2–3 sentences): Briefly summarize key results of the study.
+				Individuals with positive childhood experiences were more likely to form stable first marriages. Negative childhood experiences were associated with a higher likelihood of having other partnership trajectories. Women with high socio-cognitive capabilities were less susceptible to the consequences of childhood experiences. 
+				\\
+				\textbf{Conclusion} 
+				%(1–2 sentences): State the conclusion of your study in one or two unambiguous and succinct sentences.
+				Our results underscore the link between childhood experiences and partnership trajectories, independently of socioeconomic background. The findings partly support resource substitution theory, demonstrating that negative childhood experiences may be compensated for by individual capabilities.
+				\\
+				%\textbf{Implications} 
+				%(Optional): Succinctly summarize any implications of your findings for research, policy, or practice.
+				%\blindtext % line breaks with \\
+				
+				\keywords{romantic biography $\cdot$ childhood experiences $\cdot$ socio-cognitive capabilities $\cdot$ resource substitution $\cdot$ cumulative disadvantage  }
+			}% Indent end
+			% consider summarising the main research questions /. hypotheses in the abstract -- at least 90% of people read only the abstract.
+		\end{abstract} \hspace{10pt}
+		
+	\end{singlespace}
+	
+%%%%-----------------------------------------------
+%%%% Introduction
+
+% The following is only for the B (Long) version
+\begin{LONG}
+	%\clearpage
+	\tableofcontents
+\end{LONG}
+
+\clearpage
+\section{Introduction}\label{intro}
+
+%%%% Define a research territory (1)
+%% General context of the work (1a)    
+Childhood sets the tone for adult lives. Experiences early in life echo into adult health \autocite{pakpahanLongArmChildhood2017}, wealth \autocite{wolke2013impact}, social networks \autocite{goldmanEarlyLifeOriginsLaterLife2022} and careers \autocite{obschonkaSocialCompetenciesChildhood2012,lorentiWorkingDisabilityExpectancies2020}. Research consistently shows that differences in the childhood home and environment (?) accumulate from the early years throughout adolescence and are reflected in subsequent life trajectories \autocite{o2009cumulative,windingNegativeChildhoodConditions2019}. Yet childhood experiences do not fully determine life courses. Some individuals manage to thrive despite harsh circumstances, partly due to differences in individual abilities such as cognitive and social skills \autocite{duckworthSelfControlGritRelated2014,schoonSocialInequalitiesEarly2021}.
+
+Romantic relationships are among our closest and most important social relations  \autocite{wangqvistIdentityDevelopmentRomantic2016,luyckxIdentityConfigurationsLove2014} and a source of well-being throughout the life course \autocite{zimmermannStableCohabitationalUnions2019,makiStableMaritalHistories2022,oflahertyFamilyLifeCourse2016}. Childhood experiences shape individuals' abilities to form and sustain relationships \autocite{merzLongReachChildhood2013}. For instance, union dissolution is more common among those whose parents have separated \autocite{kiernanParentalDivorcePartnership1999,amatoExplainingIntergenerationalTransmission1996}. Parental separation is also associated with less traditional relationship forms, such as cohabitation compared to marriage \autocite{harkonen2020divorce}. 
+Previous research has also documented a strong socio-economic gradient in relationship trajectories: higher resources predict higher marriage and lower divorce rates \autocite{jalovaaraSocioeconomicResourcesFirstunion2012}. Socio-economic status in adult life, in turn, is associated with the status of the parental household \autocite{carvalhoChildhoodCircumstancesIntergenerational2012}. These effects appear to stem from a complex interplay of genetic and social effects, of which the latter is of interest in this research /Liu, Hexuan. "Social and genetic pathways in multigenerational transmission of educational attainment." American Sociological Review 83, no. 2 (2018): 278-304.; ** Liu, H. (2018). Social and genetic pathways in multigenerational transmission of educational attainment. American Sociological Review, 83(2), 278-304.
+
+%Complexities in childhood family structure, such as parental divorce and remarriage, in turn, predict complexities in romantic biographies \autocite{hiekelChildhoodFamilyStructure2020,valle2014childhood,wolfingerFamilyStructureHomogamy2003}.
+%AEH: otin pois tuon complexities lauseen, koska edeltävä jo kertoo parental divorcesta. Mutta jos re-marriage among parents predict re-marriage among their offspring --> Tämä olisi vielä uusi näkökulma. 
+% Socio-economic status: pitäisi liitttää vahvemmin vanhempiin, jotta sopisi paremmin edeltäviin lauseisiin. Tässä nopea yritys :)
+%MÄKI: Tuo poisto/lisäys toimii mun mielestä hyvin 
+
+There is less evidence on how other circumstances such as physical violence, residential stability, or parental death in childhood are associated with one's subsequent romantic relationships, \textemdash let alone how different childhood circumstances jointly predict romantic relationships in adulthood. Understanding this link is crucial, as the childhood of the next generation can depend on the relationship patterns of the previous generation. Different types of familial resources may thus feed into each other, creating intergenerational transmission of inequalities through differences in fanily social capital  (Coleman 1988; Coleman, J.S. (1988) Social capital in the creation of human capital. American Journal of Sociology, 94, Suppl. 1, 95–120. ja Furstenberg, F.F. and Hughes, M.E. (1995) Social capital and successful development among at-risk youth, Journal of Marriage and Family, 57, 3, 580–92) 
+relationship capital and having family members constitutes a specific form of resource, which we here call relationan resource (???). As a first contribution, we offer a more comprehensive understanding of how childhood is associated with relationship trajectories in adult life.
+
+While all children are sensitive to their childhood environments, individual susceptibility to external conditions also varies. For instance, while individuals from higher socioeconomic background typically display higher cognitive abilities, there is substantial variation in abilities net of parental status ((!!!REF)). Abilities are key for understanding why some, despite adversities, thrive in later life. So far, however, cognitive skills have predominantly been studied in relation to educational and occupational outcomes \autocite{obschonkaSocialCompetenciesChildhood2012,howseMotivationSelfRegulationPredictors2003,liuCanNoncognitiveSkills2019}, while their role in partnership formation remains unclear.  Therefore, we ask whether intellectual or social competence alters how childhood experiences translate into relationships in adult life.
+
+In this study, we explore two alternative mechanisms through which individual abilities could shape the role of childhood: resource multiplication or resource substitution \autocite{rossSexDifferencesEffect2006}. On the one hand, childhood experiences and capabilities might accumulate and strengthen the socio-economic gradient in romantic relationships (resource multiplication). On the other hand, negative experiences in childhood could be less detrimental for individuals with high social and cognitive abilities (resource substitution). Thus, a second contribution of our study is that we systematically explore whether individual capabilities strengthen or mitigate the association between childhood experiences and relationship trajectories.  
+
+% Motivating gender differences
+Gaining insight on gender differences in how childhood circumstances could relate to romantic relationship histories is important for understanding how romantic biographies are shaped. On the one hand, men and women react differently to childhood adversities: boys tend to react with behavioral and girls with psychological problems \autocite{sandstromNegativeEffectsInstability2013}. On the other hand, adult outcomes of a variety of childhood experiences tend to be similar at least regarding health, mental health,social competence, and academic achievement \autocite{raudinoQualityParentChild2013,mattanahContributionsParentalAttachment2011}. Regarding gender differences of parental separation on one's union formation and dissolution, prior research has yielded inconsistent findings  \autocite{kiernanParentalDivorcePartnership1999,hiekelChildhoodFamilyStructure2020}.
+
+%Given the extensive literature on childhood circumstances, social and intellectual abilities, it is surprising how little their interplay with adult life outcomes has been studied  More specifically, not only but also because the. 
+
+%We currently do not understand how positive or negative experiences in childhood are linked with the development of relationship \emph{trajectories} from adolescence to middle age and how individual resources might moderate the relationship.
+
+
+%In order to increase our understanding of the determinants of family life courses, we examine how childhood experiences predict the formation of relationship trajectories for men and women from the age of 15 until 50, and how socio-cognitive capabilities  moderate the relationship. 
+
+%%% Summary
+% Summary of approach to answer the research question 3a
+%We offer a comprehensive assortment of childhood experiences and relate these to the formation of romantic relationship trajectories.
+
+%MÄKI: I want to stick to past tense as much as possible.
+Empirically, we drew on retrospective data from the Survey of Health, Ageing and Retirement in Europe (SHARE) and created relationship trajectory typologies jointly for men and women with latent class growth modelling (LCGM). We classified childhood information with confirmatory factor analysis and examined how childhood experiences predict the formation of romantic biographies and how socio-cognitive capabilities  moderated the relationship with multinomial logistic regression.
+
+
+%Announcement of principal findings
+% AEH: In my opinion not necessary to announce (as this is done in the abstract), and it unnecessarily lengthens the introductiion
+%Our results show that favorable childhood experiences are associated with stable first marriages. Adverse childhood experiences were associated with all other relationship trajectory typologies. Among women, negative and positive childhood experiences predicted relationship patterns more for individuals with low socio-cognitive capabilities. 
+
+%Novelty of this study
+%Our study pioneers on three fronts: First, we are not aware of previous studies that would have examined the relationship of multiple childhood circumstances and romantic relationship trajectories. Second, to our knowledge, earlier studies have not examined the extent in which socio-cognitive capabilities moderate the associations of childhood experiences on any family life events. Third, this should be the first study to model the romantic biographies of men and women jointly while allowing for sex-specific variation within the trajectories.  
+
+
+
+
+%%%%--------------------------------------------------
+%%%% Background - Hypothesis hand in hand with the literature
+%(We will use romantic biographies and relationship trajectories interchangeably throughout this article.) --> Include this as a footnote. MÄKI: Footnotes not allowed in JMF
+
+% FIGURE: COMMENTS (AEH)
+% 1. Cognitive capabilities have an independent effect on relationships too (not only in moderation)
+%2. Should socio-cognitive capabilities not vary by childhood socio-economic status?
+%MÄKI: Yes, but we are interested in those that are in the figure. This is a simplification.
+%AEH: Would still include these in the Figure, as you model them and mention them in the background section. Maybe different arrows for main interest and factors that aare important?
+\section{Background}\label{background}
+We theorize that childhood experiences and socio-cognitive capabilities predict romantic biographies through a pathway outlined in \autoref{img/ConceptualizationOfPathway}. (We will use romantic biographies and relationship trajectories interchangeably throughout this article.)   Positive and negative experiences in childhood give different foundations to form and sustain romantic relationships. These experiences are, however, related to related to parental socioeconomic status (SES); yet not determined by it. The extent to which childhood experience shape relationship trajectories might vary by socio-cognitive capabilities.   
+
+We focus on both advantageous and disadvantages relationship trajectories. We refer to stable marital biographies as advantageous, while trajectories characterized by complexity or singlehood are considered disadvantagous, because the trajectories are associated with different well-being outcomes across life course as demonstrated by the previous literature \autocite{zimmermannStableCohabitationalUnions2019,makiStableMaritalHistories2022,oflahertyFamilyLifeCourse2016}.
+
+% NOT SURE WHETHER YOU NEED TO INCLUDE THIS GENDER DIMENSION SO HEAVILY.
+% Likewise, boys and girls have characteristic ways to react to childhood adversities.
+
+%
+%It is therefore likely that relationship biographies vary by experiences. 
+%confounds the relationship through better material conditions and the transmission of human capital
+%Therefore, we stratified the analysis for men and women, and further for individuals with high and low socio-cognitive capabilities. What follows is a more thorough overview into the mechanisms between childhood factors and romantic biographies.
+\newcommand{\ConceptualizationOfPathway}{
+	\begin{figure}
+		% https://www.mathcha.io/editor
+		%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+		\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+		\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+		%uncomment if require: \path (0,448); %set diagram left start at 0, and has height of 448
+		
+		%Shape: Circle [id:dp34211643100622036] 
+		\draw  [line width=0.75]  (14,232.75) .. controls (14,195.88) and (43.88,166) .. (80.75,166) .. controls (117.62,166) and (147.5,195.88) .. (147.5,232.75) .. controls (147.5,269.62) and (117.62,299.5) .. (80.75,299.5) .. controls (43.88,299.5) and (14,269.62) .. (14,232.75) -- cycle ;
+		%Shape: Circle [id:dp5594216202485984] 
+		\draw  [line width=0.75]  (259,347.75) .. controls (259,310.88) and (288.88,281) .. (325.75,281) .. controls (362.62,281) and (392.5,310.88) .. (392.5,347.75) .. controls (392.5,384.62) and (362.62,414.5) .. (325.75,414.5) .. controls (288.88,414.5) and (259,384.62) .. (259,347.75) -- cycle ;
+		%Shape: Circle [id:dp5102602865802323] 
+		\draw  [line width=0.75]  (263,91.75) .. controls (263,54.88) and (292.88,25) .. (329.75,25) .. controls (366.62,25) and (396.5,54.88) .. (396.5,91.75) .. controls (396.5,128.62) and (366.62,158.5) .. (329.75,158.5) .. controls (292.88,158.5) and (263,128.62) .. (263,91.75) -- cycle ;
+		%Shape: Circle [id:dp7347911043365419] 
+		\draw  [line width=0.75]  (512,229.75) .. controls (512,192.88) and (541.88,163) .. (578.75,163) .. controls (615.62,163) and (645.5,192.88) .. (645.5,229.75) .. controls (645.5,266.62) and (615.62,296.5) .. (578.75,296.5) .. controls (541.88,296.5) and (512,266.62) .. (512,229.75) -- cycle ;
+		%Straight Lines [id:da039459706624164204] 
+		\draw [line width=0.75]    (148,238) -- (507.4,237.36) ;
+		\draw [shift={(510.4,237.36)}, rotate = 179.9] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
+		%Straight Lines [id:da04662575605124031] 
+		\draw [line width=0.75]    (258.5,338.33) -- (150.83,251.22) ;
+		\draw [shift={(148.5,249.33)}, rotate = 38.98] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
+		%Straight Lines [id:da19304536761467472] 
+		\draw [line width=0.75]    (392,339.33) -- (509.9,250.64) ;
+		\draw [shift={(512.3,248.83)}, rotate = 143.05] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
+		%Straight Lines [id:da8126562364939497] 
+		\draw [line width=0.75]    (329.1,158.7) -- (328.91,231.36) ;
+		\draw [shift={(328.9,234.36)}, rotate = 270.15] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
+		
+		% Text Node
+		\draw (80.87,232.2) node  [font=\large] [align=left] {\begin{minipage}[lt]{70.1pt}\setlength\topsep{0pt}
+		\begin{center}
+		Childhood\\Experiences
+		\end{center}
+		
+		\end{minipage}};
+		% Text Node
+		\draw (328.38,88.8) node  [font=\large] [align=left] {\begin{minipage}[lt]{66.02pt}\setlength\topsep{0pt}
+		\begin{center}
+		Socio-\\Cognitive\\Capabilities
+		\end{center}
+		
+		\end{minipage}};
+		% Text Node
+		\draw (324.88,351.87) node  [font=\large] [align=left] {\begin{minipage}[lt]{85.75pt}\setlength\topsep{0pt}
+		\begin{center}
+		Childhood\\Socioeconomic\\Status
+		\end{center}
+		
+		\end{minipage}};
+		% Text Node
+		\draw (582.04,234.2) node  [font=\large] [align=left] {\begin{minipage}[lt]{70.11pt}\setlength\topsep{0pt}
+		Relationship
+		\begin{center}
+		trajectory
+		\end{center}
+		
+		\end{minipage}};
+		
+		
+		\end{tikzpicture}
+		
+		%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	\caption{A conceptualization of the hypothesized pathway between childhood experiences and the formation of relationship trajectories}
+	\label{img/ConceptualizationOfPathway}
+	\end{figure}
+}
+
+% pasting the picture here or at the end, whether working (W) or publish (P) version
+\toEMBEDorEND{\InsertFloat{ConceptualizationOfPathway}}{}
+
+%-----------
+\subsection{Childhood Experiences}\label{childhood_experiences}
+%AEH: To which extent can you point to accumulation of advantage/disadvantage if you measure these in one construct and not separately?
+% Mäki: it is more of a theoretical construct, but we do test them seperately  and with a composite score in the robustness checks.
+
+Empirical evidence highlights that childhood socioeconomic circumstances, family relations, adverse childhood events, parental divorce and death, residential instability, and childhood health predict well-being in adult life. It seems plausible that these factors also pave or block the way for entering and sustaining romantic relationships. As several childhood experiences, such as emotional closeness, death of a parent, or residential (in)stability, do not uniformly follow the socioeconomic status of the household, it is advisable to include both in analyses. \autocite{adamQualityParentalResidential2004,flouriSubjectiveWellBeingMidlife2004,baliaMortalityLifestyleSocioeconomic2008} Next, we will zoom into these childhood experiences in more detail.
+
+
+Family bonds are defining elements of childhood and have consequences for subsequent life courses. Children tend to have similar family life patterns to those of their parents \autocite{hiekelChildhoodFamilyStructure2020}. More warmth, less harsh parenting, and good relationships with parents and relatives in childhood have been shown to predict relationship satisfaction in adulthood \autocite{paradeParentingChildhoodPredicts2012,merzLongReachChildhood2013,godbout2009early}. Those who have had good relationships with their parents also have better psycho-emotional abilities and broader networks: \textcite{goldmanEarlyLifeOriginsLaterLife2022} discovered that childhood family happiness was associated with greater network density and more kin-centric network composition. Likewise, adverse childhood experiences, such as physical punishment or bad relationship with parents, predict unhealthy lifestyles, bad health, and antisocial behaviors \autocite{brugiaviniAdverseChildhoodExperiences2022, afifiHarshPhysicalPunishment2013,durrantPhysicalPunishmentChildren2012}.
+
+%The evidence for any gendered patterns is scarce, but the available literature on parent/child relationships has not identified notable differences between men and women. Males and females react similarly to parent/child relationships in childhood in terms of adult adjustment and developmental advances.  \autocite{raudinoQualityParentChild2013,mattanahContributionsParentalAttachment2011}
+
+
+% HERE: Be more precise about the outcomes. 
+% parental death
+If the relationship with parents matters to children, so does their sheer presence or absence. Specifically, children who do not co-reside with their parent(s) because of separation, parental death, incarceration, migration, or overseas deployment, have all similar negative consequences for children, despite the very different selection mechanisms. Not living in the same household with either parent in childhood is associated with for example academic achievement, behavioral and psychological problems, and adjustment issues \autocite{amatoChildrenDivorce1990s2001,amatoEstimatingEffectsParental2014}.  %Any circumstances in which children are separated from their parents seem to increase the probability of adjustment and achievement issues. 
+
+%Boys experience more distress and developmental problems that are also more persistent than those of girls \autocite{simons1999explaining,hetheringtonPlaySocialInteraction1979,gormanWartimeMilitaryDeployment2010}. When either parent is absent, boys have a tendency for behavioral problems (delinquency, disobedience, impulsiviness) while girls have a tendency for psychological problems (anxiety, depression,sadness) \autocite{ara2016internalizing,sarkadiFathersInvolvementChildren2008,sandstromNegativeEffectsInstability2013}.
+
+% THis is still too vague: If you want to mention residential mobility, then you need a systematic paragraph on how this affects a specific outcome.
+%instability
+It is not only the shock created by parental absence, but in fact any sort of instability that children face. Changes in parental employment, school or child-care arrangements as well as economic but also residential instability have various negative outcomes for children, such as worse mental health \autocite{tseliouImpactChildhoodResidential2016}, adjustment problems \autocite{adamQualityParentalResidential2004}, and vicimization \autocite{merrickResidentialMobilityBroader2018}. Some studies suggest that residential mobility should be studied together with other instability factors in order to have better predictive power \autocite{merrickResidentialMobilityBroader2018}, while others claim that pre-existing differences prior to residential mobility are the best explanetion for the observed outcomes.  Multiple instability factors are associated with worst negative outcomes, suggesting that instability in and of itself could be detrimental to children. \autocite[see][for review]{sandstromNegativeEffectsInstability2013} 
+
+
+Experiences early in life are especially important for subsequent lif courses. \textcite{haasTrajectoriesFunctionalHealth2008} found out that while both child and adult factors were associated with baseline levels of functional limitations, only childhood events accounted for a rate of change\textemdash or a cumulative disadvantage, which we will focus on next.
+
+
+%poor health \autocite{pakpahanLongArmChildhood2017}, and work disability \autocite{lorentiWorkingDisabilityExpectancies2020} in adulthood.  
+
+\subsubsection{Cumulative dis/advantage}\label{Cumulative dis/advantage}
+
+\textcite{danneferSystemicReflexiveFoundations2020} argues that social processes have a systemic tendency to produce inequalities. These unequalizing processes shape the formation of partnership trajectories by exposing individuals to different schooling, workplace and social surroundings with different love life ideals. In addition, individuals' \emph{favourable social position itself is a resource} \autocite{dipreteCumulativeAdvantageMechanism2006}. Irregardless of personal characteristics or even if initial differences would be modest, a social position will produce further advantages or disadvantages. The process is straightforward and easy to observe in the accumulation of citations during academic careers \autocite{mertonMatthewEffectScience1968} or research funding \autocite{bol2018matthew}. Social status accumulates similarly \autocite{bothner2010matthew}, although high social status does not necessarily consistently translate into union formation dynamics \autocite{ma-kellamsAttractivenessRelationshipLongevity2017,charvozPartnerWhoDecides2008}. 
+
+% The above examples indicate that cumulative dis/advantage operate via two distinct pathways. 
+Partnership trajectories could reflect accumulated advantages and disadvantages during life course through two processes. First, through what we call here the 'intra'-level processes, which involve inequalities within a single dimension increasing as individuals age. For example, individuals with fragmented family origins tend to have complexity in their relationship trajectories, just as differences in childhood health predict increased health inequalities in adulthood.  Second, cumulative dis/advantages operate through 'inter'-level processes, where inequalities in one dimension  have consequences for other life domains. For instance, childhood and adult health are associated with the propensity to marry \autocite{sylvestFamilyFormationSocioEconomic2021}, just as poor family functioning and exposure to negative life events during childhood are both associated with worse health outcomes in adulthood \autocite{windingNegativeChildhoodConditions2019,kravdalMentalPhysicalHealth2023}. 
+We hypothesize accordingly that positive childhood experiences predict stable romantic relationship biographies (1a), and that childhood SES confounds the association (1b). Favorable childhood experiences provide individuals with greater resources to initiate and maintain romantic relationships, whereas those who have undergone adverse childhood experiences are likely to encounter greater challenges with both. We expect similar outcomes for men and women as they react similarly to many childhood stimuli (1c). Considering that men tend to respond to adversity with behavioral problems and women with psychological issues, it is possible that these differences could be reflected in their partnership trajectories to some extent. For example, a higher prevalence of externalizing behavior among men who have faced adversity could be particularly related to difficulties in finding a partner, while the tendency for internalizing problems among women could be linked to challenges in maintaining well-functioning long-term relationships.
+% Mäki QUESTION: is this last sentence clear or does it need elaboration? Or should we take it out?
+
+%-----------
+\subsection{Socio-Cognitive Capabilities}\label{socio_cognitive_capabilities}
+%asdf
+
+Personal characteristics could further pronounce the cumulative dis/advantages of childhood experiences. Those with better socio-emotional capabilities and cognitive faculties could have even larger benefits from favorable childhood conditions, and those with disadvantaged backgrounds could fare even worse if they had less human capital. Formally, this mechanism is called resource multiplication \autocite{bauldryConditionalHealthrelatedBenefits2014}. In this article, we refer to the accumulation of main effects with cumulative dis/advantage and to the interaction effects with resource multiplication\textemdash or resource substitution, if the moderating factors would reduce rather than amplify the differences \autocite{mirowskyEducationCumulativeAdvantage2005}.
+
+Similar to our discussion on childhood experiences, we start with the assumption that romantic relationship trajectories result from the interplay of multiple life events and domains. In this case, high socio-emotional and cognitive capabilities could give direct benefits in the marriage market, but also indirect ones. For example, larger social networks introduce individuals to more potential mates and provide social support in times of crisis; People with psychosocial capabilities may have means by which they can navigate through different life circumstances, including love life. Therefore, if the hypothesis of resource multiplication would hold, capable individuals would appear to have increased benefits from favorable childhood conditions.
+
+%-----------
+\subsubsection{Cognitive faculties}\label{cognitive_faculties}
+
+Research on intelligence and marital outcomes is scarce and contains small samples or old cohorts, as demonstrated by the meta-analysis of \textcite{robertsPowerPersonalityComparative2007}. \textcite{taylorChildhoodIQMarriage2005} found that high IQ predicted the likelihood of ever marrying for men, but the association was reversed for women.  As their study population was born in 1921, the results may not be generalizable for younger cohorts. At least in egalitarian societies, high education already predicts higher rates of getting married and nativity \autocite{jalovaaraAreThereGender2015}. We should expect similar trends for IQ. Regarding divorce, high IQ seems to be protective, but again study designs or, more specifically, small sample sizes leave room for replication studies (\NoParanthesisCite{holleyRelationshipIntelligenceDivorce2006}; Helson, R.,2006, as cited in \NoParanthesisCite{robertsPowerPersonalityComparative2007})
+
+IQ scores consistently predict lower mortality \autocite{robertsPowerPersonalityComparative2007,cukicChildhoodIQSurvival2017}. Those with higher intelligence, the reasoning goes, tend to make more beneficial behavioral choices and come up with means to overcome difficult situations \autocite{cukicChildhoodIQSurvival2017}. Similar mechanisms could predict the choice of partners and relationship patterns that foster well-being as well as the ability to utilize psychological resources in order to deal with challenging family life situations.
+
+
+There is an overlap between social and cogntive skills. For example school performance does not solely reflect an individual's fluid intelligence. To illustrate, the ECLS-K Social Rating Scale \autocite{rockEarlyChildhoodLongitudinal2002} assesses approaches to learning, self-control, interpersonal skills, external behavior, and internal behavior. These socio-emotional traits are shown to be consistently associated with academic success \autocite{rockEarlyChildhoodLongitudinal2002,liuCanNoncognitiveSkills2019}. By the same token, \textcite{schoonSocialInequalitiesEarly2021} discovered that both cognitive skills and socio-emotional competences predicted adult socioeconomic position, independent of family background.
+
+
+
+
+We will next zoom in on social capabilities and capital and argue that individuals that possess both cognitive and noncognitive capabilities will have an advantage in many life domains, including the marriage market.
+
+%-----------
+\subsubsection{Social capabilities and capital}\label{social_capabilities_and_capital}
+
+An ability to form and maintain social relationships will help in finding partners directly \autocite{collinsSignificanceMiddleChildhood2006}, but also indirectly as they have wider social circles from which to find a partner \autocite{degenneIntroducingSocialNetworks1999}. 
+
+The presence or absence of social circles also have repercussions on other areas of life that could indirectly influence the formation of romantic biographies. Social competence and peer relationships in childhood predict work competence \autocite{collinsSignificanceMiddleChildhood2006}, health \autocite{landstedtHowWellParental2015}, life satisfaction \autocite{marionPredictingLifeSatisfaction2013} and even the likelihood of starting a business, as well as entrepreneurial success \autocite{obschonkaSocialCompetenciesChildhood2012}. 
+
+A word of caution should be added: antisocial peers could be a hardship in and of itself \autocite[cf.]{sameroffPsychosocialConstraintsDevelopment2006}, so childhood peer attachment might not always necessarily measure social competence.
+
+Peer relationships in adolescence could predict adult outcomes in a different manner for men and women, but we are unsure how gender differences might manifest themselves in the formation of romantic biographies.  Girls are more attached to their peers than boys \autocite{gorresePeerAttachmentMetaanalytic2012}, whereas social status plays a greater role for men, especially in the marriage market \autocite{haEffectsAttractivenessSocial2010,jalovaaraSocioeconomicStatusDivorce2001}.
+
+
+%-----------
+\subsection{Synthesis of Resource Substitution and Multiplication}\label{synthesis_of_resource_substitution_and_multiplication}
+
+As we hinted at earlier, rather than increasing initial differences, personal characteristics could in fact reduce inequalities. This might seem counterintuitive at first, as psychosocial abilities predict a number of wellbeing measures.  \textcite{mirowskyEducationCumulativeAdvantage2005}  argue that individuals with more resources become less reliant on any single resource. Individuals with ample socio-cognitive capital might be less affected by the absence of other resources, such as favorable childhood experiences. They would also gain less additional benefit from favorable childhood experiences because the added value of extra resources would be smaller. In the same way, adverse or favorable childhood experiences would be more influential for those with less socio-cognitive capital.
+
+Empirical evidence in favor of either the resource substitution or multiplication theories is inconclusive. The fact that different studies support these opposing theories indicates that the driving mechanism is likely subject to specifications. The existing literature focuses mainly on health. Studies that focus on subjective health tend to support the theory of resource multiplication \autocite{veenstraInteractionsParentalPersonal2022,settelsFurtherResourceMultiplication2022,anderssonHealthReturnsEducation2016}, whereas those that focus on objective health tend to find support for resource substitution \autocite{rossGenderHealthBenefits2010,rossSexDifferencesEffect2006,bauldryConditionalHealthrelatedBenefits2014}. Yet, not all studies agree \autocite{anderssonAdultHealthReturns2017}.
+
+%\textcite{liuCanNoncognitiveSkills2019}  found out that good socio-emotional skills decreased the impact of low family socioeconomic background on adult achievement.
+
+Since there are no prior studies examining resource substitution and multiplication with the same or even similar specifications as ours, hypothesizing how resource substitution or multiplication would play out in our study setting is difficult, especially due to the fact that even the existing literature on health has produced somewhat conflicting findings. The above literature review could nevertheless indicate, as some suggest \autocite[cf.][]{settelsFurtherResourceMultiplication2022}, that outcomes that are holistic and incorporate several life domains could be a result of multiplicative processes. Romantic biographies are indeed woven into multiple life domains. 
+
+As for main effects, we expect socio-cognitive capabilities to be similarly associated with romantic biographies as childhood experiences (2a). With the above considerations in mind, we also make a cautious hypothesis that we will see signs of resource multiplication in our results. More specifically, we hypothesize that the proability of belonging to advantageous romantic biographies will increase more steeply for those with high socio-cognitive resources (2b). If resource multiplication will hold, the probability of belonging to disadvantagous trajectories will decrease at a steeper rate for those with high socio-cognitive capabilities (2c). Therefore, negative childhood experiences are more likely to predict fragmented romantic biographies for people with less socio-cognitive resources. If there were any gender differences, men would be more prone to resource multiplication and women to resource substitution, because men tend to possess a wider variety of resources, as demonstrated by \textcite{anderssonAdultHealthReturns2017} and \textcite{rossSexDifferencesEffect2006} (2d). \autoref{img/graph_determinants_interaction} displays a simplification of how the interaction effects might look like for a given trajectory, should we find any interaction effects.
+
+\newcommand{\GraphDeterminantsInteraction}{
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[width=\textwidth]{img/graph_determinants_interaction}
+		\caption{Possible Interaction Effects if Theories of Resource Multiplication or Subsitution Would Hold}
+		\label{img/graph_determinants_interaction}
+	\end{figure}
+}
+
+% pasting the picture here or at the end, whether working (W) or publish (P) version
+\toEMBEDorEND{\InsertFloat{GraphDeterminantsInteraction}}{}
+
+%%%%-----------------------------------------------
+%%%% Data and Methods
+
+
+\section{Data and Methods}\label{datamethods}
+
+We drew upon the Survey of Health, Ageing and Retirement in Europe, Waves 1, 2, 3, 4, 5, 6, and 7. See \textcite{borsch-supanDataResourceProfile2013} for methodological details. SHARE is the largest study of aging in the world. Here, we utilize the retrospective SHARELIFE interviews from wave 7 which focus on life course events, including comprehensive childhood information. Please refer to \textcite{havariCanWeTrust2015} for an assessment of the realibility of these retrospective interviews. We included all SHARE countries in the analysis, that is, all EU countries, Switzerland and Israel.
+
+Relationship trajectory typologies were created with Latent Class Growth Modeling (LCGM), which combines Latent Class Analysis (LCA) and Latent Growth Modelling (LGM): in addition to creating a latent probability curve for each relationship status, the sample was classified into latent classes that shared similar growth patterns. Readers interested in the mathematical details can refer to \textcite{muthenGrowthMixtureModeling2008} and \textcite{vermuntGrowthModelsCategorical2007}.
+
+In LCGM, categorical co-variates may change the shape of growth curves. This allowed us to model the trajectories jointly for men and women, yet left room for sex-specific patterns.
+
+The logit of the growth curves is a linear function:
+
+\begin{equation}
+	\begin{aligned}
+		ln \left( \frac{(\Pr^{s}_{i,age} \mid C_j=j)}{(\Pr^{s=1^{st} marriage}_{i,age} \mid C_j=j)} \right) = 
+		\alpha^{s}_{1,j} + \alpha^{s}_{2,j} sex_i + \beta^{s}_{1,j}age_i + \beta^{s}_{2,j}age_{i} \cdot sex_i  
+		% \beta^{s}_{3,j}age^{2}_{i}  + \beta^{s}_{4,j}age^{2}_{i} \cdot sex_{i}
+	\end{aligned}
+	\label{eq:growth_equation}
+\end{equation}
+
+\noindent where $s$ is relationship status, $j$ is a given latent class $C$, $i$ is individual, $\alpha_{1,2}$ intercept and $\beta_{1,2}$ slope estimates.
+
+We experimented with adding quadratic terms, but the patterns were not as easily identifiable. The computational time also quadrupled.
+
+The predicted probabilities were further derived from \autoref{eq:growth_equation} in the standard way:
+
+\begin{align}
+	\Pr(s,age,i \mid C_j=j)=\frac{\exp(logit_{s,age,i} \mid C_j=j)}{\sum_{s=1}^{7} \exp(logit_{s,age,i} \mid C_j=j)}
+\label{eq:predicted_probabilities}
+\end{align}
+
+Computing LCGM requires generous resources. We ran 50 iterations for each potential 1 to 12 class solution to avoid local maxima in line with \textcite{wardenaarLatentClassGrowth2020}. We parallelized the 600 subtasks in the CSC high performance environment Puhti \autocite{cscPuhtiEnvironmentHigh2021} using R singularity environment container \autocite{rstudioteamRStudioIntegratedDevelopment2022,rcoreteamLanguageEnvironmentStatistical2021} and R packages flexmix \autocite{leischFlexMixGeneralFramework2004}, foreach \autocite{microsoftForeachProvidesForeach2022}, future \autocite{bengtssonUnifyingFrameworkParallel2021}  snow \autocite{tierneySnowSimpleNetwork2021}. Still, the LCGM part of the analysis took over one and a half days.
+
+Out of the 50 iterations for each class solution, we selected the one with the highest log likelihood. To determine how many classes to choose, we compared different class solutions visually against log likelihood, Lo-Mendell-Rubin likelihood ratio test (LMR\_LRT) \autocite{loTestingNumberComponents2001}, and Integrated Completed Likelihood criterion (ICL) \autocite{baudryCombiningMixtureComponents2010}. LMR\_LRT and ICL correspond to the more familiar Likelihood Ratio Test (LRT) and Bayesian Information Criteria (BIC), respectively, but penalize for the number of classes.
+
+% childhood variables and factor analysis.
+
+In this analysis, we considered childhood SES to be a confounder. This is because we were trying to capture both experiences and personal qualities that would not be mere artefacts of socioeconomic background.
+
+We divided childhood information into three sets of variables that were fed into Confirmatory Factor Analysis (CFA). (All variables are listed in \autoref{tab:descriptives_gender}.) Firstly, we measured childhood experiences with a broad range of variables from number of residences, childhood health, family composition and whether parents were alive at the time when the respondent came of age to relationship with parents and whether they experienced physical harm by father, mother, or anyone else. 
+
+Second, feelings of loneliness and sufficiency of friends served as measurements of social capability served as measurements and reading, writing, and math skills as those of cognitive capability. Reading, writing and math skills both predict fluid intelligence, the capability to solve novel reasoning problems. Evidence from a synthesis of longitudinal studies concludes that reading and mathematics skills also correlate with one another. \autocite{pengMetaanalysisRelationFluid2019}
+
+Finally, how well off the family was financially and the number of books, features, rooms in childhood home and International Socio-Economic Index of occupational status (ISEI) functioned as measurements for childhood socioeconomic status (SES).
+
+
+Although parental and peer attachment are generally moderately correlated \autocite[see][for a review]{gorresePeerAttachmentMetaanalytic2012}, in our sample, the correlation between variables that measure relationships with parents and peers was below .10 in all cases. Having them in different factors was therefore warranted. In the results section we will also explore the correlations between the different factors.
+
+We also acknowledge that family socioeconomic background is generally a predictor of school performance \autocite{berkowitzResearchSynthesisAssociations2017} and to some extent of social networks \autocite{goldmanEarlyLifeOriginsLaterLife2022}. Therefore, we controlled our results for childhood SES. In addition, we also controlled for the country of origin.
+
+To assess how well the factors fitted, we checked standardized factor loadings of the variables, covariances between the factors, and the customary fit indices to access the the overall fit for different factor solutions, namely Chi-squared, RMSEA, Comparative Fit Index (CFI) and Tucker-Lewis Index (TLI). We standardized the factor scores and used them as dependent variables in multinomial logistic regressions. 
+
+In order to deal with missing childhood data (\autoref{tab:descriptives_gender}), we performed multiple imputation with six imputed datasets. All variables in the factor analysis that were correlated by at least .10 were used for multiple imputation, as well as some additional variables not used for inference elsewhere: whether financial difficulties caused family to move to a different place; if family received help from relatives because of financial difficulties; whether father of respondent did not have a job for several months, and parental education that was only available for under half of the respondents due to the panel survey design. Due to this, we also used own educational level as a proxy for parental imputation in multiple imputations \autocite[cf.][]{blackWhyAppleDoesn2005,martinFamilyStructureIntergenerational2012}. 
+
+For proofreading and paraphrasing the manuscript, we used the AI tools Writefull, Google Bard and ChatGPT before sending it to language review.
+
+%%%%-----------------------------------------------
+%%%% Results
+
+\section{Results}\label{results}
+
+\subsection{Romantic biographies}
+
+We identified seven romantic biography classes. The fit statistics (Supplement \autoref{tab:summary_table_lcgm_classes}) improved as more classes were introduced. However, solutions with more than seven classes did not yield any new, meaningful life course patterns; instead, they offered finer-grained timings of first marriages or typologies that did not make conceptual sense.
+
+With this many classes and relation statuses, it seems that the fit indices have difficulty identifying parsimonious models, although they would make most sense heuristically. Furthermore, since fit indices should not be used to justify poorly fit models \autocite{stoneEthicalUseFit2021}, it implies that theoretical and mathematical fit do not always coincide. Furthermore, the typologies found here with LCGM were similar to the clusters revealed by sequence analysis in \textcite{makiStableMaritalHistories2022} that used the same dataset. This would also seem to lend support for the heuristic approach.
+
+% creating a figure command
+\newcommand{\GraphLcgmAreaAFour}{
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[width=\textwidth]{img/graph_lcgm_area_a4}
+		\caption{Romantic biographies for Western and Northern Europeans born in 1945 - 1957 at the age of 15 - 60}
+		\label{img/graph_lcgm_area_a4}
+	\end{figure}
+}
+
+\toEMBEDorEND{\InsertFloat{GraphLcgmAreaAFour}}{}
+
+\autoref{img/graph_lcgm_area_a4} pictures the romantic biography typologies that the Latent Class Growth Modeling revealed. The growth curves represent the probability of belonging to a given relationship status in a given age and class. Thus, it does not present individual trajectories but rather broad patterns or probability curves by which individuals have been divided into different classes. 
+
+The \emph{Early direct marriage} (1) class trajectories began either in singlehood or a dating relationship at the age of 15 and quickly transitioned into a stable first marriage. If the marriage was preceded by cohabitation, the period was very brief. The \emph{delayed direct marriage} (2) is identical to the first class in other prospects, but the transition into a dating relationship and marriage occured around five years later on average. The third class comprised of \emph{Late marriages preceded by cohabitation} (3). Unlike in the first three classes, here the cohabitation period was not purely transitory, although people ultimately ended up in stable first marriages. The marriages started on average around the age of thirty.
+
+The remainder of the classes introduced quite different patterns from the previous. The \emph{Remarriage} (4) trajectories ultimately ended up in relatively stable higher-order marriages. People did not stay divorced in this class but tended to re-partner rather quickly. The \emph{divorce} (5) class was the least well defined. Although most first marriages ended by the age of 50, some\textemdash especially men\textemdash transitioned to cohabiting or dating relationships. The mixture modeling also assigned the majority of widows in our sample to this class, especially among women. Some late remarriages were also assigned to this group, evidently due to a longer period as a divorcee before repartnering.
+
+Respondents in the \emph{Cohabitation} (6) class had a high probability of being single at the beginning of the trajectory, while the probability of cohabitation increased as a function of time. Some individuals did get married, but the unions tended not to be long-lasting. % A closer look at the individual trajectories in this class revealed that people will indeed move from one relationship state to another, and not generally stay in the cohabiting unions with the same person for extensive periods (results not shown). % NB! Have not checked yet, would require some extra work! %%%%%%
+
+Finally, the \emph{single} (7) class consisted of trajectories that were vastly characterized by permanent singlehood, with some occasional dating and cohabitation spells. The few very late first marriages were also assigned to this class\textemdash seemingly due to the long period of singlehood it was preceded by.
+
+Male and female trajectories were similar, but we can notice the trend that men tend to be older in relationships and die younger: female trajectories were a few years ahead, and widowhood was more common among them.
+
+\begin{EMBED}
+	\input{tab/descriptive_table_cluster.tex}
+\end{EMBED}
+
+The classes resembled each other in their demographic makeup (\autoref{tab:descriptive_table_cluster}). There were no notable differences in the distributions of the year of birth or sex, although perhaps surprisingly the remarriage class was more common among women. Less surprisingly, the single class was more prevalent among men. Both classes that were marked by cohabitation spells were more frequently observed among the higher educated; single and early direct marriage classes among the basic educated. 
+
+Due to the high number of childhood variables, we display only the pooled factor scores of childhood circumstances by class.  Interestingly, childhood experiences and socio-cognitive capabilities had chiefly similar values by class, whereas childhood SES behaved differently within each. More on the factors and differences by class further below.
+
+The supplementary \autoref{tab:descriptives_gender} outlines the distributions of childhood information by gender for every childhood variable included in the analysis. In general, positive childhood experiences were much more common than negative ones. More respondents also reported values above perceived average than below perceived average, something that is typical in surveys \autocite{williamsPeopleReallyBelieve2008}. Women had more extreme values in their assessment of their parental relationships. Men were more content with their social life. Otherwise, men and women reported similar answers to the childhood questions.
+
+Although the sample size was not large enough for a thorough analysis of class distributions among countries, some patterns did still emerge (supplementary \autoref{img/statsby_cluster_country}). The direct marriage classes (1,2) were prevalent in all other countries except Denmark, Sweden, and Switzerland, where the most common trajectories were marriages preceded by cohabitation (3). The singlehood class occurred relatively constantly across Europe and constituted generally five to ten percent of all respondents. Life courses characterized by remarriage, divorce, cohabitation, and marriage after cohabiting were less common in Southeastern Europe compared with Northwestern Europe. 
+
+\subsection{Factor Analysis of Childhood Variables}\label{factor_analysis}
+
+\toEMBEDorEND{\input{tab/cfa_factors.tex}}{}
+\toEMBEDorEND{\input{tab/cfa_variables.tex}}{}
+
+
+All goodness of fit indicators supported a three-factor solution over single- and two-factor solutions (details in the supplementary \autoref{tab:cfa_fitmeasures}). Covariances between the three factors are documented in \autoref{tab:cfa_factors}. The covariance between childhood experiences and childhood socioeconomic status was only .10, which could indicate that our childhood experience variables were not mere artifacts of socioeconomic position. Socio-cognitive capabilities and chilhood SES correlated by .28, which is not totally optimal for studying interaction effects, but still modest considering that individual characteristics are by definition dependent on family background.
+
+\autoref{tab:cfa_variables} portrays the standardized factor loadings. Factors measuring sociocognitive capacity and childhood socioeconomic status had fair loadings, mainly around .60. Parental relational variables in the childhood experience factor have scores as high as .80. By contrast, childhood health, family composition, whether parents were alive in the childhood of the respondent, and number of residences before the age of 16 all fell below .30. The three factors dealing with physical harm fall in between.
+
+In a factor with multiple questions dealing with to parental interactions, it is natural for these variables to score high. Interactions with parents are arguably one of the most defining aspects of childhood \autocite{gutmanChangeWellbeingChildhood2010}. It is logical that they carry substantial weight in any composite score that attempts to capture childhood experiences. Still, parental interactions are not the only ones that matter for child development. Family composition, childhood health, number of residences and physical harm from a non-parent  all have an impact on a child's life, as demonstrated by our literature review. Yet, they all measure a slightly different dimension of childhood experiences. It then makes sense that they do not explain the common variability of the factor equally well as do the parental interaction variables that are more similar to each other. As a result, we chose to keep even variables with low factor loadings in the analysis because they made sense conceptually for our analysis.
+
+\subsection{Links Between Childhood and Romantic Biographies}\label{links_between_childhood_and_romantic_biographies}
+
+
+\newcommand{\GraphCcMOne}{
+\GraphCommand{img/graph_cc_m1}{Predicted probabilities of class membership by childhood experiences and sex. Controls for childhood socioeconomic status and country (Model 1)}
+}
+
+\toEMBEDorEND{\InsertFloat{GraphCcMOne}}{}
+
+
+\newcommand{\GraphInteractionsMTwo}{
+	\GraphCommand{img/graph_interactions_m2}{Socio-cognitive capability moderated class membership probabilities by childhood experiences and sex. Controls for childhood socioeconomic status and country (Model 2)}
+}
+
+
+\toEMBEDorEND{\InsertFloat{GraphInteractionsMTwo}}{}
+
+	
+\autoref{img/graph_cc_m1} displays the predicted probabilities from Multinomial Logistic Regressions on how childhood experiences predicted, after controlling for childhood SES and country of residence, the probability of belonging to a given romantic biography typology. We let the childhood experience factor score vary from the 1 \% quintile to the 99\% quintile to capture nearly the full spectrum of how childhood adversity and advantage predicted the formation of relationship trajectories. We opted for the quintile as opposed to minimum and maximum because of a few outliers in the data that made the predictions unreliable, especially at the lower values. We display here standardized factor scores, which means 0 is the mean value, and one unit change on the x-axis implies a change of one standard deviation.  
+
+%This presentation style makes it easy to compare the main effects with the interactions. The main effects are also more interpretable this way. In addition to the main effects, we can also observe\textemdash as from \autoref{tab:descriptives_cluster}\textemdash that the first two classes contain roughly half of the sample and the latter five classes around ten percent each.
+%MÄKI QUESTION: SHOULD (SOME OF) THE ABOVE BE IN THE METHODS INSTEAD?? OR BE DELETED?
+
+\autoref{img/graph_cc_m1} reveals an intriguingly clear pattern: favorable childhood experiences predicted trajectories that eventually arrived at stable first marriages, adverse childhood experiences predict all other trajectories. Very favorable childhood experiences increased the probability of belonging to the direct marriage classes by just under ten percent, compared with very adverse childhood experiences. The associations were somewhat stronger for women and delayed marriages, and slightly weaker for early direct marriages. Likewise, very adverse childhood experiences increased the probability of belonging to the classes that did not end up in a stable first marriage by around three percent for men and five percent for women. The only exception to these gendered patterns was the singlehood class (7) wherein childhood experiences had a better predictive power for men and barely any predictive power for women. Good childhood experiences also predicted the late marriage preceded by cohabitation by a few percent, but the main effects fell within the confidence bounds. 
+
+\autoref{img/graph_interactions_m2} depicts the moderating effects of socio-cognitive capabilities. These are fixed at plus and minus one standard deviation from the standardized sample mean. One standard deviation away from the mean pictures fair differences in personal characteristics while not understating or exaggerating the results. It is also a standard practice of presenting continuous by continuous interaction effects \autocite{interactions,uclaDecomposingProbingPlotting2023}.  Here we have chosen to display the absolute differences in the marginal effects in order to maintain comparability with the main effects. If the interaction effects would be displayed on a relative scale, the results would appear stronger for the classes with smaller main effects.  
+
+Low capabilities appeared to strengthen, and high capabilities reduce the predictive power of childhood experiences on the formation of relationship trajectories for women. There, the interaction effect was observed in almost all of the classes, albeit not very distinctly in all cases. Either the curves were flatter for the low-capable individuals, or there were no clear patterns. This suggests that the theory of resource substitution would hold: childhood experiences could matter more for those with less socio-cognitive resources.
+
+A similar pattern is distinguishable for the \emph{early direct marriage} (1) for men. Otherwise, there were no notable interaction effects, although the curves tended to be somewhat steeper for the individuals with low capabilities, which would also point towards resource substitution. The only instance that appears to align with the resource multiplication theory are men in the \emph{delayed direct marriage} (2): favorable childhood conditions predicted arriving at such trajectory at an increasing rate for those with high socio-cognitive faculties.
+
+%~~~~~~~~~~~~
+%MÄKI: BELOW ARE SOME REPORTS OF THE RESULTS THAT ARE CURRENTLY OMITTED TO SAVE SPACE. IT ALSO GOES MAYBE TO TOO MUCH DETAIL
+%The late marriage preceded by cohabitation and singlehood clusters manifests themselves a bit differently. There seems to be no interaction effects for women in the \emph{marriage preceded by cohabitation} class and men in the \emph{singlehood} class. That is, positive or negative childhood experiences predict the class membership in the same way regardless of personal characteristics. 
+
+%For men in the cohabitation-to-marriage class, the direction of the interaction effect class depends on childhood socio-cognitve cababilities. With low capabilities, positive childhood experiences are associated with higher odds at belonging to the marriage-via-cohabitation class; with high capabilities, positive childhood experiences are associated with lower odds at belonging to that class. The difference is  small\textemdash around one to two percent difference to either way with a fixed two standard deviation in capabilities while allowing the childhood experiences to vary to its extreme values. Similar, but opposite, interaction effects are observed for women in the singlehood cluster: with high socio-cognitive capabilities, good childhood experiences were associated with a higher probability of belonging to the single cluster; with low capabilities, good childhood experiences are associated with a lower probability of belonging to the single cluster.
+
+%In both cases where the interactions effects diverge, an alternative interpretation seems also reasonable: the curves are rather flat but the low capability curve is to the same direction with the main effect. This could point to the inertia effect that we observed in the majority of the classes: that the high capability in effect just appears to reduce the main effect, as opposed to reversing it. The fact that the main effects are the weakest for these two classes and similar to the slope of the low capable individuals would seem to support this interpretation. Yet another way to make sense these patterns is that since the main effect is already quite weak, there is simply not enough data to draw any reliable conclusions about the interaction effects. Indeed, because the marginal effects in classes 3 and 7 (with the exception of women in class 3) are both small and  uncertain, it is possible that we what we see are mere statistical artefacts.
+
+ %, just with more distinct results. The only notable difference comes from the highly resilient individuals in the \emph{early direct marriage} (1) class. In the controlled model, the curve for the high resilient individuals is almost flat indicating that childhood experiences for the high resilient individuals would have practically no effect on the probability of belonging to that class. The uncontrolled model reveals that without accounting for childhood SES, the childhood experience do have a strong predictive power as well. %This peculiarity would seem be explained by the following reasoning: Firstly, we observe that there was a low prevalence of tertiary education in the first class (\autoref{tab:descriptives_cluster}). Secondly, both childhood capabilities factors, especially as measured here, and childhood SES predict educational attainment. Finally, transition to marriage in the first class happened in the prime years for tertiary education, mainly between ages 19 to 25. Dating had usually started even before that. The first class is characterized by early marriages, but those with higher education and high capabilities would tend to marry later. That is arguably why controlling for childhood SES makes the association of childhood experiences and romantic biographies nearly disappear for the high resilient individuals.
+
+%%%%-----------------------------------------------
+%%%% Robusteness checks
+\subsection{Robustness Checks}\label{robustness_checks}
+
+Experimenting the models with and without childhood SES revealed some intriguing patterns. If controls for country and childhood SES were left out of the model, the relationship was stronger, but the general trends were the same (online supplements \autoref{img/graph_cc_m1uc} and \autoref{img/graph_interactions_m2uc}). Using childhood SES as a dependent variable instead, usually reversed the direction of the main effect (supplementary \autoref{img/graph_childhood_ses_m1}). When, in addition, we consider that childhood SES and childhood experiences factors barely correlated (\autoref{tab:cfa_factors}), it is reasonable to conclude that childhood SES and childhood experiences were linked to romantic biographies through vastly a different pathway.
+
+We tried several different variable combinations with the factor analysis and obtained very similar results: seperating social and cognitive capabilities, keeping all childhood experiences, keeping or dropping some with low factor loadings. We also constructed composite scores so that variables dealing with residential stability, childhood health, relationship with parents, parental presence and physical harm all had equal weight. The results were near identical with our other analyses, but the main effects were somewhat stronger. (Results available upon request)
+%Explanatory Factor Analysis found too few variables per factor so that our projected subsequent analysis would have been feasible (Results not shown).
+
+Even if class distributions were partially uneven between countries, we are inherently interested in how childhood experiences predict family formation and not in the prevalence of relationship patterns. Therefore, we reran the multinomial logistic regressions by four regions: Northern, Southern, Eastern, and Western Europe as defined by the United Nations \autocite{unsdUnitedNationsGeoscheme1999} to find out any region-specific patterns. The stratified analysis vastly corroborated the aggregated results (See supplements \autoref{img2/graph_cc_m1_west} through \autoref{img2/graph_interactions_m2_south}). Southern European men displayed some signs of resource multiplication: those with high socio-cognitive faculties had stronger marginal effects. Our sample size was unfortunately not large enough for country-level robustness checks (see also supplementary \autoref{img/statsby_cluster_country} for country distributions). 
+
+
+%~~~~~~~~~~~~
+%MÄKI COMMENT: SOME DETAILED RESULTS FOR THE COUNTRY-WISE RESULTS. CURRENTLY EXPLAINED MORE BRIEFLY (ABOVE) TO SAVE SPACE.
+%The direction and strength of the main effects was near identical in all of the four regions. We did get a null effect, though, with quite some uncertainty for four subgroups: men in the marriage-via-cohabitation (3) in Northern and Western Europe, men in Eastern Europe in the \emph{early direct marriage group} (1) and women in \emph{delayed direct marriage group} (2). The interaction effects were vastly in line with the aggregated analysis, although the small sample size in some subgroups did not always allow for reliable inference. Only southern European men had clearly opposite interaction effects with the rest of the sample: those with high capabilities had stronger marginal effects in all other classes apart from the \emph{marriage-via-cohabitation} (3) and \emph{singlehood} that had more or less flat marginal effects. Likewise, the other groups were in line with cumulative disadvantage meaning that those with high capabilities and good childhood experiences had\textemdash unlike the rest of the study population\textemdash decreased probability of belonging to the other classes not characterized by stable first marriages. Again, there were quite some uncertainty in theses figures.
+
+
+
+%%%%-----------------------------------------------
+%%%% Discussion and conclusion
+
+\section{Discussion and Conclusion}\label{discussion}
+
+%%%% Interpretation of results to answer research question
+The aim of this study was to understand how childhood experiences, other than socioeconomic background, resonate through the formation of romantic relationship trajectories. We found that favorable childhood experiences predicted stable first marriages, childhood adversities predicted all other romantic biography typologies. Among women, romantic biographies reflected both adverse and favorable childhood experiences more for individuals with lower socio-cognitive capabilities. For men, we did not find constistently interpretable patterns.
+
+Our study confirms previous findings that marital patterns reflect childhood health \autocite{sylvestFamilyFormationSocioEconomic2021}, the relationship stability of parents \autocite{hiekelChildhoodFamilyStructure2020}, and childhood relationship with parents \autocite{paradeParentingChildhoodPredicts2012}. We found that the totality of childhood experiences were associated with romantic biographies (1a). Childhood SES partly confounded the relationship, but for the most part socioeconomic background and childhood experiences predicted romantic biographies differently (1b).
+
+%% Surprising results?
+Contrary to our expectations, the results were more in line with the resource substitution theory (2b), altought socio-cognitive capabilities did predict romantic biographies in like fashin with childhood experiences (2a). Among women, capable individuals appeared less susceptible to external events, whether good or bad, whereas the life courses of individuals with less cognitive and social capabilities childhood events appeared to be more defining (2c). Although the findings for men were somewhat ambiguous, the results could still indicate that some individuals will 'have their way' irregardless of prevailing conditions, while others could be more influenced by their surroundings. 
+
+We considered potential gender-specific variations in our results, but were unsure how they would play out. Specifically, we speculated that resource substitution could better explain partnership formation for women and resource multiplication for men, which, in the light of our findings, seems to hold to some extent (2d).  We also contemplated that men with negative childhood experiences could have challenges entering a relationship and women sustaining them (1c). This was partially supported by our findings: Childhood experiences predicted fragmented romantic biographies more for women and biographies characterized by singlehood for men. Unforeseeably, we did not find that socio-cognitive faculties would consistently moderate the relationship between childhood experiences and romantic biographies for men. This unexpected outcome may stem from the initially weaker main effects, making interactions more difficult to detect. The weaker main effects among men could be explained by lower suspectablity to certain outside influences \autocite{kaltialaSukupuoliahdistusTransgenderidentiteettiJa2023,haltiganSocialMediaIncubator2023}, although it is difficult to disentangle the mechanisms as boys generally react more visibly to enviromental factors \autocite{vrantsidisDifferentialAssociationsMaternal2022}.
+
+Additionally, it is possible that men are less susceptible to childhood influences in ways that were not adequately addressed in our literature review.
+
+Our findings highlight the added value of using continuous variables for childhood experiences, rather than counting the number of adversities, which appears to be the convention \autocite{brugiaviniAdverseChildhoodExperiences2022,montezCumulativeChildhoodAdversity2013}. Initially, less information was lost when variables were not grouped before conducting inferential analyses. Additionally, using continuous predictors revealed that those with high socio-cognitive capabilities seemed to be resistant, not only in response to adverse experiences but also to favorable ones. Our approach is in line with an early work of \textcite{rutterPsychosocialResilienceProtective1987} who proposed that joint continuous variables serve the purpose better than treating vulnerability and protective factors of the same phenomena separately. Our study supports Rutter's reasoning.
+
+%%%% Possible (strengths &) weaknesses
+One of the strengths of this study lies in its capacity to distill complex patterns and associations into a relatively coherent and understandable representation. Using Latent Class Growth Modeling
+revealed more nuanced patterns than the more frequently employed sequence analysis \autocite[cf.][]{makiStableMaritalHistories2022} as proposed by \autocite{mikolaiLongitudinalMethodsLife2017}. LCGM with our sample size would not have been possible without the help of a high performance computing environment and parallelization with several hundred nodes, something that is uncommon in social science research. We also had quite a few childhood variables that aided in giving a holistic picture of early life conditions and enabled examining early life settings from multiple angles. 
+
+Although this study has its merits, it is not without a few caveats. First, the reasonably high survey sample size was possible only by aggregating the analysis between 28 European countries. Although regional-level robustness checks were mainly in line with the aggregated analysis, it is possible that we missed some interesting country-specific patterns due to aggregation. Second, some of the factor loadings fell below the conventional cut-off points \autocite{stevens2012applied}. Splitting the childhood experience factor into multiple dimensions would have bolstered the statistical rigor of our factor analysis. However, adding more factors would have introduced unnecessary additional complexity in our inferences. Keeping all in the same factor made conceptual sense, and in addition, all factor loadings were positively correlated and the magnitude of the factor loadings was roughly the same for conceptually similar variables. Furthermore, robustness checks with composite scores corroborated our findings. Third, we focused here on socio-cognitive capabilities that were measured with academic performance and social connectedness. Measuring personal characteristics with some other variables might have produced different results.
+
+
+%%%% Prospects for future research
+%            &
+%%%% Broader implications / Comparison or synthesis with results from literature
+%% how does relate to other research questions?
+%% does it support current hypotheses in your field?
+%% how does it relate with literature (wider than topic of this paper)
+
+
+In line with previous research on health and relationship formation \autocite{sylvestFamilyFormationSocioEconomic2021,windingNegativeChildhoodConditions2019}, we found that a web of interrelated factors was associated with romantic biographies. On the one hand, a variety of resources that are linked with love life accumulate to certain individuals. Yet, on the other hand, a lack of one type of resource may be compensated for with another. Future research could look into the interplay of different childhood factors and try to reveal causal links. Understanding why socioeconomic background and other childhood events sometimes predict adult outcomes in opposite direction would be a particularly interesting quest.
+
+Just as the interconnectedness of different childhood factors provides avenues for new studies, so do the macro-level changes and phenomena in love life. Understanding how personal characteristics modify association is interesting and important, but there is a risk of not seeing the forest for the trees. In contemporary Western societies, there is a tendency to treat collectivist and societal issues with individual-level solutions. If some people cannot lead the kind of love and family life they would hope for, there could be societal trends that stood in their way, such as labor market insecurities \autocite{sutelaTemporaryJobsFirst2012}, lack of commitment \autocite{finkel2014all}, postponement of childbearing and marriage, and changes in attitudes towards family life \autocite{lesthaegheTweeDemografischeTransities1986}. Focusing solely on the individual would miss the point. Therefore, recently emerged theories that emphasize collective trends such as system resilience are a welcomed addition to the discussion \autocite{shawResilienceWhyWe2016}.
+
+%conclusion
+Our results demonstrate that socioeconomic background does not fully determine romantic biographies. Other childhood experiences are equally, if not more important. Some people seem to be more susceptible to childhood experiences. Our findings highlight the importance of identifying the needs of families and tailoring support accordingly.
+
+
+%% Acknowledgements
+\section*{Acknowledgements}\label{Acknowledgements}
+
+This work was funded by the Academy of Finland within the Research Project LoveAge, decision number 317808, and by the Strategic Research Council of the Academy of Finland: FLUX and NetResilience consortiums, decision numbers: 345130, 345131, 345184, 345183.
+
+We thank Bettina Gr\"un, Gavin van der Nest, Mark Amos, Julia Mikolai, and Matti Nelimarkka for their assistance with Latent Class Growth Modelling and parallelization; CSC \textendash\ IT Center for Science, Finland, for generous computational resources; Heli Juottonen, Jesse Harrison, and other CSC staff members for their guidance with high performance computing environments; the Finnish Ministry for Education for providing funding for CSC; and Tiina Helamaa for conducting literature searches.
+	
+%\clearpage
+%%%-----------------------------------------------
+% Bibliography
+\FloatBarrier
+\begin{spacing}{1.3} 
+\printbibliography
+\end{spacing}
+
+
+%TC:ignore 
+% check that texcount works as intended
+
+%%%-----------------------------------------------
+%% Figures for Submit (S) version
+
+% Figures and tables that appear in the body here again for the submit (S) version
+
+% Appendice figures already at the end
+\begin{END}
+	\clearpage
+
+	\FloatBarrier
+
+	\listoftables
+	
+	\input{tab/descriptive_table_cluster.tex} % ref from the file
+
+	\input{tab/cfa_variables.tex}
+
+	\input{tab/cfa_factors.tex}
+	
+
+	\FloatBarrier
+
+
+	\listoffigures
+	
+	\InsertFloat{ConceptualizationOfPathway}
+
+	\InsertFloat{GraphDeterminantsInteraction}
+
+	\InsertFloat{GraphLcgmAreaAFour}
+
+	\InsertFloat{GraphCcMOne}
+
+	\InsertFloat{GraphInteractionsMTwo}
+
+	\FloatBarrier
+
+	
+\end{END}
+
+\savepage{lastpage} % page count 
+
+%-------------------------------------------------------------
+% Appendix
+%-------------------------------------------------------------
+% First some settings, bear with me!
+\clearpage
+\setcounter{secnumdepth}{3} % add numbers to section headings, needed for prefix in the figures
+\appendix % start appendix
+%\counterwithin{figure}{section} % A prefix for figures
+%\counterwithin{table}{section} % A prefix for tables
+%\stepcounter{section} % stars numbers from 1 onwards (A.1 etc)
+
+% Custom prefixes
+\renewcommand{\thefigure}{S\arabic{figure}}
+\setcounter{figure}{0}
+\renewcommand{\thetable}{S\arabic{table}}
+\setcounter{table}{0}
+
+\pagenumbering{arabic} % page count in arabic numbers
+\renewcommand{\thepage}{Online Supplements \Roman{page}} % A. prefix for  page numbering
+
+\addsec{Online Supplements}\label{------APPENDIX------} % KOMA-class section without numbers (same as \section*{}), but will keep the "A."-prefixes in floats and include the section in table of contents
+
+\FloatBarrier
+
+%fit indices
+\input{tab/summary_table_lcgm_classes}
+
+
+% clusters & countries
+\begin{figure}
+	\includegraphics[width=\linewidth]{img/statsby_cluster_country}
+	\caption{Class membership percentages by country}
+	\label{img/statsby_cluster_country}
+\end{figure}
+
+\input{tab/cfa_fitmeasures.tex}
+
+\clearpage
+\input{tab/descriptive_table_gender.tex} % relationship 
+\clearpage
+
+%Uncontrolled
+\GraphCommand{img/graph_cc_m1uc}{Predicted probabilities of class membership by childhood experiences and sex. Uncontrolled version of Model 1}
+
+\GraphCommand{img/graph_interactions_m2uc}{Socio-cognitive capability moderated class membership probabilities by childhood experiences and sex. Uncontrolled version of Model 2}
+
+%Childhood SES
+\GraphCommand{img/graph_childhood_ses_m1}{Predicted probabilities of class membership by childhood socioeconomic status and sex.}
+
+%West
+\GraphCommand{img2/graph_cc_m1_west}{Predicted probabilities of class membership by childhood experiences and sex. Controls for childhood socioeconomic status and country (Model 1 - Western Europe only)}
+
+\GraphCommand{img2/graph_interactions_m2_west}{Socio-cognitive capability moderated class membership probabilities by childhood experiences and sex. Controls for childhood socioeconomic status and country (Model 2 - Western Europe only)}
+
+%North
+\GraphCommand{img2/graph_cc_m1_north}{Predicted probabilities of class membership by childhood experiences and sex. Controls for childhood socioeconomic status and country (Model 1 - Northern Europe only)}
+
+\GraphCommand{img2/graph_interactions_m2_north}{Socio-cognitive capability moderated class membership probabilities by childhood experiences and sex. Controls for childhood socioeconomic status and country (Model 2 - Northern Europe only)}
+
+
+%East
+\GraphCommand{img2/graph_cc_m1_east}{Predicted probabilities of class membership by childhood experiences and sex. Controls for childhood socioeconomic status and country (Model 1 - Eastern Europe only)}
+
+\GraphCommand{img2/graph_interactions_m2_east}{Socio-cognitive capability moderated class membership probabilities by childhood experiences and sex. Controls for childhood socioeconomic status and country (Model 2 - Eastern Europe only)}
+
+%South
+\GraphCommand{img2/graph_cc_m1_south}{Predicted probabilities of class membership by childhood experiences and sex. Controls for childhood socioeconomic status and country (Model 1 - Southern Europe only)}
+
+\GraphCommand{img2/graph_interactions_m2_south}{Socio-cognitive capability moderated class membership probabilities by childhood experiences and sex. Controls for childhood socioeconomic status and country (Model 2 - Southern Europe only)}
+
+
+
+
+
+\begin{comment}
+	\begin{figure}[!htb]
+		\centering
+		\includegraphics[width=\textwidth]{img/graph_lcgm_area_bw_a4}
+		\caption{Romantic biography classes for Western and Northern Europeans born in 1945 - 1957 at the age of 15 - 60}
+		\label{img/graph_lcgm_area_bw_a4}
+	\end{figure}
+
+	\GraphCommand{img/graph_interactions_m2_bw}{Socio-cognitive capability moderated class membership probabilities by childhood experiences and sex. Controls for childhood socioeconomic status and country (Model 2)}
+	
+\end{comment}
+
+
+
+%TC:endignore
+\savepage{applastpage} % page count
+
+\end{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%---------------------
+% Comments and text that might be used later
+
+\begin{comment}
+	\section{EXTRA TEXT - TO BE DELETED OR MOVED}
+	We expect socio-cognitive cababilities work in a resilience-like fashion. Since our predictors are on a continous, we will
+\end{comment}
+
+
+% vois toimia resilienssin omaisesesti -> Masten normijutut riittää suojaamaan (jolloin adversiteettillä väliä eikä positiivisella). Pois?
+
+%\textcite{rutterPsychosocialResilienceProtective1987} concluded that protective mechanisms are more important for individuals in high risk groups.
+
+%The resource substitution theory is also in line with resilience literature. Drawing from a few case studies, \textcite{rutterPsychosocialResilienceProtective1987} concluded that protective mechanisms are more important for individuals in high risk groups. The resource substitution theory also predicts a similar trend for positive events.
+
+
+
+
+%More material resources give and advantage for men in the marriage market both in terms of finding and keeping a partner, while there are mixed results for how material security plays out for women. \autocite{jalovaaraSocioeconomicStatusDivorce2001}.
+
+%Therefore, it seems reasonable that a combination of school performance and childhood social engagement variables serves a fair way to assess socio-cognitive capabilities.
+
+%Is this chapter dfaft an uhka or mahdollisuus ???
+%Experimental designs in demography are rare if not near impossible to carry out. Therefore correlations between the most arbritrary combinations of independent and dependent variables are possible \autocite[see][for a discussion]{mariniCausalitySocialSciences1988}. We are aware of the potential cavaeats with a attempting to embrace the totality of childhood landscape and explain one aspect of adult life from it. Yet, our study has hopefully succeeded in taken into account in our theory construction as well as in the analyses how multiple aspects of social life are intertwined and tend to produce similar outcomes across multiple life domains. 
+
+%For instance, young employees, especially women, who need to prove themselves repeatedly in temporary employment contracts and who overperform at work are sent to therapists, instead of addressing the causes of mental distress caused by working life dynamics. Likewise, i
+
