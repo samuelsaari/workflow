@@ -1,9 +1,0 @@
-https://github.com/samuelsaari/workflow
-
-Installation via git:
-cd c:\PATH\TO\YOUR\FOLDER
-
-git clone https://github.com/samuelsaari/workflow.git
-
-Music: Bensound.com/free-music-for-videos
-License code: X9Z0WRDBSLN5JDV2
