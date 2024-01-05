@@ -422,7 +422,7 @@ Return
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;ZoteroAddEditBibliography_SC
-; press ctrl + Shift + B (built in in word, no ahk needed)
+; press ctrl + Shift + B (built-in word shortcut, no ahk needed)
 
 
 ;Refresh bibliography ZOTERO
