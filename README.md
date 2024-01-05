@@ -1,5 +1,8 @@
 # Workflow for Windows - Keyboard shortcuts with Autohotkey
 
+Watch a teaser trailer on YouTube:
+[![Trailer - Workflow for Windows](https://github.com/samuelsaari/workflow/assets/49607659/4a3ffa4d-6e55-491f-86a8-4277546284b6)]([https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE](https://youtu.be/oFqOz5auLbk))
+
 ### I. Intro
 This is a list of customized keyboard shortcuts to switch between windows and do other often repeated tasks **in _Windows_**. It consist of four seperate parts:
 1) General Windows workflow including hotkeys for switching apps and making repetive tasks faster (windows_workflow.ahk)
