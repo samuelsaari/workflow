@@ -5,6 +5,7 @@
 clear
 cls
 
+
 // 0.0.copy your do-file to a do-file folder so that you have a backup and can easily access all your do-files in same place
 
 ////////////////////////////////////////////
@@ -49,13 +50,8 @@ scatter mpg weight, name(kalevi, replace)
 * Ctrl + 7
 
 
-// {}
-* Ctrl + 0
-
-
 // readSHARE *, w(7) mod()
-* Ctrl + ,
-
+* Ctrl + .
 
 * readSHARE setup instructions:
 * view browse https://gist.github.com/samuelsaari/1ff20b8b7d70e01706f07f25f96914dc

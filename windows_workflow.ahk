@@ -199,7 +199,9 @@ roar(ID_1,TARGET_1="",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=1,Par
 
 ;<!2::roar("ahk_exe outlook.exe", "outlook.exe") ; old outlook
 ;<!2::roar("ahk_exe olk.exe", "outlook.exe") ; new outlook
-<!2::roar("Outlook","outlook.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=2,Parambox:=0,ID_3:="") ; add hoc subsitute, above does not work
+;<!2::roar("Outlook","outlook.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=2,Parambox:=0,ID_3:="") ; add hoc subsitute, above does not work
+roar("ahk_class rctr_renwnd32","outlook.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=2,Parambox:=0,ID_3:="") ;yet another try at outlook
+<!2::roar("ahk_exe outlook.exe", "outlook.exe") ; old outlook
 ;<!3::roar("ahk_exe acrord32.exe","acrord32.exe") ;ADOBE READER
 ;<!3::roar("ahk_exe acrobat.exe","acrobat.exe") ;ADOBE READER
 <!3::roar("ahk_exe acrobat.exe","acrobat.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="acrord32.exe",ID_2:="ahk_exe acrord32.exe",Mode:=1,Parambox:=0,ID_3:="ahk_class AcrobatSDIwindow")
@@ -678,12 +680,12 @@ SetTitleMatchMode,1
 	Send,if __name__ == "__main__":
 	Return
 	
-	<^+v::
+	<$^+$v::
 	Send,print(f"{{}'
-	Send,^v
+	Send,%Clipboard%
 	Send,':<30{}}
 	Send,{{}
-	Send,^v
+	Send,%Clipboard%
 	Send,{}}
 	Send,")
 	;Send,{right}{right}

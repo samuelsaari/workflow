@@ -190,6 +190,7 @@ Return
 
 ;;;;Run code between braces
 !ENTER::Send {Control down}{pause}b{pause}b{pause}b{pause}b{pause}b{pause}b{pause}b{pause}b{pause}b{pause}b{pause}b{pause}b{pause}b{pause}b{pause}b{Control up}{pause}{pause}{pause}{pause}{pause}^d{down}{Home}
+;$!'::Send {Control down}{pause}{b}
 Return
 
 ;;;; Run code
@@ -220,8 +221,8 @@ Return
 <^$´::Send, {SHIFT DOWN}´{SHIFT UP}'{left} 
 Return
 ;; braces
-<^0::Send, {RAlt down}7{RAlt up}{Enter}{Enter}{RAlt down}0{RAlt up}{up} 
-Return
+;;<^+::Send, {RAlt down}7{RAlt up}{Enter}{Enter}{RAlt down}0{RAlt up}{up} 
+;;Return
 #IfWinExist
 
 
