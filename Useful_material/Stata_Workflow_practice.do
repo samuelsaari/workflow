@@ -53,6 +53,7 @@ scatter mpg weight, name(kalevi, replace)
 // readSHARE *, w(7) mod()
 * Ctrl + .
 
+
 * readSHARE setup instructions:
 * view browse https://gist.github.com/samuelsaari/1ff20b8b7d70e01706f07f25f96914dc
 
