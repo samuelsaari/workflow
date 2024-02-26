@@ -252,7 +252,9 @@ roar("ahk_class rctr_renwnd32","outlook.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:=
 <!<::roar("ahk_class PPTFrameClass", "powerpnt.exe")
 #IfWinNotExist
 
-<!z::roar("ahk_class Chrome_WidgetWin_1","msedge.exe")
+;<!z::roar("Microsoft Edge","msedge.exe")
+<!z::roar("ahk_class Chrome_WidgetWin_1","msedge.exe",EX_TITLE:="",EX_AHK:="ahk_exe chrome.exe", TARGET_2:="",ID_2:="Microsoft Edge",Mode:=2,Parambox:=0,ID_3:="")
+
 <!x::roar("ahk_exe rstudio.exe","rstudio.exe")
 ;<!c::roar("ahk_exe powershell.exe", "powershell.exe") ; not sure how to execute anaconda powershell
 <!c::roar("ahk_exe cmd.exe","cmd.exe",,,"C:\Windows\SysWOW64\cmd.exe") ; not sure how to execute anaconda powershell
