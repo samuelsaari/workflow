@@ -251,11 +251,14 @@ roar("ahk_class rctr_renwnd32","outlook.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:=
 #IfWinNotExist, Stata
 <!<::roar("ahk_class PPTFrameClass", "powerpnt.exe")
 #IfWinNotExist
-<!z::roar("Zoom ahk_exe Zoom.exe","\AppData\Roaming\Zoom\bin\Zoom.exe" , , , , ID_2:="Room ahk_exe zoom.exe",,Parambox:=0)
+
+<!z::roar("ahk_class Chrome_WidgetWin_1","msedge.exe")
 <!x::roar("ahk_exe rstudio.exe","rstudio.exe")
 ;<!c::roar("ahk_exe powershell.exe", "powershell.exe") ; not sure how to execute anaconda powershell
 <!c::roar("ahk_exe cmd.exe","cmd.exe",,,"C:\Windows\SysWOW64\cmd.exe") ; not sure how to execute anaconda powershell
 ;<!v::roar("Windows 10 for Staff", "vmware-view.exe",EX_TITLE:="",EX_AHK:="", TARGET_2:="",ID_2:="",Mode:=2,Parambox:=0,ID_3:="")
+
+<!v::roar("Zoom ahk_exe Zoom.exe","\AppData\Roaming\Zoom\bin\Zoom.exe" , , , , ID_2:="Room ahk_exe zoom.exe",,Parambox:=0)
 <!b::roar("Settings ahk_class ApplicationFrameWindow", "ms-settings:bluetooth") ; toggle (all) setting windows or launch bluetooth settings
 <!n::roar("ahk_class Notepad", "notepad.exe")
 <!m::roar("ahk_class Notepad++", "notepad++.exe")
