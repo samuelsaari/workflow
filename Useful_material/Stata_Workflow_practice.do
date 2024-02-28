@@ -163,6 +163,78 @@ desc, detail
 // Finally, run the whole dofile by pressing
 * Ctrl + D
 
+// X.2.
+// Easy way to use, merge and append share data.
+* just run the programme (or put it in your profile.do) and you can use it with ease as demonstrated below
+* remember update 'mydirectory' and make sure that waves and releases match
+
+
+
+////////////////////////////////////
+cap nois program drop wrapper
+program wrapper
+    
+    version 18
+    
+    syntax anything [ using/ ] [ if ] [ in ] [ , * ]
+    
+	local mydirectory ="C:/MY_DIRECTORY" // update with your path
+    if ("`using'" == "") {
+        
+        /*
+            <module> and <wave> are part of <anything>
+            
+            More specifically, we assume that <anything> is
+            
+                <command> "<module> <wave>"
+                
+            as in, e.g.,
+            
+                use "<module> <wave>"
+            
+            (double quotes optional)
+        */
+        
+        gettoken command anything : anything
+        gettoken module  anything : anything
+        gettoken wave    anything : anything
+        
+        if (`"`anything'"' != "") error 198
+        
+        local anything `command'
+        
+        local using `module' `wave'
+        
+    }
+    else local the_word_using "using"
+    
+    gettoken module wave_void : using
+    gettoken wave        void : wave_void
+    
+    if ("`void'" != "") error 198
+    
+	capture local wave =string(`wave')
+	*confirm integer number `wave'
+    di "test1"
+    local release = cond("`wave'"=="9", "rel0", "rel8-0-0") // update release in here
+	
+    
+    local using "`mydirectory'/sharew`wave'_`release'_ALL_datasets_stata"
+    local using "`using'/sharew`wave'_`release'_`module'.dta"
+	
+	display "Module: `module' | Wave: `wave'"
+    display "File path: `using'"
+    di "`using'"
+    `anything' `the_word_using' "`using'" `if' `in' , `options'
+    
+end
+
+wrapper use "dn 6", clear
+wrapper merge 1:1 mergeid using "gv_health 8", keepusing(maxgrip) 
+wrapper merge 1:1 mergeid using "ca 9ca", keepusing(cah006) nogenerate
+wrapper merge 1:1 mergeid using "br 9", keepusing(br001_) nogenerate
+wrapper append using "dn 7"
+
 
 
 
